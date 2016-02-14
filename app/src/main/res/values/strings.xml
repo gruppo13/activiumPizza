@@ -11,4 +11,8 @@
     <string name="listPizza">listPizza</string>
     <string name="ingrediente">ingrediente</string>
 
+    <string name="btnCrea">Crea la tua Pizza</string>
+    <string name="btnPizzaGiorno">Pizza del Giorno</string>
+    <string name="btnElenco">Le classiche</string>
+    <string name="btnAddPizzaCreate">Creata</string>
 </resources>

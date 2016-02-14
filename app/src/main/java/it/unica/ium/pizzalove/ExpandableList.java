@@ -97,8 +97,29 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
        TextView lblListHeader = (TextView) convertView
                .findViewById(R.id.lblListHeader);
+       TextView lblListHeaderPrezzo = (TextView) convertView.findViewById(R.id.lblListHeaderPrezzo);
+
        lblListHeader.setTypeface(null, Typeface.BOLD);
+       lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
        lblListHeader.setText(headerTitle);
+
+
+       String prezzoString;
+       if (!(Pizza.namePizzaValid(headerTitle))) {
+           String childText;
+           float prezzo = Pizza.prezzopartenza;
+           for (int i = 0; i < getChildrenCount(groupPosition); i++) {
+               childText = (String) getChild(groupPosition,i);
+               prezzo+= Pizza.calcolaCostoIngrediente(childText);
+
+           }
+           prezzoString = Pizza.formatoPrezzo(prezzo);
+
+       }else {
+           prezzoString = Pizza.trovaPrezzo(headerTitle);
+
+       }
+       lblListHeaderPrezzo.setText(prezzoString);
 
        return convertView;
    }

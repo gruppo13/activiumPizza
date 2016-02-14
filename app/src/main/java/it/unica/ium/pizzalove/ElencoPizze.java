@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -12,32 +13,24 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ElencoPizze extends Activity {
+public class ElencoPizze extends AppCompatActivity{
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
+
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+    private GoogleApiClient client;
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
 
 
     @Override
@@ -51,19 +44,16 @@ public class ElencoPizze extends Activity {
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableList(this,listDataHeader, listDataChild);
+        listAdapter = new ExpandableList(this, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
-       // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
+        // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
 
         final int[] lastExpandedPosition = {-1, -1};
 
 
-
-
-
-       expListView.setOnGroupClickListener(new OnGroupClickListener() {
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 // cambia attivita
@@ -104,65 +94,15 @@ public class ElencoPizze extends Activity {
         });
 
 
-
-expListView.setOnChildClickListener(new OnChildClickListener() {
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        System.out.println("selected child");
-        Intent intent = new Intent(v.getContext(),CreaPizza.class);
-        startActivityForResult(intent,0);
-
-        return true;
-    }
-});
-
-
-/*
-
-        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+        expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
-            public void onGroupCollapse(int groupPosition) {
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                System.out.println("selected child");
 
-
-                if (lastExpandedPosition[1] == groupPosition) {
-                    System.out.println("group clicked 3");
-
-                } else {
-                    //  System.out.println("group clicked 2");
-                }
+                return true;
             }
         });
 
-        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                lastExpandedPosition[1] = groupPosition;
-                if (lastExpandedPosition[0] == groupPosition) {
-                    System.out.println("same expanded group");
-                } else {
-                    if (lastExpandedPosition[0] != -1
-                            && groupPosition != lastExpandedPosition[0]) {
-                        expListView.collapseGroup(lastExpandedPosition[0]);
-                    }
-                    lastExpandedPosition[0] = groupPosition;
-
-                }
-            }
-
-
-        });*/
-
-
-
-    /*    expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("group clicked 2");
-
-
-            }
-        });
 
         /* per espandere solo gli ingredienti di una pizza*/
         //
@@ -176,9 +116,10 @@ expListView.setOnChildClickListener(new OnChildClickListener() {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
-
 
 
     private void prepareListData() {
@@ -198,8 +139,8 @@ expListView.setOnChildClickListener(new OnChildClickListener() {
 
         List<String> napoli = new ArrayList<String>();
         napoli.add("sugo");
-        napoli.add("sugo");
         napoli.add("mozzarella");
+        napoli.add("sugo");
         napoli.add("sugo");
 
         List<String> quattroStagioni = new ArrayList<String>();
@@ -213,4 +154,43 @@ expListView.setOnChildClickListener(new OnChildClickListener() {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "ElencoPizze Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "ElencoPizze Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }

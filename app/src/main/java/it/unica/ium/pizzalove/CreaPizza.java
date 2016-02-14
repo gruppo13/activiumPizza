@@ -2,12 +2,16 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
@@ -18,6 +22,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.gms.appindexing.Action;
@@ -54,11 +59,32 @@ public class CreaPizza extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_creapizza);
         this.countIngredienti = 0;
         listingredienti = new HashMap<String,Integer>();
         updatePizza(null);
-        prepareIngredienti();
+        listingredienti = Pizza.resetIngredienti();
+
+
+        Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
+
+        btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreaPizza.this, Carrello.class);
+                Bundle b = new Bundle();
+                for (String ingrediente : listingredienti.keySet())
+                    b.putInt(ingrediente, listingredienti.get(ingrediente));
+
+               // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+                intent.putExtras(b);
+                startActivityForResult(intent,0);
+
+            }
+        });
 
         // immagini da trascinare
         findViewById(R.id.image).setOnLongClickListener(longListener);
@@ -66,7 +92,7 @@ public class CreaPizza extends AppCompatActivity {
         findViewById(R.id.image2).setOnLongClickListener(longListener);
         findViewById(R.id.image3).setOnLongClickListener(longListener);
         findViewById(R.id.image4).setOnLongClickListener(longListener);
-
+//findViewById(R.id.image1).lis
 
         //immagini da modificare
         findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -91,6 +117,38 @@ public class CreaPizza extends AppCompatActivity {
     };
 
 
+/*
+
+    private class DragShadow extends View.DragShadowBuilder {
+        ColorDrawable greyBox;
+
+        //DrawableWrapper ciao;
+
+        public DragShadow(View view) {
+            super(view);
+            greyBox = new ColorDrawable(Color.LTGRAY);
+            //ciao = new DrawableWrapper();
+
+        }
+
+        @Override
+        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
+            View v = getView();
+            int height = (int) v.getHeight();
+            int width = (int) v.getWidth();
+            greyBox.setBounds(0, 0, width, height);
+
+            shadowSize.set(width, height);
+
+            shadowTouchPoint.set((int) width+10, (int) height +10);
+        }
+
+        @Override
+        public void onDrawShadow(Canvas canvas) {
+            greyBox.draw(canvas);
+        }
+    }*/
+
     View.OnDragListener dropListener; {
         dropListener = new View.OnDragListener() {
             @Override
@@ -103,10 +161,19 @@ public class CreaPizza extends AppCompatActivity {
                     case DragEvent.ACTION_DRAG_ENTERED:
                         //dropText.setTextColor(Color.GREEN);
                         Log.i("Drag Event", "Entered");
+                        //dropImage.setBackgroundColor(Color.YELLOW);
 
+
+
+                       /* DrawableDragShadow dragShadow = new DragShadow(v);
+
+                        ClipData data = ClipData.newPlainText("","");
+
+                        v.startDrag(data, dragShadow, v, 0);*/
                         break;
 
                     case DragEvent.ACTION_DRAG_EXITED:
+
                         //dropText.setTextColor(Color.RED);
                         break;
 
@@ -202,6 +269,10 @@ private void updatePizza(String nuovoIngrediente) {
                 }
 
             }
+            //posiziona ultimo ingrediente alla fine della lista
+            int n = listingredienti.get(nuovoIngrediente);
+            listingredienti.remove(nuovoIngrediente);
+            listingredienti.put(nuovoIngrediente,n);
         }
     }
 
@@ -219,7 +290,7 @@ private void updatePizza(String nuovoIngrediente) {
 
 
 
-
+/*
     private void prepareIngredienti() {
         listingredienti = new HashMap<String, Integer>();
 
@@ -233,7 +304,7 @@ private void updatePizza(String nuovoIngrediente) {
         listingredienti.put("salmone", 0);
 
 
-    }
+    }*/
 
 
     @Override

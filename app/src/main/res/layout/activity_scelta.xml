@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    tools:context="it.unica.ium.pizzalove.Scelta">
+
+
+    <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnElenco"
+        android:contentDescription="@string/btnElenco"
+        android:text="Le classiche" />
+
+    <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnCrea"
+        android:text="@string/btnCrea" />
+
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnPizzaGiorno"
+        android:text="@string/btnPizzaGiorno" />
+
+
+</LinearLayout>
