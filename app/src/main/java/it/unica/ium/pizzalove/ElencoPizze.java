@@ -51,8 +51,7 @@ public class ElencoPizze extends Activity {
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableList(this, listDataHeader, listDataChild);
-
+        listAdapter = new ExpandableList(this,listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
 

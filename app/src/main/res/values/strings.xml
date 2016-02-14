@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">PizzaLove</string>
 
-    <string name="image0">image0</string>
-    <string name="image1">image1</string>
-    <string name="image2">image2</string>
-    <string name="image3">image3</string>
-    <string name="image4">image4</string>
+    <string name="image0">sugo</string>
+    <string name="image1">mozzarella</string>
+    <string name="image2">basilico</string>
+    <string name="image3">funghi</string>
+    <string name="image4">salmone</string>
 
     <string name="imageMain">imageMain</string>
+    <string name="listPizza">listPizza</string>
+    <string name="ingrediente">ingrediente</string>
+
 </resources>
