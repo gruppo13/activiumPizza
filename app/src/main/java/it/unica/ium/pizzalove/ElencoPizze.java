@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -26,9 +27,6 @@ public class ElencoPizze extends AppCompatActivity{
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
 
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-
     private GoogleApiClient client;
 
 
@@ -41,16 +39,25 @@ public class ElencoPizze extends AppCompatActivity{
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
-        // preparing list data
-        prepareListData();
-
-        listAdapter = new ExpandableList(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableList(this, Pizza.getPizzeClassiche());
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
         // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
 
         final int[] lastExpandedPosition = {-1, -1};
+
+
+
+        expListView.setOnLongClickListener(
+                new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        return false;
+                    }
+                }
+        );
 
 
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
@@ -62,8 +69,28 @@ public class ElencoPizze extends AppCompatActivity{
 
                 if (expListView.isGroupExpanded(groupPosition)) {
 
+
+                    //vai al carrello doppio click
                     if (lastExpandedPosition[1] == groupPosition) {
-                        System.out.println("group clicked 3");
+                       // Log.i("group position", groupPosition);
+                        //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
+
+                       Intent intent = new Intent(ElencoPizze.this, Carrello.class);
+                        Bundle b = getIntent().getExtras();;
+                        ArrayList<String> pizzeClassiche;
+
+                        if (b.getStringArrayList("classica") != null)
+                            pizzeClassiche= b.getStringArrayList("classica");
+                        else
+                            pizzeClassiche = new ArrayList<String>();
+
+                        pizzeClassiche.add(Pizza.getClassica((Pizza.Classica) listAdapter.getGroup(groupPosition)));
+
+
+                        b.putStringArrayList("classica",pizzeClassiche);
+                        // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+                        intent.putExtras(b);
+                        startActivityForResult(intent, 0);
 
 
                     } else {
@@ -122,36 +149,8 @@ public class ElencoPizze extends AppCompatActivity{
     }
 
 
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("Margherita");
-        listDataHeader.add("Napoli");
-        listDataHeader.add("Quattro Stagioni");
-
-        // Adding child data
-        List<String> margherita = new ArrayList<String>();
-        margherita.add("sugo");
-        margherita.add("mozzarella");
 
 
-        List<String> napoli = new ArrayList<String>();
-        napoli.add("sugo");
-        napoli.add("mozzarella");
-        napoli.add("sugo");
-        napoli.add("sugo");
-
-        List<String> quattroStagioni = new ArrayList<String>();
-        quattroStagioni.add("sugo");
-        quattroStagioni.add("mozzarella");
-        quattroStagioni.add("funghi");
-
-        listDataChild.put(listDataHeader.get(0), margherita); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), napoli);
-        listDataChild.put(listDataHeader.get(2), quattroStagioni);
-    }
 
 
     @Override

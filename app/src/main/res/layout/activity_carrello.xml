@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="aggiungi"
-                android:id="@+id/button"
+                android:id="@+id/btnAggiungi"
                 android:layout_weight="1" />
 
             <Space
@@ -75,8 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ordina"
-                android:id="@+id/button2" />
+                android:text="Concludi"
+                android:id="@+id/btnConcludi" />
 
 
 

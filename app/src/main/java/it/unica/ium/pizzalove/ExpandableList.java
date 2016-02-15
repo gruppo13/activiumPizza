@@ -2,12 +2,14 @@ package it.unica.ium.pizzalove;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,15 +19,29 @@ import java.util.List;
 public class ExpandableList extends BaseExpandableListAdapter {
 
    private Context _context;
-   private List<String> _listDataHeader; // header titles
+   private List<Pizza.Classica> _listDataHeader; // header titles
    // child data in format of header title, child title
-   private HashMap<String, List<String>> _listDataChild;
+   private HashMap<Pizza.Classica, List<Pizza.Ingrediente>> _listDataChild;
 
-   public ExpandableList(Context context, List<String> listDataHeader,
-                                HashMap<String, List<String>> listChildData) {
+   public ExpandableList(Context context, HashMap<Pizza.Classica, List<Pizza.Ingrediente>> listChildData) {
        this._context = context;
-       this._listDataHeader = listDataHeader;
+       this._listDataHeader = new ArrayList<>();
+       this._listDataHeader.addAll(listChildData.keySet());
        this._listDataChild = listChildData;
+
+   }
+
+
+    public ExpandableList(Context context) {
+       this._context = context;
+       this._listDataHeader = new ArrayList<>();
+       this._listDataChild = new HashMap<>();
+
+   }
+
+   public void add(Pizza.Classica classica,List<Pizza.Ingrediente> ingredienti){
+       this._listDataHeader.add(classica);
+       this._listDataChild.put(classica,ingredienti);
    }
 
    @Override
@@ -43,7 +59,8 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public View getChildView(int groupPosition, final int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-       final String childText = (String) getChild(groupPosition, childPosition);
+       final Pizza.Ingrediente childText = (Pizza.Ingrediente) getChild(groupPosition, childPosition);
+
 
        if (convertView == null) {
            LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -54,8 +71,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
        TextView txtListChild = (TextView) convertView
                .findViewById(R.id.lblListItem);
 
-       txtListChild.setText(childText);
+       txtListChild.setText(Pizza.getIngrediente(childText));
+
        return convertView;
+
+
    }
 
    @Override
@@ -82,7 +102,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
    @Override
    public View getGroupView(int groupPosition, boolean isExpanded,
                             View convertView, ViewGroup parent) {
-       String headerTitle = (String) getGroup(groupPosition);
+       Pizza.Classica headerTitle = (Pizza.Classica) getGroup(groupPosition);
      /*  for (int i=0 i<getGroupCount();i++){
            if (groupPosition != 0) && parent.
        }*/
@@ -101,23 +121,23 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
        lblListHeader.setTypeface(null, Typeface.BOLD);
        lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
-       lblListHeader.setText(headerTitle);
+
 
 
        String prezzoString;
        if (!(Pizza.namePizzaValid(headerTitle))) {
-           String childText;
+           Pizza.Ingrediente childText;
            float prezzo = Pizza.prezzopartenza;
            for (int i = 0; i < getChildrenCount(groupPosition); i++) {
-               childText = (String) getChild(groupPosition,i);
+               childText = (Pizza.Ingrediente) getChild(groupPosition,i);
                prezzo+= Pizza.calcolaCostoIngrediente(childText);
 
            }
            prezzoString = Pizza.formatoPrezzo(prezzo);
-
+           lblListHeader.setText("La tua creazione");
        }else {
-           prezzoString = Pizza.trovaPrezzo(headerTitle);
-
+           prezzoString = Pizza.prezzoPizzaClassica(headerTitle);
+           lblListHeader.setText(Pizza.getClassica(headerTitle));
        }
        lblListHeaderPrezzo.setText(prezzoString);
 

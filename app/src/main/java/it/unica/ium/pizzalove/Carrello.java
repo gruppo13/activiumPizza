@@ -21,10 +21,13 @@ import java.util.List;
 public class Carrello extends AppCompatActivity{
     HashMap<String, Integer> listingredienti;
 
+
+    List<String> listpizze;
+
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+
+    Bundle bundle;
 
 
 
@@ -34,21 +37,46 @@ public class Carrello extends AppCompatActivity{
         setContentView(R.layout.activity_carrello);
 
         /*aggiornamento Pizza Creata */
-        Bundle b = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         listingredienti = new HashMap<String,Integer>();
         listingredienti = Pizza.resetIngredienti();
-        for (String ingrediente : listingredienti.keySet())
-            listingredienti.put(ingrediente,b.getInt(ingrediente));
+
+        /*
+*/
+        HashMap<Pizza.Classica, List<Pizza.Ingrediente>> elenco = new HashMap<>();
+
+        if (bundle.getStringArrayList("classica")!= null) {
+            listpizze = bundle.getStringArrayList("classica");
+
+            for (String pizza : listpizze) {
+                //HashMap<String, Integer> ingredienti = new HashMap<>();
+                /*for (Pizza.Ingrediente ingrediente : Pizza.getIngredientiClassica(Pizza.getClassicaS(pizza))) {
+                    listingredienti.put(Pizza.getIngrediente(ingrediente), 1);
+                }*/
+
+                elenco.put(Pizza.getClassicaS(pizza),Pizza.getIngredientiClassica(Pizza.getClassicaS(pizza)));
+
+            }
+
+            listAdapter = new ExpandableList(this,elenco);
 
 
 
+        }else {
+            for (String ingrediente : listingredienti.keySet())
+                listingredienti.put(ingrediente,bundle.getInt(ingrediente));
+
+            listAdapter = new ExpandableList(this, Pizza.getPizzaCreata(listingredienti,Pizza.Classica.Creata));
+
+
+
+
+        }
         expListView = (ExpandableListView) findViewById(R.id.carrello);
 
         // preparing list data
 
-        prepareListData();
 
-        listAdapter = new ExpandableList(this, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
@@ -63,25 +91,21 @@ public class Carrello extends AppCompatActivity{
             }
         });
 
+        Button btn = (Button) findViewById(R.id.btnAggiungi);
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Carrello.this, Scelta.class);
 
-
-    }
-
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("La Tua Prima Creazione");
-
-        // Adding child data
-        List<String>  creazione= new ArrayList<String>();
-        for (String ingrediente : listingredienti.keySet())
-            if (listingredienti.get(ingrediente)>0){
-                creazione.add(ingrediente);
+                // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 0);
             }
-        listDataChild.put(listDataHeader.get(0), creazione); // Header, Child data
+        });
+
 
     }
+
+
 }

@@ -26,8 +26,7 @@ public class Scelta extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Scelta.this, ElencoPizze.class);
-                Bundle b = new Bundle();
-                b.putInt("lista", 1);
+                Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
 
                 startActivityForResult(intent,0);
@@ -39,10 +38,8 @@ public class Scelta extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Scelta.this, CreaPizza.class);
-                Bundle b = new Bundle();
-                b.putInt("lista", 1);
+                Bundle b = getIntent().getExtras();
                 intent.putExtras(b);
-
                 startActivityForResult(intent, 0);
 
             }

@@ -13,14 +13,15 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <ExpandableListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/expandableList"
-        android:divider="#ffffff"
-        android:footerDividersEnabled="true"
-        android:longClickable="false"
-        android:contextClickable="true" />
+        <ExpandableListView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/expandableList"
+            android:divider="#ffffff"
+            android:footerDividersEnabled="true"
+            android:longClickable="false"
+            android:contextClickable="false"/>
 
 
 

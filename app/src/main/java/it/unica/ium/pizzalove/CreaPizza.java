@@ -64,8 +64,9 @@ public class CreaPizza extends AppCompatActivity {
 
         setContentView(R.layout.activity_creapizza);
         this.countIngredienti = 0;
-        listingredienti = new HashMap<String,Integer>();
+        listingredienti = new HashMap<>();
         updatePizza(null);
+
         listingredienti = Pizza.resetIngredienti();
 
 
@@ -75,7 +76,7 @@ public class CreaPizza extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
-                Bundle b = new Bundle();
+                Bundle b = getIntent().getExtras();
                 for (String ingrediente : listingredienti.keySet())
                     b.putInt(ingrediente, listingredienti.get(ingrediente));
 
