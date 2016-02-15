@@ -84,7 +84,7 @@ public class ElencoPizze extends AppCompatActivity{
                         else
                             pizzeClassiche = new ArrayList<String>();
 
-                        pizzeClassiche.add(Pizza.getClassica((Pizza.Classica) listAdapter.getGroup(groupPosition)));
+                        pizzeClassiche.add(Pizza.getPizzeClassiche().get(groupPosition).getStringNome());
 
 
                         b.putStringArrayList("classica",pizzeClassiche);

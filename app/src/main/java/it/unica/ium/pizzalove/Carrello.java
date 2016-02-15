@@ -30,6 +30,8 @@ public class Carrello extends AppCompatActivity{
     Bundle bundle;
 
 
+   // HashMap<PizzaClassica,List<Pizza.Ingrediente>>
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,12 @@ public class Carrello extends AppCompatActivity{
 
         /*aggiornamento Pizza Creata */
         bundle = getIntent().getExtras();
-        listingredienti = new HashMap<String,Integer>();
-        listingredienti = Pizza.resetIngredienti();
+       // listingredienti = new HashMap<String,Integer>();
+        //listingredienti = Pizza.resetIngredienti();
 
         /*
 */
-        HashMap<Pizza.Classica, List<Pizza.Ingrediente>> elenco = new HashMap<>();
+        List<ListaPizza> elenco = new ArrayList<>();
 
         if (bundle.getStringArrayList("classica")!= null) {
             listpizze = bundle.getStringArrayList("classica");
@@ -54,7 +56,7 @@ public class Carrello extends AppCompatActivity{
                     listingredienti.put(Pizza.getIngrediente(ingrediente), 1);
                 }*/
 
-                elenco.put(Pizza.getClassicaS(pizza),Pizza.getIngredientiClassica(Pizza.getClassicaS(pizza)));
+                elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza)));
 
             }
 
@@ -62,16 +64,16 @@ public class Carrello extends AppCompatActivity{
 
 
 
-        }else {
+        }/*else {
             for (String ingrediente : listingredienti.keySet())
                 listingredienti.put(ingrediente,bundle.getInt(ingrediente));
 
-            listAdapter = new ExpandableList(this, Pizza.getPizzaCreata(listingredienti,Pizza.Classica.Creata));
+            //listAdapter = new ExpandableList(this, Pizza.getPizzaCreata(listingredienti,Pizza.Classica.Creata));
 
 
 
 
-        }
+        }*/
         expListView = (ExpandableListView) findViewById(R.id.carrello);
 
         // preparing list data

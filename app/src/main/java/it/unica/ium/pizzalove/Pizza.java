@@ -28,7 +28,7 @@ public class Pizza {
     //final static String[] pizzeClassiche = { "Margherita","Quattro Stagioni", "Napoli"};
    // final static String[] ingredienti = {"sugo","mozzarella","basilico", "funghi" ,"salmone"};
 
-
+/*
     public enum Ingrediente {
         SUGO, MOZZARELLA, BASILICO, FUNGHI,
         SALMONE, ACCIUGHE, ORIGANO,CAPPERI
@@ -37,7 +37,7 @@ public class Pizza {
     public enum Classica {
         Margherita,QuattroStagioni, Napoli, Creata
     }
-
+*//*
     public static Ingrediente getIngredienteS(String cercaIngrediente) {
         switch (cercaIngrediente) {
             case "sugo":
@@ -60,7 +60,7 @@ public class Pizza {
                 return null;
         }
     }
-
+*//*
     public static String getIngrediente(Ingrediente cercaIngrediente) {
         switch (cercaIngrediente) {
             case SUGO:
@@ -83,7 +83,7 @@ public class Pizza {
                 return "not valid";
         }
     }
-
+*//*
     public static Classica getClassicaS(String classica) {
         switch (classica) {
             case "Margherita":
@@ -109,8 +109,8 @@ public class Pizza {
                 return "not valid";
         }
     }
-
-
+*/
+/*
     public static List<Ingrediente> getIngredientiClassica (Classica nome){
         List<Ingrediente> ingredientiClassica = new ArrayList<>();
         switch (nome){
@@ -139,59 +139,52 @@ public class Pizza {
 
     }
 
+*/
 
 
-
-    public static HashMap<Classica,List<Ingrediente>> getPizzaCreata(HashMap<String, Integer> listingredienti, Classica classica) {
-        List<Classica> listDataHeader = new ArrayList<>();
-        HashMap<Classica,List<Ingrediente>> listDataChild = new HashMap<>();
+    /*public static List<ListaPizza> getPizzaCreata(HashMap<String, Integer> listingredienti, Classica classica) {
+        List<ListaPizza> listDataHeader = new ArrayList<>();
+        HashMap<,List<Ingrediente>> listDataChild = new HashMap<>();
         // Adding child data
         listDataHeader.add(classica);
         // Adding child data
+
         List<Ingrediente>  creazione= new ArrayList<Ingrediente>();
         for (String ingrediente : listingredienti.keySet())
             if (listingredienti.get(ingrediente)>0){
                 creazione.add(Pizza.getIngredienteS(ingrediente));
             }
+
+
         listDataChild.put(listDataHeader.get(0), creazione); // Header, Child data
         return listDataChild;
     }
 
-    public static HashMap<Classica,List<Ingrediente>> getPizzeClassiche(){
-        List<Classica> tmp = new ArrayList<>();
+*/
+
+
+    public static List<ListaPizza> getPizzeClassiche(){
+        List<ListaPizza> tmp = new ArrayList<>();
         //listDataHeader = new HashMap<String>();
-
-        HashMap<Classica,List<Ingrediente>> listDataChild = new HashMap<>();
-        tmp.add(Classica.Margherita);
-        listDataChild.put(tmp.get(0), getIngredientiClassica(Classica.Margherita)) ;
-
-        tmp.add(Classica.Napoli);
-        listDataChild.put(tmp.get(1), getIngredientiClassica(Classica.Napoli));
-
-        tmp.add(Classica.QuattroStagioni);
-        listDataChild.put(tmp.get(2), getIngredientiClassica(Classica.QuattroStagioni));
-
-        return listDataChild;
+        tmp.add(new ListaPizza(ListaPizza.Classica.Margherita));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Napoli));
+        tmp.add(new ListaPizza(ListaPizza.Classica.QuattroStagioni));
+        return tmp;
     }
 
 
 
-/* calcola quante volte un ingrediente viene inserito */
-
-    public static HashMap<String,Integer > resetIngredienti() {
-        HashMap <String,Integer> listingredienti = new HashMap<>();
+    public static List<ListaIngrediente> resetIngredienti() {
+        List <ListaIngrediente> listingredienti = new ArrayList<>();
         // Adding child data
 
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.SUGO), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.MOZZARELLA), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.BASILICO), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.ACCIUGHE), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.CAPPERI), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.ORIGANO), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.SALMONE), 0);
-        listingredienti.put(Pizza.getIngrediente(Ingrediente.FUNGHI), 0);
-
-
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ORIGANO, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SALMONE, 0));
             return listingredienti;
 
     }
@@ -236,13 +229,10 @@ public class Pizza {
 
 
 
-    public static void trovaPizzaIngredienti(){
 
-
-    }
 
 /* ritorna il costo del ingrediente */
-    public static float calcolaCostoIngrediente(Ingrediente ingrediente){
+/*    public static float calcolaCostoIngrediente(Ingrediente ingrediente){
         switch (ingrediente) {
             case SUGO:
                 return 0.50f;
@@ -265,7 +255,7 @@ public class Pizza {
         }
     }
 
-
+*/
 
 
 /* ritorna il formato standard */
@@ -275,22 +265,7 @@ public class Pizza {
     }
 
 
-    public static boolean namePizzaValid(Classica name){
-        switch (name){
-            case Margherita:
-                return true;
-
-            case Napoli:
-                return true;
-
-            case QuattroStagioni:
-              return true;
-            default:
-                return false;
-        }
-
-    }
-
+/*
     public static String prezzoPizzaClassica(Classica nome){
         float prezzo;
         switch (nome){
@@ -311,6 +286,6 @@ public class Pizza {
 
 
     }
-
+*/
 
 }

@@ -19,35 +19,40 @@ import java.util.List;
 public class ExpandableList extends BaseExpandableListAdapter {
 
    private Context _context;
-   private List<Pizza.Classica> _listDataHeader; // header titles
+   //private List<> _listDataHeader; // header titles
+
+    /*private HashMap<Pizza.Classica,Integer> repeatPizza;
    // child data in format of header title, child title
    private HashMap<Pizza.Classica, List<Pizza.Ingrediente>> _listDataChild;
+
+
 
    public ExpandableList(Context context, HashMap<Pizza.Classica, List<Pizza.Ingrediente>> listChildData) {
        this._context = context;
        this._listDataHeader = new ArrayList<>();
        this._listDataHeader.addAll(listChildData.keySet());
+       this.repeatPizza = new HashMap<>();
+
        this._listDataChild = listChildData;
 
    }
+*/
+    List _listDataChild;
+
+    public ExpandableList(Context context, List<ListaPizza> listChildData) {
+        this._context = context;
+        this._listDataChild = listChildData;
+
+    }
 
 
-    public ExpandableList(Context context) {
-       this._context = context;
-       this._listDataHeader = new ArrayList<>();
-       this._listDataChild = new HashMap<>();
 
-   }
-
-   public void add(Pizza.Classica classica,List<Pizza.Ingrediente> ingredienti){
-       this._listDataHeader.add(classica);
-       this._listDataChild.put(classica,ingredienti);
-   }
 
    @Override
    public Object getChild(int groupPosition, int childPosititon) {
-       return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-               .get(childPosititon);
+
+       return ((ListaPizza)(this._listDataChild.get(groupPosition))).getIngredienti().get(childPosititon);
+
    }
 
    @Override
@@ -59,7 +64,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public View getChildView(int groupPosition, final int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-       final Pizza.Ingrediente childText = (Pizza.Ingrediente) getChild(groupPosition, childPosition);
+       final ListaIngrediente childText = (ListaIngrediente) getChild(groupPosition, childPosition);
 
 
        if (convertView == null) {
@@ -71,7 +76,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
        TextView txtListChild = (TextView) convertView
                .findViewById(R.id.lblListItem);
 
-       txtListChild.setText(Pizza.getIngrediente(childText));
+       txtListChild.setText(childText.getStringNome());
 
        return convertView;
 
@@ -80,18 +85,17 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    @Override
    public int getChildrenCount(int groupPosition) {
-       return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-               .size();
+       return ((ListaPizza)(this._listDataChild.get(groupPosition))).getSizeIngredienti();
    }
 
    @Override
    public Object getGroup(int groupPosition) {
-       return this._listDataHeader.get(groupPosition);
+       return this._listDataChild.get(groupPosition);
    }
 
    @Override
    public int getGroupCount() {
-       return this._listDataHeader.size();
+       return this._listDataChild.size();
    }
 
    @Override
@@ -102,7 +106,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
    @Override
    public View getGroupView(int groupPosition, boolean isExpanded,
                             View convertView, ViewGroup parent) {
-       Pizza.Classica headerTitle = (Pizza.Classica) getGroup(groupPosition);
+       ListaPizza headerTitle = (ListaPizza) getGroup(groupPosition);
      /*  for (int i=0 i<getGroupCount();i++){
            if (groupPosition != 0) && parent.
        }*/
@@ -125,21 +129,13 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
 
        String prezzoString;
-       if (!(Pizza.namePizzaValid(headerTitle))) {
-           Pizza.Ingrediente childText;
-           float prezzo = Pizza.prezzopartenza;
-           for (int i = 0; i < getChildrenCount(groupPosition); i++) {
-               childText = (Pizza.Ingrediente) getChild(groupPosition,i);
-               prezzo+= Pizza.calcolaCostoIngrediente(childText);
-
-           }
-           prezzoString = Pizza.formatoPrezzo(prezzo);
+       if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
            lblListHeader.setText("La tua creazione");
        }else {
-           prezzoString = Pizza.prezzoPizzaClassica(headerTitle);
-           lblListHeader.setText(Pizza.getClassica(headerTitle));
+            lblListHeader.setText(headerTitle.getStringNome());
        }
-       lblListHeaderPrezzo.setText(prezzoString);
+
+       lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
 
        return convertView;
    }

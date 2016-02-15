@@ -45,8 +45,8 @@ import java.util.Set;
  */
 public class CreaPizza extends AppCompatActivity {
     int countIngredienti;
-    final int maxIngredienti=1;
-    HashMap<String, Integer> listingredienti;
+
+    List<ListaIngrediente> listingredienti;
 
     LayerDrawable layerDrawable;
 
@@ -64,7 +64,7 @@ public class CreaPizza extends AppCompatActivity {
 
         setContentView(R.layout.activity_creapizza);
         this.countIngredienti = 0;
-        listingredienti = new HashMap<>();
+        listingredienti = new ArrayList<>();
         updatePizza(null);
 
         listingredienti = Pizza.resetIngredienti();
@@ -75,7 +75,7 @@ public class CreaPizza extends AppCompatActivity {
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreaPizza.this, Carrello.class);
+              /*  Intent intent = new Intent(CreaPizza.this, Carrello.class);
                 Bundle b = getIntent().getExtras();
                 for (String ingrediente : listingredienti.keySet())
                     b.putInt(ingrediente, listingredienti.get(ingrediente));
@@ -83,7 +83,7 @@ public class CreaPizza extends AppCompatActivity {
                // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                 intent.putExtras(b);
                 startActivityForResult(intent,0);
-
+*/
             }
         });
 
@@ -180,14 +180,16 @@ public class CreaPizza extends AppCompatActivity {
 
                     case DragEvent.ACTION_DROP:
                         //aggiorna immagine pizza
-                       String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
+                      /* String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
+
+
                         if (listingredienti.get(draggedImageText)==0) {
                            listingredienti.put(draggedImageText, listingredienti.get(draggedImageText)+1);
                            countIngredienti++;
                            updatePizza(draggedImageText);
                         }else{
                                 System.out.println("hai inserito troppi ingredienti dello stesso tipo");
-                        }
+                        }*/
                         break;
                 }
 
