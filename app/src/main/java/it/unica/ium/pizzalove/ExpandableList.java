@@ -20,10 +20,21 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    private Context _context;
    List _listDataChild;
+    List<String> _listDataHeader;
 
     public ExpandableList(Context context, List<ListaPizza> listChildData) {
         this._context = context;
         this._listDataChild = listChildData;
+        this._listDataHeader = new ArrayList<>();
+        int i=0;
+        for(ListaPizza pizza: listChildData){
+            if (pizza.getNome().equals(ListaPizza.Classica.Creata)){
+                this._listDataHeader.add("La tua creazione n." + i);
+            }
+            else
+                this._listDataHeader.add(pizza.getStringNome());
+
+        }
 
 
 
@@ -34,9 +45,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    @Override
    public Object getChild(int groupPosition, int childPosititon) {
-
        return ((ListaPizza)(this._listDataChild.get(groupPosition))).getIngredienti().get(childPosititon);
-
    }
 
    @Override
@@ -49,8 +58,8 @@ public class ExpandableList extends BaseExpandableListAdapter {
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
        final ListaIngrediente childText;
-       while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
-              childPosition++;
+       //while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
+         //     childPosition++;
 
        childText = (ListaIngrediente) getChild(groupPosition, childPosition);
 

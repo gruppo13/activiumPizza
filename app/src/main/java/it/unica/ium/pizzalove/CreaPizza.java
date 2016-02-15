@@ -80,6 +80,7 @@ public class CreaPizza extends AppCompatActivity {
 
                 //ArrayList<ArrayList<Integer>>
                 for (ListaIngrediente ingrediente : listingredienti) {
+
                     ArrayList<Integer> ingredientiCreata;
                     if (b.getStringArrayList(ingrediente.getStringNome()) != null)
                         ingredientiCreata= b.getIntegerArrayList(ingrediente.getStringNome());

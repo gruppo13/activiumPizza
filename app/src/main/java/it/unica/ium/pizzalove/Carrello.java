@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,7 +43,7 @@ public class Carrello extends AppCompatActivity{
         /*aggiornamento Pizza Creata */
         bundle = getIntent().getExtras();
        // listingredienti = new HashMap<String,Integer>();
-        listingredienti = Pizza.resetIngredienti();
+
 
         /*
 */
@@ -63,6 +64,8 @@ public class Carrello extends AppCompatActivity{
         if (bundle.getInt("creata")>0) {
            // listingredienti = bundle.getInt("creata");
             for(int i=0; i<bundle.getInt("creata");i++) {
+
+                listingredienti = Pizza.resetIngredienti();
                 for (ListaIngrediente ingrediente : listingredienti) {
                     listingredienti.get(Pizza.trovaIngrediente(listingredienti,
                             ingrediente.getStringNome())).setIngrediente
@@ -70,10 +73,16 @@ public class Carrello extends AppCompatActivity{
                     System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()
                             + "pos -> " + Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome()));
                 }
+
                 elenco.add(new ListaPizza(listingredienti));
 
 
+
             }
+
+            //System.out.println("sssss "+ elenco.get(1).getIngredienti().get(0).getCount()+ " ...");
+          //  System.out.println(elenco.get(0).getIngredienti().get(0).getCount());
+
 
         }
         listAdapter = new ExpandableList(this,elenco);
@@ -94,6 +103,13 @@ public class Carrello extends AppCompatActivity{
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
+
+
+        TextView totale = (TextView) findViewById(R.id.txtTotale);
+        totale.setText(Pizza.totalePrezzo(elenco));
+        Pizza.printAll(elenco);
+
+
 
         // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
 

@@ -15,4 +15,5 @@
     <string name="btnPizzaGiorno">Pizza del Giorno</string>
     <string name="btnElenco">Le classiche</string>
     <string name="btnAddPizzaCreate">Creata</string>
+    <string name="txtTotale">0.00€</string>
 </resources>

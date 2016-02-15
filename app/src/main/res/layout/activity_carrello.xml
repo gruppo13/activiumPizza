@@ -46,9 +46,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="0.00€"
-                android:id="@+id/textView"
-                android:gravity="right" />
+                android:text="0.00 €"
+                android:id="@+id/txtTotale"
+                android:gravity="right"
+                android:singleLine="false" />
 
 
         </LinearLayout>
