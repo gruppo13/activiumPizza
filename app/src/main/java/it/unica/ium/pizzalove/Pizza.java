@@ -189,6 +189,36 @@ public class Pizza {
 
     }
 
+    /* return l-indice nella quale si trova ingrediente in cui ha valore magg di zero */
+    public static boolean trovaIngredientiInseriti(List<ListaIngrediente> listaingredienti, String nomeString) {
+        List <ListaIngrediente> listingredienti = new ArrayList<>();
+        // Adding child data
+        int i=0;
+        for (ListaIngrediente ingrediente : listaingredienti){
+            if ((ingrediente.getStringNome().equals(nomeString))&& (ingrediente.getCount()>0))
+                    return true;
+
+            i++;
+        }
+
+        return false;
+
+    }
+
+    public static int trovaIngrediente(List<ListaIngrediente> listaingredienti, String nomeString) {
+        List <ListaIngrediente> listingredienti = new ArrayList<>();
+        // Adding child data
+        int i=0;
+        for (ListaIngrediente ingrediente : listaingredienti){
+            if (ingrediente.getStringNome().equals(nomeString))
+                return i;
+
+            i++;
+        }
+
+        return -1;
+
+    }
 
 
 

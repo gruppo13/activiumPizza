@@ -63,27 +63,43 @@ public class CreaPizza extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_creapizza);
+
         this.countIngredienti = 0;
         listingredienti = new ArrayList<>();
-        updatePizza(null);
-
         listingredienti = Pizza.resetIngredienti();
-
+        updatePizza(null);
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
 
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Intent intent = new Intent(CreaPizza.this, Carrello.class);
+                Intent intent = new Intent(CreaPizza.this, Carrello.class);
                 Bundle b = getIntent().getExtras();
-                for (String ingrediente : listingredienti.keySet())
-                    b.putInt(ingrediente, listingredienti.get(ingrediente));
 
+
+                //ArrayList<ArrayList<Integer>>
+                for (ListaIngrediente ingrediente : listingredienti) {
+                    ArrayList<Integer> ingredientiCreata;
+                    if (b.getStringArrayList(ingrediente.getStringNome()) != null)
+                        ingredientiCreata= b.getIntegerArrayList(ingrediente.getStringNome());
+                    else
+                        ingredientiCreata = new ArrayList<Integer>();
+                    ingredientiCreata.add(ingrediente.getCount());
+                    b.putIntegerArrayList(ingrediente.getStringNome(), ingredientiCreata);
+
+                }
+
+                if (b.getInt("creata")>0)
+                         b.putInt("creata", b.getInt("creata")+1);
+                else
+                  b.putInt("creata",1);
                // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                 intent.putExtras(b);
-                startActivityForResult(intent,0);
-*/
+
+
+                startActivityForResult(intent, 0);
+
             }
         });
 
@@ -118,37 +134,6 @@ public class CreaPizza extends AppCompatActivity {
     };
 
 
-/*
-
-    private class DragShadow extends View.DragShadowBuilder {
-        ColorDrawable greyBox;
-
-        //DrawableWrapper ciao;
-
-        public DragShadow(View view) {
-            super(view);
-            greyBox = new ColorDrawable(Color.LTGRAY);
-            //ciao = new DrawableWrapper();
-
-        }
-
-        @Override
-        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
-            View v = getView();
-            int height = (int) v.getHeight();
-            int width = (int) v.getWidth();
-            greyBox.setBounds(0, 0, width, height);
-
-            shadowSize.set(width, height);
-
-            shadowTouchPoint.set((int) width+10, (int) height +10);
-        }
-
-        @Override
-        public void onDrawShadow(Canvas canvas) {
-            greyBox.draw(canvas);
-        }
-    }*/
 
     View.OnDragListener dropListener; {
         dropListener = new View.OnDragListener() {
@@ -180,16 +165,17 @@ public class CreaPizza extends AppCompatActivity {
 
                     case DragEvent.ACTION_DROP:
                         //aggiorna immagine pizza
-                      /* String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
+                       String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
 
 
-                        if (listingredienti.get(draggedImageText)==0) {
-                           listingredienti.put(draggedImageText, listingredienti.get(draggedImageText)+1);
+                        if (!(Pizza.trovaIngredientiInseriti(listingredienti,draggedImageText))) {
+                           listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
                            updatePizza(draggedImageText);
-                        }else{
+                        }else{//ingrediente gia inserito nell immagine
+                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                                 System.out.println("hai inserito troppi ingredienti dello stesso tipo");
-                        }*/
+                        }
                         break;
                 }
 
@@ -201,22 +187,22 @@ public class CreaPizza extends AppCompatActivity {
 
 
 
-private Bitmap trovaIngrediente(String ingrediente, Resources resources){
+private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources resources){
     Bitmap bm;
-    switch (ingrediente) {
-        case "sugo":
+    switch (ingrediente.getNome()) {
+        case SUGO:
             bm = BitmapFactory.decodeResource(resources, R.drawable.sugo);
             break;
-        case "mozzarella":
+        case MOZZARELLA:
             bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
             break;
-        case "basilico":
+        case BASILICO:
             bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
             break;
-        case "funghi":
+        case FUNGHI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
             break;
-        case "salmone":
+        case SALMONE:
             bm = BitmapFactory.decodeResource(resources, R.drawable.salmone);
             break;
         default:
@@ -229,7 +215,7 @@ private Bitmap trovaIngrediente(String ingrediente, Resources resources){
 
 
 private void updatePizza(String nuovoIngrediente) {
-    Drawable[] layers = new Drawable[countIngredienti+ 1];
+    Drawable[] layers = new Drawable[countIngredienti+1];
     Resources resources = getResources();
     ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
@@ -241,47 +227,19 @@ private void updatePizza(String nuovoIngrediente) {
 
     int i=1;
     if (countIngredienti>0) {
-
-        //attenzioni si considera un solo ingrediente da poter inserire
-        for (String ingrediente : listingredienti.keySet())
-
-            if ((listingredienti.get(ingrediente) == 1) && (!(nuovoIngrediente.equals(ingrediente)))) {
-                bmd = new BitmapDrawable(trovaIngrediente(ingrediente, resources));
+        for (ListaIngrediente ingrediente : listingredienti)
+            if (ingrediente.getCount()>0){
+                bmd = new BitmapDrawable(trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
                 //  bmd.setTargetDensity(metrics);
                 if (i < countIngredienti + 1) {
                     layers[i] = bmd;
-
                     i++;
                 } else {
                     System.out.println("errore nel conteggio degli ingredienti");
                 }
             }
-//inserisce l ultimo ingrediente in cima
-        if (nuovoIngrediente != null) {
-            if (listingredienti.get(nuovoIngrediente) == 1) {
-                bmd = new BitmapDrawable(trovaIngrediente(nuovoIngrediente, resources));
-                bmd.setGravity(Gravity.TOP);
-                //  bmd.setTargetDensity(metrics);
-                if (i < countIngredienti + 1) {
-                    layers[i] = bmd;
-
-                    i++;
-                } else {
-                    System.out.println("errore nel conteggio degli ingredienti");
-                }
-
-            }
-            //posiziona ultimo ingrediente alla fine della lista
-            int n = listingredienti.get(nuovoIngrediente);
-            listingredienti.remove(nuovoIngrediente);
-            listingredienti.put(nuovoIngrediente,n);
-        }
     }
-
-
-
-
 
     layerDrawable = new LayerDrawable(layers);
 
@@ -291,23 +249,6 @@ private void updatePizza(String nuovoIngrediente) {
 
 
 
-
-
-/*
-    private void prepareIngredienti() {
-        listingredienti = new HashMap<String, Integer>();
-
-        // Adding child data
-
-
-        listingredienti.put("sugo", 0); // Header, Child data
-        listingredienti.put("mozzarella", 0);
-        listingredienti.put("basilico", 0);
-        listingredienti.put("funghi", 0);
-        listingredienti.put("salmone", 0);
-
-
-    }*/
 
 
     @Override

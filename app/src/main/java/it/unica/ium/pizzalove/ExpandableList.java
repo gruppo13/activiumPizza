@@ -19,29 +19,13 @@ import java.util.List;
 public class ExpandableList extends BaseExpandableListAdapter {
 
    private Context _context;
-   //private List<> _listDataHeader; // header titles
-
-    /*private HashMap<Pizza.Classica,Integer> repeatPizza;
-   // child data in format of header title, child title
-   private HashMap<Pizza.Classica, List<Pizza.Ingrediente>> _listDataChild;
-
-
-
-   public ExpandableList(Context context, HashMap<Pizza.Classica, List<Pizza.Ingrediente>> listChildData) {
-       this._context = context;
-       this._listDataHeader = new ArrayList<>();
-       this._listDataHeader.addAll(listChildData.keySet());
-       this.repeatPizza = new HashMap<>();
-
-       this._listDataChild = listChildData;
-
-   }
-*/
-    List _listDataChild;
+   List _listDataChild;
 
     public ExpandableList(Context context, List<ListaPizza> listChildData) {
         this._context = context;
         this._listDataChild = listChildData;
+
+
 
     }
 
@@ -61,11 +45,14 @@ public class ExpandableList extends BaseExpandableListAdapter {
    }
 
    @Override
-   public View getChildView(int groupPosition, final int childPosition,
+   public View getChildView(int groupPosition, int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-       final ListaIngrediente childText = (ListaIngrediente) getChild(groupPosition, childPosition);
+       final ListaIngrediente childText;
+       while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
+              childPosition++;
 
+       childText = (ListaIngrediente) getChild(groupPosition, childPosition);
 
        if (convertView == null) {
            LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -75,6 +62,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
        TextView txtListChild = (TextView) convertView
                .findViewById(R.id.lblListItem);
+
+
+       System.out.println("dove sono" + childText.getStringNome() + "count ->" + childText.getCount()
+               + "pos -> " + groupPosition + "child pos" + childPosition + "group pos >" + groupPosition);
+
 
        txtListChild.setText(childText.getStringNome());
 
@@ -107,10 +99,6 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public View getGroupView(int groupPosition, boolean isExpanded,
                             View convertView, ViewGroup parent) {
        ListaPizza headerTitle = (ListaPizza) getGroup(groupPosition);
-     /*  for (int i=0 i<getGroupCount();i++){
-           if (groupPosition != 0) && parent.
-       }*/
-
 
        if (convertView == null) {
            //System.out.println("sei dentro");

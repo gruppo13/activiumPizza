@@ -28,7 +28,7 @@ public class ListaIngrediente {
         if ((n>0) && n<massCount)
             this.count =n;
         else this.count=0;
-        this.setPrezzoIngrediente();
+        this.prezzoIngrediente = this.setPrezzoIngrediente();
 
     }
 
@@ -46,27 +46,33 @@ public class ListaIngrediente {
             this.count++;
     }
 
+    public void setIngrediente(int aggiunta){
+        if (aggiunta<this.massCount)
+            this.count = aggiunta;
+        else
+            this.count = 0;
+    }
 
-    private void setPrezzoIngrediente() {
+    private float setPrezzoIngrediente() {
         switch (this.nome) {
             case SUGO:
-                this.prezzoIngrediente = 0.50f;
+                return 0.50f;
             case MOZZARELLA:
-                this.prezzoIngrediente = 0.50f;
+                return 0.50f;
             case BASILICO:
-                this.prezzoIngrediente = 0.5f;
+                return 0.5f;
             case ACCIUGHE:
-                this.prezzoIngrediente =0.50f;
+                 return 0.50f;
             case FUNGHI:
-                this.prezzoIngrediente =1.50f;
+                return 1.50f;
             case ORIGANO:
-                this.prezzoIngrediente = 0.50f;
+                return 0.50f;
             case CAPPERI:
-                this.prezzoIngrediente = 0.50f;
+                return 0.50f;
             case SALMONE:
-                this.prezzoIngrediente = 1.50f;
+                return 1.50f;
             default:
-                this.prezzoIngrediente = 0.0f;
+                return 0.0f;
         }
     }
 
@@ -121,10 +127,8 @@ public class ListaIngrediente {
         return this.prezzoIngrediente;
     }
 
-   /* public int getCountNameString(String nome){
-        return (new ListaIngrediente(getIngredienteS(nome))).getCount();
 
+    public Ingrediente getNome(){
+        return this.nome;
     }
-*/
-
 }

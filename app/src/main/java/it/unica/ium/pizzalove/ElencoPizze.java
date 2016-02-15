@@ -47,8 +47,6 @@ public class ElencoPizze extends AppCompatActivity{
 
         final int[] lastExpandedPosition = {-1, -1};
 
-
-
         expListView.setOnLongClickListener(
                 new View.OnLongClickListener() {
                     @Override

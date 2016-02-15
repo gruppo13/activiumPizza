@@ -19,10 +19,11 @@ import java.util.List;
  * Created by perlo on 14/02/16.
  */
 public class Carrello extends AppCompatActivity{
-    HashMap<String, Integer> listingredienti;
+
 
 
     List<String> listpizze;
+    List<ListaIngrediente> listingredienti;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -41,7 +42,7 @@ public class Carrello extends AppCompatActivity{
         /*aggiornamento Pizza Creata */
         bundle = getIntent().getExtras();
        // listingredienti = new HashMap<String,Integer>();
-        //listingredienti = Pizza.resetIngredienti();
+        listingredienti = Pizza.resetIngredienti();
 
         /*
 */
@@ -51,20 +52,32 @@ public class Carrello extends AppCompatActivity{
             listpizze = bundle.getStringArrayList("classica");
 
             for (String pizza : listpizze) {
-                //HashMap<String, Integer> ingredienti = new HashMap<>();
-                /*for (Pizza.Ingrediente ingrediente : Pizza.getIngredientiClassica(Pizza.getClassicaS(pizza))) {
-                    listingredienti.put(Pizza.getIngrediente(ingrediente), 1);
-                }*/
+                   elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza)));
+            }
 
-                elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza)));
+
+
+
+
+        }
+        if (bundle.getInt("creata")>0) {
+           // listingredienti = bundle.getInt("creata");
+            for(int i=0; i<bundle.getInt("creata");i++) {
+                for (ListaIngrediente ingrediente : listingredienti) {
+                    listingredienti.get(Pizza.trovaIngrediente(listingredienti,
+                            ingrediente.getStringNome())).setIngrediente
+                            (bundle.getIntegerArrayList(ingrediente.getStringNome()).get(i));
+                    System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()
+                            + "pos -> " + Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome()));
+                }
+                elenco.add(new ListaPizza(listingredienti));
+
 
             }
 
-            listAdapter = new ExpandableList(this,elenco);
-
-
-
-        }/*else {
+        }
+        listAdapter = new ExpandableList(this,elenco);
+       /* else {
             for (String ingrediente : listingredienti.keySet())
                 listingredienti.put(ingrediente,bundle.getInt(ingrediente));
 

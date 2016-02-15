@@ -48,10 +48,15 @@ public class ListaPizza {
 
 
 
-    public ListaPizza(Classica nome, List<ListaIngrediente> ingredienti){
-        this.nome = nome;
+    public ListaPizza(List<ListaIngrediente> ingredienti){
+        this.nome = Classica.Creata;
         this.ingrediente = ingredienti;
+        /*System.out.println("iiiiiiiiiiiiiiiiiiiiiii");
+        for(ListaIngrediente ingrediente: this.ingrediente)
+            System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()
+                    + "pos -> " + Pizza.trovaIngrediente(this.getIngredienti(), ingrediente.getStringNome()));*/
         this.prezzo =prezzoBase;
+        this.setPrezzoCreata();
 
         this.count=0;
     }
@@ -180,6 +185,7 @@ public class ListaPizza {
     private void setPrezzoCreata(){
         for(ListaIngrediente ingrediente : this.ingrediente) {
             if (ingrediente.getCount()>0){
+
                 this.prezzo+= ingrediente.getPrezzoIngrediente() * ingrediente.getCount();
             }
         }
@@ -188,11 +194,7 @@ public class ListaPizza {
 
 
     public float getPrezzo(){
-        if (this.nome.equals(Classica.Creata)) {
-            setPrezzoCreata();
-        }
         return this.prezzo;
-
     }
 
 }
