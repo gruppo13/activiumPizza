@@ -50,7 +50,16 @@ public class ListaPizza {
 
     public ListaPizza(List<ListaIngrediente> ingredienti){
         this.nome = Classica.Creata;
-        this.ingrediente = ingredienti;
+        this.ingrediente = new ArrayList<>();
+        for(ListaIngrediente ingrediente : ingredienti){
+            if (ingrediente.getCount()>0) {
+                this.ingrediente.add(ingrediente);
+
+            }
+
+        }
+
+        //this.ingrediente = ingredienti;
         /*System.out.println("iiiiiiiiiiiiiiiiiiiiiii");
         for(ListaIngrediente ingrediente: this.ingrediente)
             System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()

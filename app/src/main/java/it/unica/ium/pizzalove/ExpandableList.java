@@ -58,10 +58,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
        final ListaIngrediente childText;
-       //while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
-         //     childPosition++;
+       while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
+             childPosition++;
 
        childText = (ListaIngrediente) getChild(groupPosition, childPosition);
+
 
        if (convertView == null) {
            LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -73,10 +74,10 @@ public class ExpandableList extends BaseExpandableListAdapter {
                .findViewById(R.id.lblListItem);
 
 
-       System.out.println("dove sono" + childText.getStringNome() + "count ->" + childText.getCount()
+      System.out.println("dove sono" + childText.getStringNome() + "count ->" + childText.getCount()
                + "pos -> " + groupPosition + "child pos" + childPosition + "group pos >" + groupPosition);
 
-
+       Pizza.printAll(this._listDataChild);
        txtListChild.setText(childText.getStringNome());
 
        return convertView;
