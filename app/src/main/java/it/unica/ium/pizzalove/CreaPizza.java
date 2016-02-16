@@ -1,34 +1,24 @@
 package it.unica.ium.pizzalove;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.DragEvent;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -37,16 +27,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by perlo on 13/02/16.
@@ -113,12 +95,19 @@ public class CreaPizza extends AppCompatActivity {
         });
 
         // immagini da trascinare
-        findViewById(R.id.image).setOnClickListener(clickListener);
+        findViewById(R.id.image).setOnLongClickListener(longListener);
         findViewById(R.id.image1).setOnLongClickListener(longListener);
         findViewById(R.id.image2).setOnLongClickListener(longListener);
         findViewById(R.id.image3).setOnLongClickListener(longListener);
         findViewById(R.id.image4).setOnLongClickListener(longListener);
-//findViewById(R.id.image1).lis
+
+        //immagini da click
+        findViewById(R.id.image).setOnClickListener(clickListener);
+        findViewById(R.id.image1).setOnClickListener(clickListener);
+        findViewById(R.id.image2).setOnClickListener(clickListener);
+        findViewById(R.id.image3).setOnClickListener(clickListener);
+        findViewById(R.id.image4).setOnClickListener(clickListener);
+
 
         //immagini da modificare
         findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -158,9 +147,7 @@ public class CreaPizza extends AppCompatActivity {
                     menu.add(ingrediente.getStringNome());
             }
             inflater.inflate(R.menu.menu_context_pizza, menu);
-
             for (int i = 0; i < menu.size(); i++) {
-
                 menu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -196,13 +183,21 @@ public class CreaPizza extends AppCompatActivity {
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          /*  View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(v);
-            ClipData data = ClipData.newPlainText("", "");
-            v.startDrag(data, dragShadow, v, 0);*/
-            System.out.println("dentro il click dell ingrediente");
-            //registerForContextMenu(v);
+            String imageClick = (String) (v.getContentDescription());
 
-
+            if (!(Pizza.trovaIngredientiInseriti(listingredienti,imageClick))) {
+                listingredienti.get(Pizza.trovaIngrediente(listingredienti,imageClick)).addIngrediente();
+                countIngredienti++;
+                updatePizza(imageClick);
+                Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
+            }else{//ingrediente gia inserito nell immagine allora toglielo
+                if ((Pizza.trovaIngredientiInseriti(listingredienti, imageClick))) {
+                    listingredienti.get(Pizza.trovaIngrediente(listingredienti, imageClick)).setIngrediente(0);
+                    countIngredienti--;
+                    updatePizza(null);
+                    Toast.makeText(CreaPizza.this,"Hai rimosso "+ imageClick,Toast.LENGTH_SHORT).show();
+                }
+            }
         }
 
 
@@ -235,10 +230,15 @@ public class CreaPizza extends AppCompatActivity {
                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
                            updatePizza(draggedImageText);
+
+                            Toast.makeText(CreaPizza.this,"Hai aggiunto "+ draggedImageText,Toast.LENGTH_SHORT).show();
+
                         }else{//ingrediente gia inserito nell immagine
                             listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                                 System.out.println("hai inserito troppi ingredienti dello stesso tipo");
                         }
+
+
                         break;
                 }
 

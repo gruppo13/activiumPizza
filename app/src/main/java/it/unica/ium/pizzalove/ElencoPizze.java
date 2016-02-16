@@ -1,26 +1,23 @@
 package it.unica.ium.pizzalove;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
-
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class ElencoPizze extends AppCompatActivity{
@@ -70,22 +67,23 @@ public class ElencoPizze extends AppCompatActivity{
 
                     //vai al carrello doppio click
                     if (lastExpandedPosition[1] == groupPosition) {
-                       // Log.i("group position", groupPosition);
+                        // Log.i("group position", groupPosition);
                         //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
 
-                       Intent intent = new Intent(ElencoPizze.this, Carrello.class);
-                        Bundle b = getIntent().getExtras();;
+                        Intent intent = new Intent(ElencoPizze.this, Carrello.class);
+                        Bundle b = getIntent().getExtras();
+                        ;
                         ArrayList<String> pizzeClassiche;
 
                         if (b.getStringArrayList("classica") != null)
-                            pizzeClassiche= b.getStringArrayList("classica");
+                            pizzeClassiche = b.getStringArrayList("classica");
                         else
                             pizzeClassiche = new ArrayList<String>();
 
                         pizzeClassiche.add(Pizza.getPizzeClassiche().get(groupPosition).getStringNome());
 
 
-                        b.putStringArrayList("classica",pizzeClassiche);
+                        b.putStringArrayList("classica", pizzeClassiche);
                         // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                         intent.putExtras(b);
                         startActivityForResult(intent, 0);
@@ -112,12 +110,21 @@ public class ElencoPizze extends AppCompatActivity{
                     expListView.expandGroup(groupPosition);
 
                 }
+
+
+                Toast.makeText(ElencoPizze.this,"You selected"+ String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).show();
                 return true;
             }
 
 
         });
 
+        expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("item clickkkk");
+            }
+        });
 
         expListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
@@ -128,6 +135,41 @@ public class ElencoPizze extends AppCompatActivity{
             }
         });
 
+
+        View vieww = expListView.findViewWithTag(new ListaPizza(ListaPizza.Classica.Margherita));
+        if (vieww == null)
+                System.out.println("aiuto22");
+
+       // expListView.getLastVisiblePosition()-1)
+        ViewGroup view = (ViewGroup)expListView.getChildAt(expListView.getLastVisiblePosition()-1);
+        if (view==null)
+            System.out.println("aiuto");
+
+
+       /* expListView.getChildAt(1 - expListView.getFirstVisiblePosition()).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("sono dentro");
+
+            }
+        });
+    */
+
+        //expListView.findViewWithTag()
+
+
+        System.out.println (expListView.getFirstVisiblePosition() + " last" + expListView.getLastVisiblePosition());
+
+
+        /*view = expListView.findViewById(expListView.getItemAtPosition(0).hashCode());
+        if (view==null)
+            System.out.println("aiuto");
+*/
+
+//System.out.println(expListView.findViewById(expListView.getItemAtPosition(0).hashCode()));
+
+
+        //System.out.println(expListView.getChildAt(0).t);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 

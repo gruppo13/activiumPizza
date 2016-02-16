@@ -3,21 +3,13 @@ package it.unica.ium.pizzalove;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -76,10 +68,6 @@ public class Carrello extends AppCompatActivity{
 
 
             }
-
-            //System.out.println("sssss "+ elenco.get(1).getIngredienti().get(0).getCount()+ " ...");
-          //  System.out.println(elenco.get(0).getIngredienti().get(0).getCount());
-
 
         }
         listAdapter = new ExpandableList(this,elenco);

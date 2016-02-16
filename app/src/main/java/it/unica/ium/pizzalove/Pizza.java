@@ -1,22 +1,8 @@
 package it.unica.ium.pizzalove;
 
-import android.support.annotation.NonNull;
-import android.widget.Switch;
-
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-
-
-import static java.util.Arrays.*;
 
 /**
  * Created by perlo on 14/02/16.

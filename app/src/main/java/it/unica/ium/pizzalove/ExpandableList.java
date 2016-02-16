@@ -2,7 +2,6 @@ package it.unica.ium.pizzalove;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -121,7 +119,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
            else
                 convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);
        }
-        if (headerTitle.getCount()>0) {
+        if (headerTitle.getCount()>0) {// si tratta dello scontrino
 
             TextView lblListNum = (TextView) convertView.findViewById(R.id.lblListHCarrelloNum);
             TextView lblListNome = (TextView) convertView.findViewById(R.id.lblListHCarrelloNome);
@@ -146,43 +144,44 @@ public class ExpandableList extends BaseExpandableListAdapter {
             lblListPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
 
         }
-       else {
+       else {// si tratta delle pizze classiche
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
             TextView lblListHeaderPrezzo = (TextView) convertView.findViewById(R.id.lblListHeaderPrezzo);
 
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
 
+            /*convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
 
-            if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
+                    System.out.println("Sei dentrooooo");
+                    return true;
+                }
+            });
 
-                lblListHeader.setText("La tua creazione");
-            } else {
-                lblListHeader.setText(headerTitle.getStringNome());
 
-            }
+*/
+           // lblListHeader.setId(headerTitle.getStringNome().hashCode());
+
+
+            lblListHeader.setContentDescription(headerTitle.getStringNome());
+            lblListHeader.setText(headerTitle.getStringNome());
+           // lblListHeader.setId(headerTitle.ghashCode());
+            //convertView.setId(headerTitle.getStringNome().hashCode());
 
             lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+
+
+
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
        return convertView;
    }
 
    @Override
    public boolean hasStableIds() {
-       return false;
+       return true;
    }
 
    @Override
