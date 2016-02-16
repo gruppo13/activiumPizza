@@ -137,11 +137,9 @@ public class CreaPizza extends AppCompatActivity {
         //registerForContextMenu(v);
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-          //  super.onCreateContextMenu(menu, v, menuInfo);
 
             MenuInflater inflater = getMenuInflater();
             menu.setHeaderTitle("rimuovi ingrediente");
-            //menu.setHeaderIcon(R.drawable);
             for (ListaIngrediente ingrediente : listingredienti) {
                 if (ingrediente.getCount() > 0)
                     menu.add(ingrediente.getStringNome());
@@ -155,6 +153,7 @@ public class CreaPizza extends AppCompatActivity {
                             listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
                             countIngredienti--;
                             updatePizza(null);
+                            Toast.makeText(CreaPizza.this,"Hai rimosso "+ item.toString(),Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }
@@ -172,7 +171,6 @@ public class CreaPizza extends AppCompatActivity {
             View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(v);
             ClipData data = ClipData.newPlainText("", "");
             v.startDrag(data, dragShadow, v, 0);
-            // v.startDrag()
             return false;
         }
     };

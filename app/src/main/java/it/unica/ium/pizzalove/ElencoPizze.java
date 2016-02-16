@@ -11,6 +11,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -18,6 +19,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ElencoPizze extends AppCompatActivity{
@@ -25,6 +27,9 @@ public class ElencoPizze extends AppCompatActivity{
     ExpandableListView expListView;
 
     private GoogleApiClient client;
+
+
+    List<ListaPizza> listePizzeClassiche;
 
 
 
@@ -36,7 +41,9 @@ public class ElencoPizze extends AppCompatActivity{
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
-        listAdapter = new ExpandableList(this, Pizza.getPizzeClassiche());
+        listePizzeClassiche = new ArrayList<>();
+        listePizzeClassiche = Pizza.getPizzeClassiche();
+        listAdapter = new ExpandableList(this,listePizzeClassiche);
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
@@ -112,69 +119,54 @@ public class ElencoPizze extends AppCompatActivity{
                 }
 
 
-                Toast.makeText(ElencoPizze.this,"You selected"+ String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ElencoPizze.this, "You selected" + String.valueOf(listAdapter.getGroupId(groupPosition)), Toast.LENGTH_SHORT).show();
                 return true;
             }
 
 
         });
 
-        expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+/*
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("item clickkkk");
-            }
-        });
+            public void onGroupExpand(final int groupPosition) {
+                expListView.collapseGroup(groupPosition);
 
-        expListView.setOnChildClickListener(new OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                System.out.println("selected child");
+                //listePizzeClassiche.get(groupPosition).addCount();
+                TextView quantita = (TextView) findViewById(R.id.lblListHeaderN);
 
-                return true;
-            }
-        });
+                quantita.setText("prova");
 
+                expListView.getHeaderViewsCount();
 
-        View vieww = expListView.findViewWithTag(new ListaPizza(ListaPizza.Classica.Margherita));
-        if (vieww == null)
-                System.out.println("aiuto22");
+                //expListView.setAdapter(listAdapter2);
+                // expListView.setItemChecked(0,true);
+                expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        expListView.expandGroup(position);
+                        System.out.println("itemm long" + position
+                                + "liste " + expListView.getHeaderViewsCount());
+                        return true;
+                    }
+                });
 
-       // expListView.getLastVisiblePosition()-1)
-        ViewGroup view = (ViewGroup)expListView.getChildAt(expListView.getLastVisiblePosition()-1);
-        if (view==null)
-            System.out.println("aiuto");
-
-
-       /* expListView.getChildAt(1 - expListView.getFirstVisiblePosition()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("sono dentro");
 
             }
-        });
-    */
+        });*/
 
-        //expListView.findViewWithTag()
-
-
-        System.out.println (expListView.getFirstVisiblePosition() + " last" + expListView.getLastVisiblePosition());
-
-
-        /*view = expListView.findViewById(expListView.getItemAtPosition(0).hashCode());
-        if (view==null)
-            System.out.println("aiuto");
-*/
-
-//System.out.println(expListView.findViewById(expListView.getItemAtPosition(0).hashCode()));
-
-
-        //System.out.println(expListView.getChildAt(0).t);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
 
+    public View getGroupView2(ExpandableListView listView, int groupPosition) {
+        long packedPosition = ExpandableListView.getPackedPositionForGroup(groupPosition);
+        int flatPosition = listView.getFlatListPosition(groupPosition);
+        int first = listView.getFirstVisiblePosition();
+        return listView.getChildAt(flatPosition - first);
+    }
 
 
 

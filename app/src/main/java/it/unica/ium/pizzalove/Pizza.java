@@ -98,10 +98,7 @@ public class Pizza {
             }
 
             System.out.println();
-
-
         }
-
     }
 
     public static int containPizza(List<ListaPizza> lista, String nome){

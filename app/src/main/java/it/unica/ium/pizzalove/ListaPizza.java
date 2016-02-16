@@ -152,8 +152,8 @@ public class ListaPizza {
 
     public int getCount(){
         return this.count;
-
     }
+
 
     public int getSizeIngredienti(){
         int size=0;

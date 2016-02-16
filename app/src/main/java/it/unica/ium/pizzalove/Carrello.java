@@ -59,8 +59,7 @@ public class Carrello extends AppCompatActivity{
                     listingredienti.get(Pizza.trovaIngrediente(listingredienti,
                             ingrediente.getStringNome())).setIngrediente
                             (bundle.getIntegerArrayList(ingrediente.getStringNome()).get(i));
-                    System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()
-                            + "pos -> " + Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome()));
+
                 }
 
                 elenco.add(new ListaPizza(listingredienti));
@@ -71,20 +70,9 @@ public class Carrello extends AppCompatActivity{
 
         }
         listAdapter = new ExpandableList(this,elenco);
-       /* else {
-            for (String ingrediente : listingredienti.keySet())
-                listingredienti.put(ingrediente,bundle.getInt(ingrediente));
-
-            //listAdapter = new ExpandableList(this, Pizza.getPizzaCreata(listingredienti,Pizza.Classica.Creata));
-
-
-
-
-        }*/
-        expListView = (ExpandableListView) findViewById(R.id.carrello);
+         expListView = (ExpandableListView) findViewById(R.id.carrello);
 
         // preparing list data
-
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -93,23 +81,6 @@ public class Carrello extends AppCompatActivity{
         TextView totale = (TextView) findViewById(R.id.txtTotale);
         totale.setText(Pizza.totalePrezzo(elenco));
         Pizza.printAll(elenco);
-
-
-
-        // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
-
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                System.out.println("selected child");
-                //doPopup(v);
-                return true;
-            }
-        });
-
-
-
-
 
         Button btn = (Button) findViewById(R.id.btnAggiungi);
 
@@ -126,9 +97,6 @@ public class Carrello extends AppCompatActivity{
 
 
     }
-
-
-
 
 
 

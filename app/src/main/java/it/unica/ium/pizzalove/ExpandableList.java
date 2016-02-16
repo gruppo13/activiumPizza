@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -33,9 +34,6 @@ public class ExpandableList extends BaseExpandableListAdapter {
                 this._listDataHeader.add(pizza.getStringNome());
 
         }
-
-
-
     }
 
 
@@ -71,9 +69,6 @@ public class ExpandableList extends BaseExpandableListAdapter {
        TextView txtListChild = (TextView) convertView
                .findViewById(R.id.lblListItem);
 
-
-      System.out.println("dove sono" + childText.getStringNome() + "count ->" + childText.getCount()
-               + "pos -> " + groupPosition + "child pos" + childPosition + "group pos >" + groupPosition);
 
        Pizza.printAll(this._listDataChild);
        txtListChild.setText(childText.getStringNome());
@@ -111,7 +106,6 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
 
        if (convertView == null) {
-           //System.out.println("sei dentro");
            LayoutInflater infalInflater = (LayoutInflater) this._context
                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            if (headerTitle.getCount()==0)
@@ -151,30 +145,15 @@ public class ExpandableList extends BaseExpandableListAdapter {
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
 
-            /*convertView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    System.out.println("Sei dentrooooo");
-                    return true;
-                }
-            });
-
-
-*/
-           // lblListHeader.setId(headerTitle.getStringNome().hashCode());
-
-
-            lblListHeader.setContentDescription(headerTitle.getStringNome());
             lblListHeader.setText(headerTitle.getStringNome());
-           // lblListHeader.setId(headerTitle.ghashCode());
-            //convertView.setId(headerTitle.getStringNome().hashCode());
 
             lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
 
+            TextView quantita = (TextView)convertView.findViewById(R.id.lblListHeaderN);
 
-
+            quantita.setText("");
         }
+
 
        return convertView;
    }
@@ -186,9 +165,8 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    @Override
    public boolean isChildSelectable(int groupPosition, int childPosition) {
-       return true;
+       return false;
    }
-
 
 
 
