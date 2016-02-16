@@ -28,7 +28,7 @@ public class Main extends AppCompatActivity{
                 //startActivityForResult(intent,0);
                 Intent intent = new Intent(Main.this, Scelta.class);
                 Bundle b = new Bundle();
-                b.putInt("lista", 1);
+                b.putInt("creata", 0);
                 intent.putExtras(b);
 
                 startActivityForResult(intent, 0);

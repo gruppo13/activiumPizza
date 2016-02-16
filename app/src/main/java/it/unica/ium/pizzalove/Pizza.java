@@ -85,7 +85,7 @@ public class Pizza {
     public static String totalePrezzo(List<ListaPizza> pizze){
         float prezzo =0.0f;
         for(ListaPizza nuovo: pizze){
-            prezzo+=nuovo.getPrezzo();
+            prezzo+=nuovo.getPrezzo()*nuovo.getCount();
 
         }
 

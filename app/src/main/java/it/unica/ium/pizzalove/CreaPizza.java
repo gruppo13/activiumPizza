@@ -14,16 +14,24 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -105,7 +113,7 @@ public class CreaPizza extends AppCompatActivity {
         });
 
         // immagini da trascinare
-        findViewById(R.id.image).setOnLongClickListener(longListener);
+        findViewById(R.id.image).setOnClickListener(clickListener);
         findViewById(R.id.image1).setOnLongClickListener(longListener);
         findViewById(R.id.image2).setOnLongClickListener(longListener);
         findViewById(R.id.image3).setOnLongClickListener(longListener);
@@ -115,9 +123,60 @@ public class CreaPizza extends AppCompatActivity {
         //immagini da modificare
         findViewById(R.id.imageMain).setOnDragListener(dropListener);
 
+      /*  findViewById(R.id.imageMain).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                doPopup(v);
+                return true;
+
+            }
+        });*/
+
+        ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
+        imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
+        imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
+
+
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+
+
+    View.OnCreateContextMenuListener menuPizza = new View.OnCreateContextMenuListener() {
+        //registerForContextMenu(v);
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+          //  super.onCreateContextMenu(menu, v, menuInfo);
+
+            MenuInflater inflater = getMenuInflater();
+            menu.setHeaderTitle("rimuovi ingrediente");
+            //menu.setHeaderIcon(R.drawable);
+            for (ListaIngrediente ingrediente : listingredienti) {
+                if (ingrediente.getCount() > 0)
+                    menu.add(ingrediente.getStringNome());
+            }
+            inflater.inflate(R.menu.menu_context_pizza, menu);
+
+            for (int i = 0; i < menu.size(); i++) {
+
+                menu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if ((Pizza.trovaIngredientiInseriti(listingredienti, item.toString()))) {
+                            listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
+                            countIngredienti--;
+                            updatePizza(null);
+                        }
+                        return true;
+                    }
+                });
+            }
+        }
+
+
+    };
 
 
     View.OnLongClickListener longListener = new View.OnLongClickListener() {
@@ -128,12 +187,26 @@ public class CreaPizza extends AppCompatActivity {
             v.startDrag(data, dragShadow, v, 0);
             // v.startDrag()
             return false;
+        }
+    };
+
+
+
+
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          /*  View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(v);
+            ClipData data = ClipData.newPlainText("", "");
+            v.startDrag(data, dragShadow, v, 0);*/
+            System.out.println("dentro il click dell ingrediente");
+            //registerForContextMenu(v);
+
 
         }
 
 
     };
-
 
 
     View.OnDragListener dropListener; {
@@ -146,29 +219,18 @@ public class CreaPizza extends AppCompatActivity {
 
                 switch (dragEvent) {
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        //dropText.setTextColor(Color.GREEN);
-                        Log.i("Drag Event", "Entered");
-                        //dropImage.setBackgroundColor(Color.YELLOW);
+                         Log.i("Drag Event", "Entered");
 
-
-
-                       /* DrawableDragShadow dragShadow = new DragShadow(v);
-
-                        ClipData data = ClipData.newPlainText("","");
-
-                        v.startDrag(data, dragShadow, v, 0);*/
                         break;
 
                     case DragEvent.ACTION_DRAG_EXITED:
 
-                        //dropText.setTextColor(Color.RED);
+
                         break;
 
                     case DragEvent.ACTION_DROP:
                         //aggiorna immagine pizza
                        String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
-
-
                         if (!(Pizza.trovaIngredientiInseriti(listingredienti,draggedImageText))) {
                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
@@ -215,6 +277,9 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
 }
 
 
+
+
+
 private void updatePizza(String nuovoIngrediente) {
     Drawable[] layers = new Drawable[countIngredienti+1];
     Resources resources = getResources();
@@ -250,6 +315,37 @@ private void updatePizza(String nuovoIngrediente) {
 
 
 
+
+    private void doPopup(View v){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.setOnMenuItemClickListener(
+                new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popup_one:
+                                Toast.makeText(CreaPizza.this, "Popup item" +
+                                                "one selected",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+
+                        }
+
+
+                    }
+                }
+
+        );
+
+        MenuInflater inflater = popupMenu.getMenuInflater();
+
+        inflater.inflate(R.menu.menu_popup, popupMenu.getMenu());
+
+        popupMenu.show();
+
+    }
 
 
     @Override

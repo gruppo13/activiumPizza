@@ -44,13 +44,7 @@ public class Carrello extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrello);
 
-        /*aggiornamento Pizza Creata */
         bundle = getIntent().getExtras();
-       // listingredienti = new HashMap<String,Integer>();
-
-
-        /*
-*/
         List<ListaPizza> elenco = new ArrayList<>();
 
         if (bundle.getStringArrayList("classica")!= null) {
@@ -63,11 +57,6 @@ public class Carrello extends AppCompatActivity{
                 else
                     elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
             }
-
-
-
-
-
         }
         if (bundle.getInt("creata")>0) {
            // listingredienti = bundle.getInt("creata");
@@ -125,7 +114,7 @@ public class Carrello extends AppCompatActivity{
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 System.out.println("selected child");
-                doPopup(v);
+                //doPopup(v);
                 return true;
             }
         });
@@ -151,34 +140,7 @@ public class Carrello extends AppCompatActivity{
     }
 
 
-    private void doPopup(View v){
-        PopupMenu popupMenu = new PopupMenu(this,v);
-        popupMenu.setOnMenuItemClickListener(
-                new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.popup_one:
-                                Toast.makeText(Carrello.this, "Popup item" +
-                                        "one selected",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
 
-                        }
-
-
-                    }
-                }
-
-        );
-
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.menu_popup,popupMenu.getMenu());
-        popupMenu.show();
-
-        }
 
 
 
