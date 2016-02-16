@@ -25,7 +25,6 @@ public class Pizza {
 
     public static List<ListaPizza> getPizzeClassiche(){
         List<ListaPizza> tmp = new ArrayList<>();
-        //listDataHeader = new HashMap<String>();
         tmp.add(new ListaPizza(ListaPizza.Classica.Margherita));
         tmp.add(new ListaPizza(ListaPizza.Classica.Napoli));
         tmp.add(new ListaPizza(ListaPizza.Classica.QuattroStagioni));
@@ -36,7 +35,6 @@ public class Pizza {
 
     public static List<ListaIngrediente> resetIngredienti() {
         List <ListaIngrediente> listingredienti = new ArrayList<>();
-        // Adding child data
 
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO, 0));
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA, 0));
@@ -119,4 +117,17 @@ public class Pizza {
         }
 
     }
+
+    public static int containPizza(List<ListaPizza> lista, String nome){
+        int i=0;
+        for(ListaPizza pizze: lista){
+            if (pizze.getStringNome().equals(nome))
+                return i;
+            i++;
+        }
+        return -1;
+
+
+    }
+
 }

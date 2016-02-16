@@ -46,31 +46,23 @@ public class ListaPizza {
             this.count=0;
     }
 
-
-
+/* costruttore richiamato quando si crea la pizza */
     public ListaPizza(List<ListaIngrediente> ingredienti){
         this.nome = Classica.Creata;
         this.ingrediente = new ArrayList<>();
         for(ListaIngrediente ingrediente : ingredienti){
             if (ingrediente.getCount()>0) {
                 this.ingrediente.add(ingrediente);
-
             }
 
         }
-
-        //this.ingrediente = ingredienti;
-        /*System.out.println("iiiiiiiiiiiiiiiiiiiiiii");
-        for(ListaIngrediente ingrediente: this.ingrediente)
-            System.out.println(ingrediente.getStringNome() + "count ->" + ingrediente.getCount()
-                    + "pos -> " + Pizza.trovaIngrediente(this.getIngredienti(), ingrediente.getStringNome()));*/
         this.prezzo =prezzoBase;
         this.setPrezzoCreata();
-
-        this.count=0;
+        this.count=1;
     }
 
 
+    /* costruttore per creare la pizza classica */
     public ListaPizza(Classica nome){
                 this.nome = nome;
                 this.ingrediente = new ArrayList<>() ;
@@ -81,8 +73,19 @@ public class ListaPizza {
     }
 
 
-    public ListaPizza(Classica nome, float prezzo){
+    public ListaPizza(Classica nome, int count){
+                this.nome = nome;
+                this.ingrediente = new ArrayList<>() ;
+                this.setIngredienti();
+                this.setPrezzo();
+                this.count=count;
 
+    }
+
+
+
+
+    public ListaPizza(Classica nome, float prezzo){
         this.nome = nome;
         this.ingrediente = new ArrayList<>() ;
         this.setIngredienti();
@@ -90,9 +93,7 @@ public class ListaPizza {
             this.prezzo = prezzo;
         else
             this.prezzo =prezzoBase;
-        this.count=0;
-
-
+        this.count=1;
     }
 
 
@@ -145,6 +146,15 @@ public class ListaPizza {
         this.ingrediente.add(new ListaIngrediente(ingrediente));
     }
 
+    public void addCount(){
+        this.count++;
+
+    }
+
+    public int getCount(){
+        return this.count;
+
+    }
 
     public int getSizeIngredienti(){
         int size=0;

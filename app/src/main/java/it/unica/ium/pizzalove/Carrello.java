@@ -3,11 +3,15 @@ package it.unica.ium.pizzalove;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,7 +57,11 @@ public class Carrello extends AppCompatActivity{
             listpizze = bundle.getStringArrayList("classica");
 
             for (String pizza : listpizze) {
-                   elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza)));
+                if (Pizza.containPizza(elenco,pizza)==-1){
+                   elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
+                }
+                else
+                    elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
             }
 
 
@@ -117,10 +125,14 @@ public class Carrello extends AppCompatActivity{
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 System.out.println("selected child");
-
+                doPopup(v);
                 return true;
             }
         });
+
+
+
+
 
         Button btn = (Button) findViewById(R.id.btnAggiungi);
 
@@ -137,6 +149,38 @@ public class Carrello extends AppCompatActivity{
 
 
     }
+
+
+    private void doPopup(View v){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.setOnMenuItemClickListener(
+                new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.popup_one:
+                                Toast.makeText(Carrello.this, "Popup item" +
+                                        "one selected",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+
+                        }
+
+
+                    }
+                }
+
+        );
+
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_popup,popupMenu.getMenu());
+        popupMenu.show();
+
+        }
+
+
 
 
 }

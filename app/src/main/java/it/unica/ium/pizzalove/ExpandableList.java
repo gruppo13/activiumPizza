@@ -110,30 +110,72 @@ public class ExpandableList extends BaseExpandableListAdapter {
                             View convertView, ViewGroup parent) {
        ListaPizza headerTitle = (ListaPizza) getGroup(groupPosition);
 
+
+
        if (convertView == null) {
            //System.out.println("sei dentro");
            LayoutInflater infalInflater = (LayoutInflater) this._context
                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           convertView = infalInflater.inflate(R.layout.listgroup, null);
+           if (headerTitle.getCount()==0)
+               convertView = infalInflater.inflate(R.layout.listgroup, null);
+           else
+                convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);
        }
+        if (headerTitle.getCount()>0) {
 
-       TextView lblListHeader = (TextView) convertView
-               .findViewById(R.id.lblListHeader);
-       TextView lblListHeaderPrezzo = (TextView) convertView.findViewById(R.id.lblListHeaderPrezzo);
+            TextView lblListNum = (TextView) convertView.findViewById(R.id.lblListHCarrelloNum);
+            TextView lblListNome = (TextView) convertView.findViewById(R.id.lblListHCarrelloNome);
+            TextView lblListPrezzo = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzo);
+            TextView lblListPrezzoTotale = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzoTotale);
 
-       lblListHeader.setTypeface(null, Typeface.BOLD);
-       lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
+            lblListNome.setTypeface(null, Typeface.BOLD);
+            lblListPrezzoTotale.setTypeface(null, Typeface.BOLD);
+
+
+            lblListPrezzoTotale.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo() * headerTitle.getCount()));
+            lblListNum.setText(Integer.toString(headerTitle.getCount()));
+
+            if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
+                lblListNome.setText("La tua creazione");
+
+            }else {
+
+                lblListNome.setText(headerTitle.getStringNome());
+            }
+
+            lblListPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+
+        }
+       else {
+            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
+            TextView lblListHeaderPrezzo = (TextView) convertView.findViewById(R.id.lblListHeaderPrezzo);
+
+            lblListHeader.setTypeface(null, Typeface.BOLD);
+            lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
+
+
+            if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
+
+                lblListHeader.setText("La tua creazione");
+            } else {
+                lblListHeader.setText(headerTitle.getStringNome());
+
+            }
+
+            lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+        }
 
 
 
-       String prezzoString;
-       if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
-           lblListHeader.setText("La tua creazione");
-       }else {
-            lblListHeader.setText(headerTitle.getStringNome());
-       }
 
-       lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+
+
+
+
+
+
+
+
 
        return convertView;
    }

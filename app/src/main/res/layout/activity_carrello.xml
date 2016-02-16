@@ -16,7 +16,8 @@
         android:divider="#ffffff"
         android:footerDividersEnabled="true"
         android:longClickable="false"
-        android:contextClickable="false" />
+        android:contextClickable="false"
+        android:headerDividersEnabled="false" />
 
     <LinearLayout
         android:padding="12dp"

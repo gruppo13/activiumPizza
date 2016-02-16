@@ -16,4 +16,9 @@
     <string name="btnElenco">Le classiche</string>
     <string name="btnAddPizzaCreate">Creata</string>
     <string name="txtTotale">0.00€</string>
+    <string name="lblListHCarrelloNum">12</string>
+    <string name="lblListHCarrelloNome">12</string>
+    <string name="lblListHCarrelloPrezzo">12</string>
+    <string name="lblListHCarrelloTotale">12</string>
+    <string name="expandableList">expandableList</string>
 </resources>
