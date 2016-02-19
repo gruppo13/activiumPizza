@@ -18,7 +18,7 @@ public class Scelta extends AppCompatActivity{
 
         Button btnElenco = (Button) findViewById(R.id.btnElenco);
         Button btnCrea = (Button) findViewById(R.id.btnCrea);
-        Button btnPizzaGiorno = (Button) findViewById(R.id.btnPizzaGiorno);
+
 
 
 

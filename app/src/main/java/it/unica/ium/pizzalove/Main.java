@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 /**
  * Created by perlo on 14/02/16.
@@ -34,10 +36,11 @@ public class Main extends AppCompatActivity{
             }
         });
 
+/*
+        ListView view = (ListView) findViewById(R.id.expListPizzerie);
+        view.addHeaderView(findViewById();
 
-
-
-
+*/
         //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,13 +46,60 @@ public class ElencoPizze extends AppCompatActivity{
 
         listePizzeClassiche = new ArrayList<>();
         listePizzeClassiche = Pizza.getPizzeClassiche();
+        Button btn2 =  (Button)findViewById(R.id.btnModificaClassica);
+        Button btn1 = (Button)findViewById(R.id.btnAgggiungiClassica);
+        final int[] lastExpandedPosition = {-1, -1}; // ultima posizione aperta, ultima posizione chiusa
+
+        /*if (lastExpandedPosition[0] >=0) {
+            btn1.setVisibility(View.VISIBLE);
+            btn2.setVisibility(View.VISIBLE);
+            btn2.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(ElencoPizze.this, CreaPizza.class);
+                    Bundle b = getIntent().getExtras();
+                    Log.d("sei dentron on long2", "ok");
+                    b.putString("aggiunte", listePizzeClassiche.get(lastExpandedPosition[1]).getStringNome());
+                    System.out.println("sei ");
+                    intent.putExtras(b);
+                    startActivityForResult(intent, 0);
+                }
+            });
+            btn1.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ElencoPizze.this, Carrello.class);
+                    Bundle b = getIntent().getExtras();
+
+                    ArrayList<String> pizzeClassiche;
+
+                    if (b.getStringArrayList("classica") != null)
+                        pizzeClassiche = b.getStringArrayList("classica");
+                    else
+                        pizzeClassiche = new ArrayList<String>();
+
+                    pizzeClassiche.add(Pizza.getPizzeClassiche().get(lastExpandedPosition[1]).getStringNome());
+                    b.putStringArrayList("classica", pizzeClassiche);
+                    // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+                    intent.putExtras(b);
+                    startActivityForResult(intent, 0);
+
+                }
+            });
+
+        }else{
+            btn1.setVisibility(View.INVISIBLE);
+            btn2.setVisibility(View.INVISIBLE);
+
+        }*/
         listAdapter = new ExpandableList(this,listePizzeClassiche);
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
         // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
 
-        final int[] lastExpandedPosition = {-1, -1};
+
 
         expListView.setOnLongClickListener(
                 new View.OnLongClickListener() {
@@ -66,25 +114,18 @@ public class ElencoPizze extends AppCompatActivity{
 
 
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
-                // cambia attivita
-                //setContentView(R.layout.activity_creapizza);
-                expListView.collapseGroup(groupPosition);
-                //cambia la quantita delle pizze selezionate
+                                                @Override
+                                                public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
+                                                    // cambia attivita
+                                                    //setContentView(R.layout.activity_creapizza);
+                                                    expListView.collapseGroup(groupPosition);
+                                                    //cambia la quantita delle pizze selezionate
                /**/
-
-
-
-
-
-
-
-                    if(expListView.isGroupExpanded(groupPosition)){
-                        //vai al carrello doppio click
-                        if (lastExpandedPosition[1] == groupPosition) {
-                            // Log.i("group position", groupPosition);
-                            //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
+                                                    if (expListView.isGroupExpanded(groupPosition)) {
+                                                        //vai al carrello doppio click
+                                                        if (lastExpandedPosition[1] == groupPosition) {
+                                                            // Log.i("group position", groupPosition);
+                                                            //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
 /*
                             Intent intent = new Intent(ElencoPizze.this, Carrello.class);
                             Bundle b = getIntent().getExtras();
@@ -101,93 +142,104 @@ public class ElencoPizze extends AppCompatActivity{
                             // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                             intent.putExtras(b);
                             startActivityForResult(intent, 0);
-*/                          View view = listAdapter.getGroupView(groupPosition, false, v, null);
-                            View viewButton = listAdapter.getChildView(groupPosition, listePizzeClassiche.get(groupPosition).getCount() - 1, true, v, null);
+*/
+                                                            System.out.println("group clicked 1");
+
+                                                        } else {
+                                                            System.out.println("group clicked 2");
+                                                            expListView.collapseGroup(groupPosition);
+                                                        }
 
 
-                           Button btn1 = (Button) viewButton.findViewById(R.id.btnModificaClassica);
-                           Button btn2 = (Button) viewButton.findViewById(R.id.btnAgggiungiClassica);
-
-                              btn1.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View v) {
-                                      System.out.println("sei dentron on long");
-                                      TextView quantita = (TextView) v.findViewById(R.id.lblListHeaderN);
-                                      quantita.setText("1");
-
-
-                                  }
-                              });
-                            btn2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(ElencoPizze.this, CreaPizza.class);
-                                    Bundle b = getIntent().getExtras();
-
-                                    ArrayList<String> pizzeClassiche;
-
-                                    if (b.getStringArrayList("classica") != null)
-                                        pizzeClassiche = b.getStringArrayList("classica");
-                                    else
-                                        pizzeClassiche = new ArrayList<String>();
-
-                                    pizzeClassiche.add(Pizza.getPizzeClassiche().get(groupPosition).getStringNome());
-                                    b.putStringArrayList("classica", pizzeClassiche);
-                                    // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
-                                    intent.putExtras(b);
-                                    startActivityForResult(intent, 0);
-
-
-
-                                }
-                            });
-
-                        } else {
-                            //  System.out.println("group clicked 2");
-                            expListView.collapseGroup(groupPosition);
-                        }
-
-
-                    }
-
-                    else
-
-                    {//espandi lista
+                                                    } else {//espandi lista
                       /*  */
 
+                                                        System.out.println("group clicked 3");
 
 
-
-                        lastExpandedPosition[1] = groupPosition;
-                        if (lastExpandedPosition[0] == groupPosition) {
-                            System.out.println("same expanded group");
-                        } else {
-                            if (lastExpandedPosition[0] != -1
-                                    && groupPosition != lastExpandedPosition[0]) {
-                                expListView.collapseGroup(lastExpandedPosition[0]);
-                            }
-                            lastExpandedPosition[0] = groupPosition;
-
+                                                        lastExpandedPosition[1] = groupPosition;
+                                                        if (lastExpandedPosition[0] == groupPosition) {
+                                                            System.out.println("same expanded group");
+                                                        } else {
+                                                            if (lastExpandedPosition[0] != -1
+                                                                    && groupPosition != lastExpandedPosition[0]) {
+                                                                expListView.collapseGroup(lastExpandedPosition[0]);
+                                                            }
+                                                            lastExpandedPosition[0] = groupPosition;
 
 
+                                                        }
+                                                        expListView.expandGroup(groupPosition);
 
-                        }
-                        expListView.expandGroup(groupPosition);
+
+                                                    }
+
+
+                                                    // Toast.makeText(ElencoPizze.this,"You selected"+String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).
+
+                                                    // show();
+
+                                                    return true;
+                                                }
+
+
+                                            }
+
+        );
+
+            btn2.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (lastExpandedPosition[0] >= 0) {
+                        Intent intent = new Intent(ElencoPizze.this, CreaPizza.class);
+                        Bundle b = getIntent().getExtras();
+                        b.putString("aggiunte", listePizzeClassiche.get(lastExpandedPosition[1]).getStringNome());
+
+                        intent.putExtras(b);
+                        startActivityForResult(intent, 0);
+                    } else {
+                        Toast.makeText(ElencoPizze.this,"Non hai selezionato nessuna pizza",Toast.LENGTH_SHORT).show();
+
 
                     }
+                }
+            });
+            btn1.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (lastExpandedPosition[0] >= 0) {
+                        Intent intent = new Intent(ElencoPizze.this, Carrello.class);
+                        Bundle b = getIntent().getExtras();
+
+                        ArrayList<String> pizzeClassiche;
+
+                        if (b.getStringArrayList("classica") != null)
+                            pizzeClassiche = b.getStringArrayList("classica");
+                        else
+                            pizzeClassiche = new ArrayList<String>();
+
+                        pizzeClassiche.add(Pizza.getPizzeClassiche().get(lastExpandedPosition[1]).getStringNome());
+                        b.putStringArrayList("classica", pizzeClassiche);
+                        // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+                        intent.putExtras(b);
+                        onResume();
+                        startActivityForResult(intent, 0);
+
+                    }
+                else {
+                    Toast.makeText(ElencoPizze.this,"Non hai selezionato nessuna pizza",Toast.LENGTH_SHORT).show();
 
 
-                   // Toast.makeText(ElencoPizze.this,"You selected"+String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).
-
-                   // show();
-
-                    return true;
+                }
                 }
 
 
-            }
 
-            );
+
+
+
+            });
+
 
 /*
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -218,16 +270,24 @@ public class ElencoPizze extends AppCompatActivity{
             }
         });*/
 
-            client=new GoogleApiClient.Builder(this).
+            client=new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
 
-            addApi(AppIndex.API)
 
-            .
 
-            build();
+
+
+/*
+    View.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.d("sei dentron on long", "ok");
+            TextView quantita = (TextView) v.findViewById(R.id.lblListHeaderN);
+            quantita.setText("1");
+
+
         }
-
-
+    });*/
         @Override
     public void onStart() {
         super.onStart();

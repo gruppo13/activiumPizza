@@ -49,29 +49,35 @@ public class CreaPizza extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String pizza;
+        Bundle bundle;
+
+        bundle = getIntent().getExtras();
         List<ListaPizza> elenco = new ArrayList<>();
-        Bundle bundle = getIntent().getExtras();
-
-        List<String> listpizze;
-        if (bundle.getStringArrayList("classica")!= null) {
-            listpizze = bundle.getStringArrayList("classica");
-/*
-            for (String pizza : listpizze) {
-                if (Pizza.containPizza(elenco,pizza)==-1){
-                    elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
-                }
-                else
-                    elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
-            }*/
-        }
-
 
         setContentView(R.layout.activity_creapizza);
-
         this.countIngredienti = 0;
         listingredienti = new ArrayList<>();
         listingredienti = Pizza.resetIngredienti();
-        updatePizza(null);
+
+
+
+
+        if (bundle.getString("aggiunte")!= null) {
+            pizza = bundle.getString("aggiunte");
+            ListaPizza pizzanuova = new ListaPizza(ListaPizza.getClassicaS(pizza));
+            for(ListaIngrediente ingrediente: pizzanuova.getIngredienti()){
+                Log.d("ingrediente", ingrediente.getStringNome());
+                listingredienti.get(Pizza.trovaIngrediente(listingredienti,ingrediente.getStringNome())).addIngrediente();
+                countIngredienti++;
+                //updatePizza(ingrediente.getStringNome());
+            }
+
+        }
+
+        updatePizza();
+
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
 
@@ -80,9 +86,8 @@ public class CreaPizza extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
 
-
-
                 //ArrayList<ArrayList<Integer>>
+                Bundle b = getIntent().getExtras();
                 for (ListaIngrediente ingrediente : listingredienti) {
 
                     ArrayList<Integer> ingredientiCreata;
@@ -92,7 +97,6 @@ public class CreaPizza extends AppCompatActivity {
                         ingredientiCreata = new ArrayList<Integer>();
                     ingredientiCreata.add(ingrediente.getCount());
                     b.putIntegerArrayList(ingrediente.getStringNome(), ingredientiCreata);
-
                 }
 
                 if (b.getInt("creata")>0)
@@ -101,7 +105,7 @@ public class CreaPizza extends AppCompatActivity {
                   b.putInt("creata",1);
                // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                 intent.putExtras(b);
-
+                onResume();
 
                 startActivityForResult(intent, 0);
 
@@ -126,18 +130,8 @@ public class CreaPizza extends AppCompatActivity {
         //immagini da modificare
         findViewById(R.id.imageMain).setOnDragListener(dropListener);
 
-      /*  findViewById(R.id.imageMain).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                doPopup(v);
-                return true;
-
-            }
-        });*/
-
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
-        imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
+        //imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
         imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
 
 
@@ -166,7 +160,7 @@ public class CreaPizza extends AppCompatActivity {
                         if ((Pizza.trovaIngredientiInseriti(listingredienti, item.toString()))) {
                             listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
                             countIngredienti--;
-                            updatePizza(null);
+                            updatePizza();
                             Toast.makeText(CreaPizza.this,"Hai rimosso "+ item.toString(),Toast.LENGTH_SHORT).show();
                         }
                         return true;
@@ -200,13 +194,13 @@ public class CreaPizza extends AppCompatActivity {
             if (!(Pizza.trovaIngredientiInseriti(listingredienti,imageClick))) {
                 listingredienti.get(Pizza.trovaIngrediente(listingredienti,imageClick)).addIngrediente();
                 countIngredienti++;
-                updatePizza(imageClick);
+                updatePizza();
                 Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
             }else{//ingrediente gia inserito nell immagine allora toglielo
                 if ((Pizza.trovaIngredientiInseriti(listingredienti, imageClick))) {
                     listingredienti.get(Pizza.trovaIngrediente(listingredienti, imageClick)).setIngrediente(0);
                     countIngredienti--;
-                    updatePizza(null);
+                    updatePizza();
                     Toast.makeText(CreaPizza.this,"Hai rimosso "+ imageClick,Toast.LENGTH_SHORT).show();
                 }
             }
@@ -241,7 +235,7 @@ public class CreaPizza extends AppCompatActivity {
                         if (!(Pizza.trovaIngredientiInseriti(listingredienti,draggedImageText))) {
                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
-                           updatePizza(draggedImageText);
+                           updatePizza();
 
                             Toast.makeText(CreaPizza.this,"Hai aggiunto "+ draggedImageText,Toast.LENGTH_SHORT).show();
 
@@ -292,7 +286,7 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
 
 
 
-private void updatePizza(String nuovoIngrediente) {
+private void updatePizza() {
     Drawable[] layers = new Drawable[countIngredienti+1];
     Resources resources = getResources();
     ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
@@ -320,9 +314,8 @@ private void updatePizza(String nuovoIngrediente) {
     }
 
     layerDrawable = new LayerDrawable(layers);
-
-
     imgMain.setImageDrawable(layerDrawable);
+
 }
 
 

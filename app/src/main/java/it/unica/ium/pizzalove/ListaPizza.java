@@ -196,6 +196,7 @@ public class ListaPizza {
     public Classica getNome() {
         return this.nome;
     }
+
     public List<ListaIngrediente> getIngredienti (){
         return this.ingrediente;
     }
@@ -203,7 +204,6 @@ public class ListaPizza {
     private void setPrezzoCreata(){
         for(ListaIngrediente ingrediente : this.ingrediente) {
             if (ingrediente.getCount()>0){
-
                 this.prezzo+= ingrediente.getPrezzoIngrediente() * ingrediente.getCount();
             }
         }

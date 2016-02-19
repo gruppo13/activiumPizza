@@ -8,8 +8,16 @@
     tools:context="it.unica.ium.pizzalove.Carrello">
 
 
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:baselineAligned="false"
+        android:focusable="false">
+
     <ExpandableListView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/carrello"
@@ -17,17 +25,10 @@
         android:footerDividersEnabled="true"
         android:longClickable="false"
         android:contextClickable="false"
-        android:headerDividersEnabled="false" />
+        android:headerDividersEnabled="false"
+        android:layout_weight="0.3" />
 
-    <LinearLayout
-        android:padding="12dp"
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:baselineAligned="false"
-        android:focusable="false">
 
         <LinearLayout
         android:layout_weight="1"
@@ -55,35 +56,51 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="aggiungi"
-                android:id="@+id/btnAggiungi"
-                android:layout_weight="1" />
 
-            <Space
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Concludi"
                 android:id="@+id/btnConcludi" />
 
 
 
+        </LinearLayout>
     </LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.5"
+
+
+    android:orientation="vertical">
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnCreaPizza"
+        android:text="CreaPizza" />
+
+
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnCreaElenco"
+        android:text="Il nostro menu" />
+
 
 </LinearLayout>
+
 
 </LinearLayout>

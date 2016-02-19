@@ -1,7 +1,10 @@
 package it.unica.ium.pizzalove;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,8 @@ public class ExpandableList extends BaseExpandableListAdapter {
    private Context _context;
    List _listDataChild;
     List<String> _listDataHeader;
+    Button btn1;
+    Button btn2;
 
     public ExpandableList(Context context, List<ListaPizza> listChildData) {
         this._context = context;
@@ -35,6 +40,9 @@ public class ExpandableList extends BaseExpandableListAdapter {
                 this._listDataHeader.add(pizza.getStringNome());
 
         }
+
+
+
     }
 
 
@@ -71,23 +79,20 @@ public class ExpandableList extends BaseExpandableListAdapter {
                .findViewById(R.id.lblListItem);
 
 
-       Pizza.printAll(this._listDataChild);
+     //  Pizza.printAll(this._listDataChild);
        txtListChild.setText(childText.getStringNome());
-
+/*
        Button btn = (Button)convertView.findViewById(R.id.btnAgggiungiClassica);
        Button btn2 = (Button)convertView.findViewById(R.id.btnModificaClassica);
        if (isLastChild){
            btn.setVisibility(View.VISIBLE);
            btn2.setVisibility(View.VISIBLE);
-
        }else
        {
            btn.setVisibility(View.GONE);
            btn2.setVisibility(View.GONE);
-
-
        }
-
+*/
        return convertView;
 
 
