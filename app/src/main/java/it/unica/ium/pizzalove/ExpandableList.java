@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -72,6 +73,20 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
        Pizza.printAll(this._listDataChild);
        txtListChild.setText(childText.getStringNome());
+
+       Button btn = (Button)convertView.findViewById(R.id.btnAgggiungiClassica);
+       Button btn2 = (Button)convertView.findViewById(R.id.btnModificaClassica);
+       if (isLastChild){
+           btn.setVisibility(View.VISIBLE);
+           btn2.setVisibility(View.VISIBLE);
+
+       }else
+       {
+           btn.setVisibility(View.GONE);
+           btn2.setVisibility(View.GONE);
+
+
+       }
 
        return convertView;
 
@@ -153,6 +168,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
             quantita.setText("");
         }
+
 
 
        return convertView;

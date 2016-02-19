@@ -49,7 +49,21 @@ public class CreaPizza extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        List<ListaPizza> elenco = new ArrayList<>();
+        Bundle bundle = getIntent().getExtras();
 
+        List<String> listpizze;
+        if (bundle.getStringArrayList("classica")!= null) {
+            listpizze = bundle.getStringArrayList("classica");
+/*
+            for (String pizza : listpizze) {
+                if (Pizza.containPizza(elenco,pizza)==-1){
+                    elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
+                }
+                else
+                    elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
+            }*/
+        }
 
 
         setContentView(R.layout.activity_creapizza);
@@ -65,7 +79,7 @@ public class CreaPizza extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
-                Bundle b = getIntent().getExtras();
+
 
 
                 //ArrayList<ArrayList<Integer>>
