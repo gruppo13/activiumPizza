@@ -12,11 +12,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ActionProvider;
 import android.view.ContextMenu;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,15 +70,34 @@ public class CreaPizza extends AppCompatActivity {
             pizza = bundle.getString("aggiunte");
             ListaPizza pizzanuova = new ListaPizza(ListaPizza.getClassicaS(pizza));
             for(ListaIngrediente ingrediente: pizzanuova.getIngredienti()){
-                Log.d("ingrediente", ingrediente.getStringNome());
                 listingredienti.get(Pizza.trovaIngrediente(listingredienti,ingrediente.getStringNome())).addIngrediente();
                 countIngredienti++;
-                //updatePizza(ingrediente.getStringNome());
+                setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti,ingrediente.getStringNome())));
+
             }
 
         }
 
-        updatePizza();
+
+            // immagini da trascinare
+            findViewById(R.id.sugo).setOnLongClickListener(longListener);
+            findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
+            findViewById(R.id.basilico).setOnLongClickListener(longListener);
+            findViewById(R.id.salmone).setOnLongClickListener(longListener);
+            findViewById(R.id.funghi).setOnLongClickListener(longListener);
+
+            //immagini da click
+            findViewById(R.id.sugo).setOnClickListener(clickListener);
+            findViewById(R.id.mozzarella).setOnClickListener(clickListener);
+            findViewById(R.id.basilico).setOnClickListener(clickListener);
+            findViewById(R.id.salmone).setOnClickListener(clickListener);
+            findViewById(R.id.funghi).setOnClickListener(clickListener);
+
+
+
+
+
+
 
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
@@ -84,6 +105,8 @@ public class CreaPizza extends AppCompatActivity {
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
 
                 //ArrayList<ArrayList<Integer>>
@@ -112,20 +135,8 @@ public class CreaPizza extends AppCompatActivity {
             }
         });
 
-        // immagini da trascinare
-        findViewById(R.id.image).setOnLongClickListener(longListener);
-        findViewById(R.id.image1).setOnLongClickListener(longListener);
-        findViewById(R.id.image2).setOnLongClickListener(longListener);
-        findViewById(R.id.image3).setOnLongClickListener(longListener);
-        findViewById(R.id.image4).setOnLongClickListener(longListener);
 
-        //immagini da click
-        findViewById(R.id.image).setOnClickListener(clickListener);
-        findViewById(R.id.image1).setOnClickListener(clickListener);
-        findViewById(R.id.image2).setOnClickListener(clickListener);
-        findViewById(R.id.image3).setOnClickListener(clickListener);
-        findViewById(R.id.image4).setOnClickListener(clickListener);
-
+        updatePizza();
 
         //immagini da modificare
         findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -133,8 +144,6 @@ public class CreaPizza extends AppCompatActivity {
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
         //imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
         imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
-
-
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -148,29 +157,143 @@ public class CreaPizza extends AppCompatActivity {
 
             MenuInflater inflater = getMenuInflater();
             menu.setHeaderTitle("rimuovi ingrediente");
+            menu.add("rimuovi tutti gli ingredienti");
+            menu.add("rimuovi ingredienti selezionati(funzionalita da sviluppare)");
+
+            int i = 2;
+
             for (ListaIngrediente ingrediente : listingredienti) {
-                if (ingrediente.getCount() > 0)
-                    menu.add(ingrediente.getStringNome());
+                if (ingrediente.getCount() > 0) {
+                    menu.addSubMenu(2, i + 1, menu.NONE, ingrediente.getStringNome());
+                    menu.setGroupCheckable(2, true, false);
+
+                    // menu.add(ingrediente.getStringNome());
+                    //menu.setGroupCheckable(1, true, true);            //rimuovi tutti gli ingredienti
+                    i++;
+                }
             }
-            inflater.inflate(R.menu.menu_context_pizza, menu);
-            for (int i = 0; i < menu.size(); i++) {
-                menu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            if (i > 2) {
+
+                inflater.inflate(R.menu.menu_context_pizza, menu);
+
+                menu.getItem(1).setEnabled(false);
+
+                menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if ((Pizza.trovaIngredientiInseriti(listingredienti, item.toString()))) {
-                            listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
-                            countIngredienti--;
-                            updatePizza();
-                            Toast.makeText(CreaPizza.this,"Hai rimosso "+ item.toString(),Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < listingredienti.size(); i++) {
+                            listingredienti.get(i).setIngrediente(0);
                         }
+                        countIngredienti = 0;
+                        updatePizza();
+                        Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < listingredienti.size(); i++) {
+                            setVisibilityIngrediente(listingredienti.get(i));
+                        }
+
                         return true;
                     }
                 });
+//seleziona
+
+
+                //elimina solo gli elementi selezionati
+                menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        return true;
+                    }
+                });
+
+
+                // rimuove solo l-ingrediente selezionato
+
+                for (int j = 2; j < menu.size(); j++) {
+                    menu.getItem(j).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if ((Pizza.trovaIngredientiInseriti(listingredienti, item.toString()))) {
+                                listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
+                                countIngredienti--;
+                                updatePizza();
+                                Toast.makeText(CreaPizza.this, "Hai rimosso " + item.toString(), Toast.LENGTH_SHORT).show();
+                                setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())));
+                            }
+                            return true;
+                        }
+                    });
+                }
             }
         }
 
 
+
     };
+
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        for(ListaIngrediente ingrediente: listingredienti)
+            if (item.getTitle().equals(ingrediente.getStringNome())){
+                item.setChecked(true);
+                return true;
+            }
+        return false;
+    }
+
+    /* rende visibile gli ingredienti */
+    private void setVisibilityIngrediente(ListaIngrediente ingrediente){
+
+        switch (ingrediente.getNome()) {
+            case SUGO:
+                findViewById(R.id.sugo).setVisibility(View.VISIBLE);
+                break;
+            case MOZZARELLA:
+                findViewById(R.id.mozzarella).setVisibility(View.VISIBLE);
+                break;
+            case BASILICO:
+                findViewById(R.id.basilico).setVisibility(View.VISIBLE);
+                break;
+            case FUNGHI:
+                findViewById(R.id.funghi).setVisibility(View.VISIBLE);
+                break;
+            case SALMONE:
+                findViewById(R.id.salmone).setVisibility(View.VISIBLE);
+                break;
+            default:
+                Log.d("No Found", "ingrediente non ancora disponibile");
+                break;
+
+        }
+    }
+
+
+    private void setGoneIngrediente(ListaIngrediente ingrediente){
+
+        switch (ingrediente.getNome()) {
+            case SUGO:
+                findViewById(R.id.sugo).setVisibility(View.GONE);
+                break;
+            case MOZZARELLA:
+                findViewById(R.id.mozzarella).setVisibility(View.GONE);
+                break;
+            case BASILICO:
+                findViewById(R.id.basilico).setVisibility(View.GONE);
+                break;
+            case FUNGHI:
+                findViewById(R.id.funghi).setVisibility(View.GONE);
+                break;
+            case SALMONE:
+                findViewById(R.id.salmone).setVisibility(View.GONE);
+                break;
+            default:
+                Log.d("No Found", "ingrediente non ancora disponibile");
+                break;
+
+        }
+    }
 
 
     View.OnLongClickListener longListener = new View.OnLongClickListener() {
@@ -179,6 +302,7 @@ public class CreaPizza extends AppCompatActivity {
             View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(v);
             ClipData data = ClipData.newPlainText("", "");
             v.startDrag(data, dragShadow, v, 0);
+
             return false;
         }
     };
@@ -190,20 +314,24 @@ public class CreaPizza extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
-
+// aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
             if (!(Pizza.trovaIngredientiInseriti(listingredienti,imageClick))) {
                 listingredienti.get(Pizza.trovaIngrediente(listingredienti,imageClick)).addIngrediente();
                 countIngredienti++;
                 updatePizza();
                 Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
-            }else{//ingrediente gia inserito nell immagine allora toglielo
+
+                v.setVisibility(View.GONE);
+
+
+            } /*else{//ingrediente gia inserito nell immagine allora toglielo
                 if ((Pizza.trovaIngredientiInseriti(listingredienti, imageClick))) {
                     listingredienti.get(Pizza.trovaIngrediente(listingredienti, imageClick)).setIngrediente(0);
                     countIngredienti--;
                     updatePizza();
                     Toast.makeText(CreaPizza.this,"Hai rimosso "+ imageClick,Toast.LENGTH_SHORT).show();
                 }
-            }
+            }*/
         }
 
 
@@ -236,6 +364,7 @@ public class CreaPizza extends AppCompatActivity {
                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
                            updatePizza();
+                            setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, draggedImageText)));
 
                             Toast.makeText(CreaPizza.this,"Hai aggiunto "+ draggedImageText,Toast.LENGTH_SHORT).show();
 
@@ -311,10 +440,16 @@ private void updatePizza() {
                     System.out.println("errore nel conteggio degli ingredienti");
                 }
             }
+        findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
+    }
+    else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
+        findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
+
     }
 
     layerDrawable = new LayerDrawable(layers);
     imgMain.setImageDrawable(layerDrawable);
+
 
 }
 

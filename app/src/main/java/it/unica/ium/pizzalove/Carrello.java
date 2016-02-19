@@ -3,11 +3,15 @@ package it.unica.ium.pizzalove;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,7 @@ public class Carrello extends AppCompatActivity{
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
+    List<ListaPizza> elenco = new ArrayList<>();
 
     Bundle bundle;
 
@@ -31,7 +36,6 @@ public class Carrello extends AppCompatActivity{
         setContentView(R.layout.activity_carrello);
 
         bundle = getIntent().getExtras();
-        List<ListaPizza> elenco = new ArrayList<>();
 
         if (bundle.getStringArrayList("classica")!= null) {
             listpizze = bundle.getStringArrayList("classica");
@@ -56,9 +60,6 @@ public class Carrello extends AppCompatActivity{
                 }
 
                 elenco.add(new ListaPizza(listingredienti));
-
-
-
             }
 
         }
@@ -70,6 +71,9 @@ public class Carrello extends AppCompatActivity{
         TextView totale = (TextView) findViewById(R.id.txtTotale);
         totale.setText(Pizza.totalePrezzo(elenco));
         Pizza.printAll(elenco);
+
+        expListView.setOnCreateContextMenuListener(optionPizzeCarrello);
+
 
         Button btn = (Button) findViewById(R.id.btnCreaPizza);
         Button btn2 = (Button) findViewById(R.id.btnCreaElenco);
@@ -85,6 +89,7 @@ public class Carrello extends AppCompatActivity{
                 startActivityForResult(intent, 0);
             }
         });
+
 //aggiungi una pizza dal menu
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +110,52 @@ public class Carrello extends AppCompatActivity{
 
     }
 
+    View.OnCreateContextMenuListener optionPizzeCarrello = new View.OnCreateContextMenuListener() {
+        //registerForContextMenu(v);
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+            MenuInflater inflater = getMenuInflater();
+            menu.add("rimuovi");
+            menu.add("aggiunte");
+
+
+            int i = 2;
+
+            for (ListaPizza  pizza : elenco) {
+                if (pizza.getCount() > 0) {
+
+                    // menu.add(ingrediente.getStringNome());
+                    //menu.setGroupCheckable(1, true, true);            //rimuovi tutti gli ingredienti
+                    i++;
+                }
+            }
+
+
+                inflater.inflate(R.menu.menu_context_pizza, menu);
+
+                menu.getItem(1).setEnabled(false);
+
+                menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+                        //elenco.remove();
+
+
+                        return true;
+                    }
+                });
+//seleziona
+
+
+            }
+
+
+
+
+    };
 
 
 

@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/image"
+                android:id="@+id/sugo"
                 android:src="@drawable/sugo"
                 android:contentDescription="@string/image0" />
 
@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/image1"
+                android:id="@+id/mozzarella"
                 android:src="@drawable/mozzarella"
                 android:contentDescription="@string/image1" />
 
@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/image2"
+                android:id="@+id/basilico"
                 android:src="@drawable/basilico"
                 android:contentDescription="@string/image2" />
 
@@ -72,14 +72,14 @@
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/image3"
+                android:id="@+id/funghi"
                 android:src="@drawable/funghi"
                 android:contentDescription="@string/image3" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/image4"
+                android:id="@+id/salmone"
                 android:src="@drawable/salmone"
                 android:contentDescription="@string/image4" />
 
