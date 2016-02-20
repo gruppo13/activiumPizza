@@ -82,15 +82,11 @@ public class CreaPizza extends AppCompatActivity {
             // immagini da trascinare
             findViewById(R.id.sugo).setOnLongClickListener(longListener);
             findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
-            findViewById(R.id.basilico).setOnLongClickListener(longListener);
-            findViewById(R.id.salmone).setOnLongClickListener(longListener);
             findViewById(R.id.funghi).setOnLongClickListener(longListener);
 
             //immagini da click
             findViewById(R.id.sugo).setOnClickListener(clickListener);
             findViewById(R.id.mozzarella).setOnClickListener(clickListener);
-            findViewById(R.id.basilico).setOnClickListener(clickListener);
-            findViewById(R.id.salmone).setOnClickListener(clickListener);
             findViewById(R.id.funghi).setOnClickListener(clickListener);
 
 
@@ -254,14 +250,12 @@ public class CreaPizza extends AppCompatActivity {
                 findViewById(R.id.mozzarella).setVisibility(View.VISIBLE);
                 break;
             case BASILICO:
-                findViewById(R.id.basilico).setVisibility(View.VISIBLE);
+               // findViewById(R.id.basilico).setVisibility(View.VISIBLE);
                 break;
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.VISIBLE);
                 break;
-            case SALMONE:
-                findViewById(R.id.salmone).setVisibility(View.VISIBLE);
-                break;
+
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
                 break;
@@ -280,13 +274,12 @@ public class CreaPizza extends AppCompatActivity {
                 findViewById(R.id.mozzarella).setVisibility(View.GONE);
                 break;
             case BASILICO:
-                findViewById(R.id.basilico).setVisibility(View.GONE);
+                //findViewById(R.id.basilico).setVisibility(View.GONE);
                 break;
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.GONE);
-                break;
-            case SALMONE:
-                findViewById(R.id.salmone).setVisibility(View.GONE);
+
+
                 break;
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
@@ -400,9 +393,7 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
         case FUNGHI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
             break;
-        case SALMONE:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.salmone);
-            break;
+
         default:
             System.out.println("ingrediente non disponibile");
             bm=null;

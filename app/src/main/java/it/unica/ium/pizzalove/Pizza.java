@@ -27,8 +27,11 @@ public class Pizza {
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO, 0));
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE, 0));
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ORIGANO, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SALMONE, 0));
+
+
+
+
+
             return listingredienti;
 
     }

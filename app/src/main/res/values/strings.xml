@@ -3,9 +3,22 @@
 
     <string name="image0">sugo</string>
     <string name="image1">mozzarella</string>
-    <string name="image2">basilico</string>
-    <string name="image3">funghi</string>
-    <string name="image4">salmone</string>
+    <string name="image2">becon</string>
+    <string name="image3">broccoli</string>
+    <string name="image4">cipolle</string>
+    <string name="image5">formaggio</string>
+    <string name="image6">funghi</string>
+    <string name="image7">gamberetti</string>
+    <string name="image8">melanzane</string>
+    <string name="image9">olive</string>
+    <string name="image10">patatine</string>
+    <string name="image11">peperoncini</string>
+    <string name="image12">peperoni</string>
+    <string name="image13">pomodori</string>
+    <string name="image14">salame</string>
+    <string name="image15">uova</string>
+    <string name="image16">wurstel</string>
+    <string name="image17">zucchine</string>
 
     <string name="imageMain">imageMain</string>
     <string name="listPizza">listPizza</string>
