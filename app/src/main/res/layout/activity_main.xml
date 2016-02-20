@@ -8,6 +8,22 @@
     tools:context="it.unica.ium.pizzalove.Main"
     android:weightSum="1">
 
+    <AutoCompleteTextView
+        android:id="@+id/add_alarm_form_to"
+        android:layout_height="wrap_content"
+        android:inputType="text|textMultiLine"
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="20dp"
+        android:maxLines="2"
+        android:layout_marginRight="10dp"
+        android:layout_row="1"
+        android:fontFamily="sans-serif-light"
+        android:textSize="16dp"
+        android:layout_column="0"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+    </AutoCompleteTextView>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
