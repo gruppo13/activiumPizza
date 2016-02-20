@@ -13,7 +13,15 @@ public class Pizza {
         List<ListaPizza> tmp = new ArrayList<>();
         tmp.add(new ListaPizza(ListaPizza.Classica.Margherita));
         tmp.add(new ListaPizza(ListaPizza.Classica.Napoli));
-        tmp.add(new ListaPizza(ListaPizza.Classica.QuattroStagioni));
+        tmp.add(new ListaPizza(ListaPizza.Classica.WurstelCipolle));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Funghi));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Cotto));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Capricciosa));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Vegetariana));
+        tmp.add(new ListaPizza(ListaPizza.Classica.ProsciuttoFunghi));
+        tmp.add(new ListaPizza(ListaPizza.Classica.AllAmerican));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Carbonara));
+        tmp.add(new ListaPizza(ListaPizza.Classica.Parmigiana));
         return tmp;
     }
 
@@ -27,13 +35,24 @@ public class Pizza {
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO, 0));
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE, 0));
         listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI, 0));
-
-
-
-
-
-            return listingredienti;
-
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BECON, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BROCCOLI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CIPOLLE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FORMAGGIO, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.GAMBERETTI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MELANZANE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.OLIVE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PATATINE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONCINI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.POMODORI, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SALAME, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.UOVA, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ZUCCHINE, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO, 0));
+        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CAPPERI, 0));
+        return listingredienti;
     }
 
     /* return l-indice nella quale si trova ingrediente in cui ha valore magg di zero */
@@ -44,12 +63,9 @@ public class Pizza {
         for (ListaIngrediente ingrediente : listaingredienti){
             if ((ingrediente.getStringNome().equals(nomeString))&& (ingrediente.getCount()>0))
                     return true;
-
             i++;
         }
-
         return false;
-
     }
 
     public static int trovaIngrediente(List<ListaIngrediente> listaingredienti, String nomeString) {
@@ -59,15 +75,10 @@ public class Pizza {
         for (ListaIngrediente ingrediente : listaingredienti){
             if (ingrediente.getStringNome().equals(nomeString))
                 return i;
-
             i++;
         }
-
         return -1;
-
     }
-
-
 
 
 
@@ -77,9 +88,7 @@ public class Pizza {
             prezzo+=nuovo.getPrezzo()*nuovo.getCount();
 
         }
-
         return formatoPrezzo(prezzo);
-
     }
 
 /* ritorna il formato standard */
@@ -99,7 +108,6 @@ public class Pizza {
             for (ListaIngrediente ingrediente :pizza.getIngredienti()){
                 System.out.print("nome " + ingrediente.getStringNome() + "nu > " + ingrediente.getCount());
             }
-
             System.out.println();
         }
     }
@@ -112,8 +120,5 @@ public class Pizza {
             i++;
         }
         return -1;
-
-
     }
-
 }

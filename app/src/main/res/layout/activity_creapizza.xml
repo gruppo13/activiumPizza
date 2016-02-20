@@ -18,11 +18,7 @@
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
             android:src="@drawable/layers"
-
             android:contentDescription="imageMain" />
-
-
-
 
 
     </LinearLayout>
@@ -58,6 +54,30 @@
                 android:id="@+id/mozzarella"
                 android:src="@drawable/mozzarella"
                 android:contentDescription="@string/image1" />
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/capperi"
+                android:src="@drawable/mozzarella"
+                android:contentDescription="@string/image18" />
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/acciughe"
+                android:src="@drawable/mozzarella"
+                android:contentDescription="@string/image19" />
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/basilico"
+                android:src="@drawable/mozzarella"
+                android:contentDescription="@string/image21" />
 
             <ImageView
                 android:layout_weight="1"
@@ -125,6 +145,14 @@
                 android:id="@+id/funghi"
                 android:src="@drawable/icon_funghi"
                 android:contentDescription="@string/image6" />
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/cotto"
+                android:src="@drawable/mozzarella"
+                android:contentDescription="@string/image20" />
+
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"

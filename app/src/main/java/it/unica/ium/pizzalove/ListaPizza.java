@@ -11,7 +11,8 @@ import java.util.List;
 public class ListaPizza {
 
     public enum Classica {
-        Margherita,QuattroStagioni, Napoli, Creata
+        Margherita, Napoli, Funghi, Capricciosa, Cotto, Vegetariana, WurstelCipolle,
+        ProsciuttoFunghi, AllAmerican, Carbonara, Parmigiana, Creata
     }
 
     private Classica nome;
@@ -107,17 +108,65 @@ public class ListaPizza {
                 this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
                 this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE));
                 this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CAPPERI));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO));
                 break;
-            case QuattroStagioni:
+            case Funghi:
                 this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
                 this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI));
+                break;
+            case Capricciosa:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.UOVA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL));
+                break;
+            case WurstelCipolle:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CIPOLLE));
+                break;
+            case Vegetariana:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MELANZANE));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ZUCCHINE));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONI));
+                break;
+            case ProsciuttoFunghi:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI));
+                break;
+            case AllAmerican:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PATATINE));
+                break;
+            case Carbonara:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.UOVA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BECON));
+                break;
+            case Parmigiana:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MELANZANE));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FORMAGGIO));
+                break;
+            case Cotto:
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA));
+                this.ingrediente.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO));
                 break;
             default:
-
                 break;
-
         }
-
     }
 
     private void setPrezzo () {
@@ -126,17 +175,39 @@ public class ListaPizza {
                 this.prezzo=3.0f;
                 break;
             case Napoli:
+                this.prezzo=3.5f;
+                break;
+            case WurstelCipolle:
+                this.prezzo=3.8f;
+                break;
+            case Funghi:
+                this.prezzo=4.5f;
+                break;
+            case Capricciosa:
+                this.prezzo=4.8f;
+                break;
+            case Vegetariana:
+                this.prezzo=4.5f;
+                break;
+            case ProsciuttoFunghi:
+                this.prezzo=4.3f;
+                break;
+            case AllAmerican:
                 this.prezzo=4.0f;
                 break;
-            case QuattroStagioni:
-               this.prezzo=5.0f;
+            case Carbonara:
+                this.prezzo=4.5f;
+                break;
+            case Parmigiana:
+                this.prezzo=4.9f;
+                break;
+            case Cotto:
+                this.prezzo=4.0f;
                 break;
             default:
                 this.prezzo=prezzoBase;
                 break;
-
         }
-
     }
 
 
@@ -173,8 +244,24 @@ public class ListaPizza {
                 return Classica.Margherita;
             case "Napoli":
                 return Classica.Napoli;
-            case "Quattro Stagioni":
-                return Classica.QuattroStagioni;
+            case "Wurstel e Cipolle":
+                return Classica.WurstelCipolle;
+            case "Funghi":
+                return Classica.Funghi;
+            case "Prosciutto e Funghi":
+                return Classica.ProsciuttoFunghi;
+            case "Capricciosa":
+                return Classica.Capricciosa;
+            case "Vegetariana":
+                return Classica.Vegetariana;
+            case "All American":
+                return Classica.AllAmerican;
+            case "Carbonara":
+                return Classica.Carbonara;
+            case "Parmigiana":
+                return Classica.Parmigiana;
+            case "Prosciutto Cotto":
+                return Classica.Cotto;
             default:
                 return Classica.Creata;
         }
@@ -186,8 +273,24 @@ public class ListaPizza {
                 return "Margherita";
             case Napoli:
                 return "Napoli";
-            case QuattroStagioni:
-                return "Quattro Stagioni";
+            case WurstelCipolle:
+                return "Wurstel e Cipolle";
+            case Funghi:
+                return "Funghi";
+            case Capricciosa:
+                return "Capricciosa";
+            case Vegetariana:
+                return "Vegetariana";
+            case ProsciuttoFunghi:
+                return "Prosciutto e Funghi";
+            case AllAmerican:
+                return "All American";
+            case Carbonara:
+                return "Carbonara";
+            case Parmigiana:
+                return "Parmigiana";
+            case Cotto:
+                return "Prosciutto Cotto";
             default:
                 return "not valid";
         }
@@ -207,9 +310,7 @@ public class ListaPizza {
                 this.prezzo+= ingrediente.getPrezzoIngrediente() * ingrediente.getCount();
             }
         }
-
     }
-
 
     public float getPrezzo(){
         return this.prezzo;

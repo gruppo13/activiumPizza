@@ -19,6 +19,10 @@
     <string name="image15">uova</string>
     <string name="image16">wurstel</string>
     <string name="image17">zucchine</string>
+    <string name="image18">capperi</string>
+    <string name="image19">acciughe</string>
+    <string name="image20">cotto</string>
+    <string name="image21">basilico</string>
 
     <string name="imageMain">imageMain</string>
     <string name="listPizza">listPizza</string>

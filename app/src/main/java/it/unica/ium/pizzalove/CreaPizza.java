@@ -119,6 +119,10 @@ public class CreaPizza extends AppCompatActivity {
             findViewById(R.id.uova).setOnClickListener(clickListener);
             findViewById(R.id.wurstel).setOnClickListener(clickListener);
             findViewById(R.id.zucchine).setOnClickListener(clickListener);
+            findViewById(R.id.capperi).setOnClickListener(clickListener);
+            findViewById(R.id.acciughe).setOnClickListener(clickListener);
+            findViewById(R.id.basilico).setOnClickListener(clickListener);
+            findViewById(R.id.cotto).setOnClickListener(clickListener);
 
 
 
@@ -278,7 +282,7 @@ public class CreaPizza extends AppCompatActivity {
                 findViewById(R.id.mozzarella).setVisibility(View.VISIBLE);
                 break;
             case BASILICO:
-               // findViewById(R.id.basilico).setVisibility(View.VISIBLE);
+               findViewById(R.id.basilico).setVisibility(View.VISIBLE);
                 break;
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.VISIBLE);
@@ -328,6 +332,15 @@ public class CreaPizza extends AppCompatActivity {
             case ZUCCHINE:
                 findViewById(R.id.zucchine).setVisibility(View.VISIBLE);
                 break;
+            case COTTO:
+                findViewById(R.id.cotto).setVisibility(View.VISIBLE);
+                break;
+            case ACCIUGHE:
+                findViewById(R.id.acciughe).setVisibility(View.VISIBLE);
+                break;
+            case CAPPERI:
+                findViewById(R.id.capperi).setVisibility(View.VISIBLE);
+                break;
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
                 break;
@@ -346,7 +359,7 @@ public class CreaPizza extends AppCompatActivity {
                 findViewById(R.id.mozzarella).setVisibility(View.GONE);
                 break;
             case BASILICO:
-                //findViewById(R.id.basilico).setVisibility(View.GONE);
+                findViewById(R.id.basilico).setVisibility(View.GONE);
                 break;
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.GONE);
@@ -394,6 +407,15 @@ public class CreaPizza extends AppCompatActivity {
                 break;
             case ZUCCHINE:
                 findViewById(R.id.zucchine).setVisibility(View.GONE);
+                break;
+            case COTTO:
+                findViewById(R.id.cotto).setVisibility(View.GONE);
+                break;
+            case CAPPERI:
+                findViewById(R.id.capperi).setVisibility(View.GONE);
+                break;
+            case ACCIUGHE:
+                findViewById(R.id.acciughe).setVisibility(View.GONE);
                 break;
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
@@ -498,96 +520,69 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
             break;
         case MOZZARELLA:
             bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
-
             break;
         case BASILICO:
             bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
-
             break;
         case FUNGHI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
-
             break;
         case BECON:
           //  bm = BitmapFactory.decodeResource(resources, R.drawable.becon);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case BROCCOLI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case CIPOLLE:
           //  bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case FORMAGGIO:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case GAMBERETTI:
             //bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case MELANZANE:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case OLIVE:
           //  bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case PATATINE:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case PEPERONI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
-
             break;
         case PEPERONCINI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case POMODORI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case SALAME:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case UOVA:
             //bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
         case WURSTEL:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.wuurstel);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
             break;
         case ZUCCHINE:
             //bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
             break;
-
+        case CAPPERI:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
+            break;
+        case ACCIUGHE:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
+            break;
+        case COTTO:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
+            break;
         default:
-            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(CreaPizza.this,"Ci siamo dimenticati un ingrediente", Toast.LENGTH_SHORT).show();
             break;
     }
     return bm;
