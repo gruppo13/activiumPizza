@@ -63,18 +63,30 @@ public class CreaPizza extends AppCompatActivity {
         listingredienti = new ArrayList<>();
         listingredienti = Pizza.resetIngredienti();
 
-
-
-
         if (bundle.getString("aggiunte")!= null) {
             pizza = bundle.getString("aggiunte");
-            ListaPizza pizzanuova = new ListaPizza(ListaPizza.getClassicaS(pizza));
-            for(ListaIngrediente ingrediente: pizzanuova.getIngredienti()){
-                listingredienti.get(Pizza.trovaIngrediente(listingredienti,ingrediente.getStringNome())).addIngrediente();
-                countIngredienti++;
-                setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti,ingrediente.getStringNome())));
+            if (bundle.getString("aggiunte").equals("not valid")) {
+                if (bundle.getStringArrayList("aggiunteCreata")==null)
+                    Log.d("aggiunte","null");
+                for(String nome : bundle.getStringArrayList("aggiunteCreata")){
+                    listingredienti.get((Pizza.trovaIngrediente(listingredienti,nome))).addIngrediente();
+                    countIngredienti++;
+                    setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, nome)));
+                }
 
+
+            }else{
+                ListaPizza pizzanuova = new ListaPizza(ListaPizza.getClassicaS(pizza));
+                for (ListaIngrediente ingrediente : pizzanuova.getIngredienti()) {
+                    listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())).addIngrediente();
+                    countIngredienti++;
+                    setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())));
+
+                }
             }
+
+
+
 
         }
 
@@ -139,8 +151,8 @@ public class CreaPizza extends AppCompatActivity {
 
                 //ArrayList<ArrayList<Integer>>
                 Bundle b = getIntent().getExtras();
-                for (ListaIngrediente ingrediente : listingredienti) {
 
+               /* for (ListaIngrediente ingrediente : listingredienti) {
                     ArrayList<Integer> ingredientiCreata;
                     if (b.getStringArrayList(ingrediente.getStringNome()) != null)
                         ingredientiCreata= b.getIntegerArrayList(ingrediente.getStringNome());
@@ -148,12 +160,21 @@ public class CreaPizza extends AppCompatActivity {
                         ingredientiCreata = new ArrayList<Integer>();
                     ingredientiCreata.add(ingrediente.getCount());
                     b.putIntegerArrayList(ingrediente.getStringNome(), ingredientiCreata);
-                }
+                }*/
 
+                ArrayList<String> ingredienti = new ArrayList<String>();
+                for (ListaIngrediente ingrediente : listingredienti){
+                    if (ingrediente.getCount()>0)
+                        ingredienti.add(ingrediente.getStringNome());
+                }
                 if (b.getInt("creata")>0)
-                         b.putInt("creata", b.getInt("creata")+1);
+                    b.putInt("creata", b.getInt("creata")+1);
                 else
-                  b.putInt("creata",1);
+                    b.putInt("creata",1);
+
+                b.putStringArrayList(String.valueOf(b.getInt("creata")), ingredienti);
+
+
                // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                 intent.putExtras(b);
                 onResume();
