@@ -119,7 +119,6 @@ public class Carrello extends AppCompatActivity{
             menu.add("rimuovi");
             menu.add("aggiunte");
 
-
             int i = 2;
 
             for (ListaPizza  pizza : elenco) {
@@ -130,6 +129,7 @@ public class Carrello extends AppCompatActivity{
                     i++;
                 }
             }
+            menu.add(v.getContentDescription());
 
 
                 inflater.inflate(R.menu.menu_context_pizza, menu);

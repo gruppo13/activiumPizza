@@ -83,14 +83,42 @@ public class CreaPizza extends AppCompatActivity {
             findViewById(R.id.sugo).setOnLongClickListener(longListener);
             findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
             findViewById(R.id.funghi).setOnLongClickListener(longListener);
+            findViewById(R.id.broccoli).setOnLongClickListener(longListener);
+            findViewById(R.id.becon).setOnLongClickListener(longListener);
+            findViewById(R.id.cipolle).setOnLongClickListener(longListener);
+            findViewById(R.id.formaggio).setOnLongClickListener(longListener);
+            findViewById(R.id.gamberetti).setOnLongClickListener(longListener);
+            findViewById(R.id.melanzane).setOnLongClickListener(longListener);
+            findViewById(R.id.olive).setOnLongClickListener(longListener);
+            findViewById(R.id.patatine).setOnLongClickListener(longListener);
+            findViewById(R.id.peperoncini).setOnLongClickListener(longListener);
+            findViewById(R.id.peperoni).setOnLongClickListener(longListener);
+            findViewById(R.id.pomodori).setOnLongClickListener(longListener);
+            findViewById(R.id.salame).setOnLongClickListener(longListener);
+            findViewById(R.id.uova).setOnLongClickListener(longListener);
+            findViewById(R.id.wurstel).setOnLongClickListener(longListener);
+            findViewById(R.id.salame).setOnLongClickListener(longListener);
+
 
             //immagini da click
             findViewById(R.id.sugo).setOnClickListener(clickListener);
             findViewById(R.id.mozzarella).setOnClickListener(clickListener);
             findViewById(R.id.funghi).setOnClickListener(clickListener);
-
-
-
+            findViewById(R.id.becon).setOnClickListener(clickListener);
+            findViewById(R.id.broccoli).setOnClickListener(clickListener);
+            findViewById(R.id.cipolle).setOnClickListener(clickListener);
+            findViewById(R.id.formaggio).setOnClickListener(clickListener);
+            findViewById(R.id.gamberetti).setOnClickListener(clickListener);
+            findViewById(R.id.melanzane).setOnClickListener(clickListener);
+            findViewById(R.id.olive).setOnClickListener(clickListener);
+            findViewById(R.id.patatine).setOnClickListener(clickListener);
+            findViewById(R.id.peperoncini).setOnClickListener(clickListener);
+            findViewById(R.id.peperoni).setOnClickListener(clickListener);
+            findViewById(R.id.pomodori).setOnClickListener(clickListener);
+            findViewById(R.id.salame).setOnClickListener(clickListener);
+            findViewById(R.id.uova).setOnClickListener(clickListener);
+            findViewById(R.id.wurstel).setOnClickListener(clickListener);
+            findViewById(R.id.zucchine).setOnClickListener(clickListener);
 
 
 
@@ -255,7 +283,51 @@ public class CreaPizza extends AppCompatActivity {
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.VISIBLE);
                 break;
-
+            case BECON:
+                findViewById(R.id.becon).setVisibility(View.VISIBLE);
+                break;
+            case BROCCOLI:
+                findViewById(R.id.broccoli).setVisibility(View.VISIBLE);
+                break;
+            case CIPOLLE:
+                findViewById(R.id.cipolle).setVisibility(View.VISIBLE);
+                break;
+            case FORMAGGIO:
+                findViewById(R.id.formaggio).setVisibility(View.VISIBLE);
+                break;
+            case GAMBERETTI:
+                findViewById(R.id.gamberetti).setVisibility(View.VISIBLE);
+                break;
+            case MELANZANE:
+                findViewById(R.id.melanzane).setVisibility(View.VISIBLE);
+                break;
+            case OLIVE:
+                findViewById(R.id.olive).setVisibility(View.VISIBLE);
+                break;
+            case PATATINE:
+                findViewById(R.id.patatine).setVisibility(View.VISIBLE);
+                break;
+            case PEPERONI:
+                findViewById(R.id.peperoni).setVisibility(View.VISIBLE);
+                break;
+            case PEPERONCINI:
+                findViewById(R.id.peperoncini).setVisibility(View.VISIBLE);
+                break;
+            case POMODORI:
+                findViewById(R.id.pomodori).setVisibility(View.VISIBLE);
+                break;
+            case SALAME:
+                findViewById(R.id.salame).setVisibility(View.VISIBLE);
+                break;
+            case UOVA:
+                findViewById(R.id.uova).setVisibility(View.VISIBLE);
+                break;
+            case WURSTEL:
+                findViewById(R.id.wurstel).setVisibility(View.VISIBLE);
+                break;
+            case ZUCCHINE:
+                findViewById(R.id.zucchine).setVisibility(View.VISIBLE);
+                break;
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
                 break;
@@ -278,8 +350,50 @@ public class CreaPizza extends AppCompatActivity {
                 break;
             case FUNGHI:
                 findViewById(R.id.funghi).setVisibility(View.GONE);
-
-
+            case BECON:
+                findViewById(R.id.becon).setVisibility(View.GONE);
+                break;
+            case BROCCOLI:
+                findViewById(R.id.broccoli).setVisibility(View.GONE);
+                break;
+            case CIPOLLE:
+                findViewById(R.id.cipolle).setVisibility(View.GONE);
+                break;
+            case FORMAGGIO:
+                findViewById(R.id.formaggio).setVisibility(View.GONE);
+                break;
+            case GAMBERETTI:
+                findViewById(R.id.gamberetti).setVisibility(View.GONE);
+                break;
+            case MELANZANE:
+                findViewById(R.id.melanzane).setVisibility(View.GONE);
+                break;
+            case OLIVE:
+                findViewById(R.id.olive).setVisibility(View.GONE);
+                break;
+            case PATATINE:
+                findViewById(R.id.patatine).setVisibility(View.GONE);
+                break;
+            case PEPERONI:
+                findViewById(R.id.peperoni).setVisibility(View.GONE);
+                break;
+            case PEPERONCINI:
+                findViewById(R.id.peperoncini).setVisibility(View.GONE);
+                break;
+            case POMODORI:
+                findViewById(R.id.pomodori).setVisibility(View.GONE);
+                break;
+            case SALAME:
+                findViewById(R.id.salame).setVisibility(View.GONE);
+                break;
+            case UOVA:
+                findViewById(R.id.uova).setVisibility(View.GONE);
+                break;
+            case WURSTEL:
+                findViewById(R.id.wurstel).setVisibility(View.GONE);
+                break;
+            case ZUCCHINE:
+                findViewById(R.id.zucchine).setVisibility(View.GONE);
                 break;
             default:
                 Log.d("No Found", "ingrediente non ancora disponibile");
@@ -313,9 +427,7 @@ public class CreaPizza extends AppCompatActivity {
                 countIngredienti++;
                 updatePizza();
                 Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
-
                 v.setVisibility(View.GONE);
-
 
             } /*else{//ingrediente gia inserito nell immagine allora toglielo
                 if ((Pizza.trovaIngredientiInseriti(listingredienti, imageClick))) {
@@ -379,24 +491,103 @@ public class CreaPizza extends AppCompatActivity {
 
 
 private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources resources){
-    Bitmap bm;
+    Bitmap bm = null;
     switch (ingrediente.getNome()) {
         case SUGO:
             bm = BitmapFactory.decodeResource(resources, R.drawable.sugo);
             break;
         case MOZZARELLA:
             bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
+
             break;
         case BASILICO:
             bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
+
             break;
         case FUNGHI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
+
+            break;
+        case BECON:
+          //  bm = BitmapFactory.decodeResource(resources, R.drawable.becon);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case BROCCOLI:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case CIPOLLE:
+          //  bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case FORMAGGIO:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case GAMBERETTI:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case MELANZANE:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case OLIVE:
+          //  bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case PATATINE:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case PEPERONI:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+
+            break;
+        case PEPERONCINI:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case POMODORI:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case SALAME:
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case UOVA:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case WURSTEL:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.wuurstel);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
+            break;
+        case ZUCCHINE:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
             break;
 
         default:
-            System.out.println("ingrediente non disponibile");
-            bm=null;
+            Toast.makeText(CreaPizza.this,"Ingrediente non disponibile ", Toast.LENGTH_SHORT).show();
+
             break;
     }
     return bm;
