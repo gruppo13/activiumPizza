@@ -210,7 +210,6 @@ public class ElencoPizze extends AppCompatActivity{
                     if (lastExpandedPosition[0] >= 0) {
                         Intent intent = new Intent(ElencoPizze.this, Carrello.class);
                         Bundle b = getIntent().getExtras();
-
                         ArrayList<String> pizzeClassiche;
 
                         if (b.getStringArrayList("classica") != null)

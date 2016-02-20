@@ -3,13 +3,16 @@ package it.unica.ium.pizzalove;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,9 @@ import java.util.List;
  * Created by perlo on 14/02/16.
  */
 public class Carrello extends AppCompatActivity{
+    int deletePosition = -1;
+
+
     List<String> listpizze;
     List<ListaIngrediente> listingredienti;
 
@@ -42,7 +48,7 @@ public class Carrello extends AppCompatActivity{
 
             for (String pizza : listpizze) {
                 if (Pizza.containPizza(elenco,pizza)==-1){
-                   elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
+                    elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
                 }
                 else
                     elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
@@ -50,21 +56,20 @@ public class Carrello extends AppCompatActivity{
         }
         if (bundle.getInt("creata")>0) {
             for(int i=0; i<bundle.getInt("creata");i++) {
-
                 listingredienti = Pizza.resetIngredienti();
-                for (ListaIngrediente ingrediente : listingredienti) {
-                    listingredienti.get(Pizza.trovaIngrediente(listingredienti,
-                            ingrediente.getStringNome())).setIngrediente
-                            (bundle.getIntegerArrayList(ingrediente.getStringNome()).get(i));
+                for(String nome : bundle.getStringArrayList(String.valueOf(i+1))){
+                    listingredienti.get((Pizza.trovaIngrediente(listingredienti,nome))).addIngrediente();
 
                 }
-
                 elenco.add(new ListaPizza(listingredienti));
+
+
+
             }
 
         }
         listAdapter = new ExpandableList(this,elenco);
-         expListView = (ExpandableListView) findViewById(R.id.carrello);
+        expListView = (ExpandableListView) findViewById(R.id.carrello);
 
         expListView.setAdapter(listAdapter);
 
@@ -72,7 +77,18 @@ public class Carrello extends AppCompatActivity{
         totale.setText(Pizza.totalePrezzo(elenco));
         Pizza.printAll(elenco);
 
-        expListView.setOnCreateContextMenuListener(optionPizzeCarrello);
+        // expListView.setOnCreateContextMenuListener(optionPizzeCarrello);
+        expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                deletePosition=position;
+                doPopup(view);
+
+//                Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
 
 
         Button btn = (Button) findViewById(R.id.btnCreaPizza);
@@ -103,61 +119,139 @@ public class Carrello extends AppCompatActivity{
             }
         });
 
+    }
 
 
 
+    // flag true -> elimina pizza
+    // flag false ->modifica pizza
+    private void removePizzaCarrello(boolean flag){
+
+        String nomePizza = elenco.get(deletePosition).getStringNome();
+
+        elenco.remove(deletePosition);
+
+        int creata =0;
+        if (elenco.size() == 0) {
+
+            bundle.putStringArrayList("classica", null);
+            bundle.putInt("creata", 0);
+            Intent intent;
+            if (flag==true) {
+                intent= new Intent(Carrello.this, Scelta.class);
+                Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+            }else{
+                if (ListaPizza.getClassicaS(nomePizza)== ListaPizza.Classica.Creata){
+
+                    ArrayList<String> ingredienti = new ArrayList<String>();
+                    for (ListaIngrediente ingrediente : listingredienti){
+                        if (ingrediente.getCount()>0)
+                            ingredienti.add(ingrediente.getStringNome());
+                    }
+                    Log.d("ingredienti","inseriti");
+                    bundle.putStringArrayList("aggiunteCreata",ingredienti);
+
+                }
+
+                intent = new Intent(Carrello.this, CreaPizza.class);
+                bundle.putString("aggiunte", nomePizza);
+            }
+
+
+            intent.putExtras(bundle);
+            onResume();
+            startActivityForResult(intent, 0);
+
+        } else {// le pizze non sono finite
+
+            //aggiorna elenco pizze
+            ArrayList<String> nomiPizze = new ArrayList<>();
+            ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
+            for (ListaPizza pizza : elenco) {
+                if (!pizza.getStringNome().equals("not valid")) {
+                    nomiPizze.add(pizza.getStringNome());
+                } else {// aggiorna le pizze create dall utente
+                    ArrayList<String> ingredienti = new ArrayList<String>();
+                    for (ListaIngrediente ingrediente : pizza.getIngredienti()){
+                        ingredienti.add(ingrediente.getStringNome());
+                    }
+
+                    bundle.putStringArrayList(String.valueOf(creata), ingredienti);
+                    creata++;
+                }
+
+            }
+
+
+
+            bundle.putStringArrayList("classica", null);
+
+            bundle.putInt("creata", creata);
+            if (nomiPizze.size()>0)
+                bundle.putStringArrayList("classica", nomiPizze);
+
+
+            if (flag==false){
+                Intent intent = new Intent(Carrello.this, CreaPizza.class);
+
+                bundle.putString("aggiunte", nomePizza);
+                if (ListaPizza.getClassicaS(nomePizza)== ListaPizza.Classica.Creata){
+
+                    ArrayList<String> ingredienti = new ArrayList<String>();
+                    for (ListaIngrediente ingrediente : listingredienti){
+                        if (ingrediente.getCount()>0)
+                            ingredienti.add(ingrediente.getStringNome());
+                    }
+                    bundle.putStringArrayList("aggiunteCreata",ingredienti);
+
+                }
+                intent.putExtras(bundle);
+                onResume();
+                startActivityForResult(intent, 0);
+            }
+            else{
+                ((TextView) findViewById(R.id.txtTotale)).setText(Pizza.totalePrezzo(elenco));
+                Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+                listAdapter = new ExpandableList(Carrello.this, elenco);
+                expListView.setAdapter(listAdapter);
+            }
+
+        }
 
 
     }
 
-    View.OnCreateContextMenuListener optionPizzeCarrello = new View.OnCreateContextMenuListener() {
-        //registerForContextMenu(v);
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-            MenuInflater inflater = getMenuInflater();
-            menu.add("rimuovi");
-            menu.add("aggiunte");
-
-            int i = 2;
-
-            for (ListaPizza  pizza : elenco) {
-                if (pizza.getCount() > 0) {
-
-                    // menu.add(ingrediente.getStringNome());
-                    //menu.setGroupCheckable(1, true, true);            //rimuovi tutti gli ingredienti
-                    i++;
-                }
-            }
-            menu.add(v.getContentDescription());
-
-
-                inflater.inflate(R.menu.menu_context_pizza, menu);
-
-                menu.getItem(1).setEnabled(false);
-
-                menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+    private void doPopup(View v){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.setOnMenuItemClickListener(
+                new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popup_one:
+                                removePizzaCarrello(true);
+                                return true;
+                            case R.id.popup_two:
+                                removePizzaCarrello(false);
+                                return true;
+                            default:
+                                return false;
 
-                        Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
-                        //elenco.remove();
+                        }
 
 
-                        return true;
                     }
-                });
-//seleziona
+                }
 
+        );
 
-            }
+        MenuInflater inflater = popupMenu.getMenuInflater();
 
+        inflater.inflate(R.menu.menu_popup, popupMenu.getMenu());
 
+        popupMenu.show();
 
-
-    };
-
-
+    }
 
 
 

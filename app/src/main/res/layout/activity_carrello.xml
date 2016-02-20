@@ -26,7 +26,8 @@
         android:longClickable="false"
         android:contextClickable="false"
         android:headerDividersEnabled="false"
-        android:layout_weight="0.3" />
+        android:layout_weight="0.3"
+        android:choiceMode="singleChoice" />
 
 
 
