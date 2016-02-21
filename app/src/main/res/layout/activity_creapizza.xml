@@ -60,7 +60,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/capperi"
-                android:src="@drawable/mozzarella"
+                android:src="@drawable/icon_capperi"
                 android:contentDescription="@string/image18" />
 
             <ImageView
@@ -76,7 +76,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/basilico"
-                android:src="@drawable/mozzarella"
+                android:src="@drawable/icon_basilico"
                 android:contentDescription="@string/image21" />
 
             <ImageView
@@ -150,7 +150,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/cotto"
-                android:src="@drawable/mozzarella"
+                android:src="@drawable/icon_cotto"
                 android:contentDescription="@string/image20" />
 
             <ImageView

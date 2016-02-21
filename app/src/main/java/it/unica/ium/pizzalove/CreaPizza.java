@@ -1,5 +1,6 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -46,7 +47,7 @@ import java.util.List;
 /**
  * Created by perlo on 13/02/16.
  */
-public class CreaPizza extends AppCompatActivity {
+public class CreaPizza extends Activity {
     int countIngredienti;
 
     List<ListaIngrediente> listingredienti;
@@ -435,6 +436,8 @@ private boolean leastOneCheck(TableLayout table){
                 return false;
         }
     }
+
+
 /*
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -717,37 +720,37 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
             break;
         case BECON:
-           bm = BitmapFactory.decodeResource(resources, R.drawable.becon);
+           bm = BitmapFactory.decodeResource(resources, R.drawable.bacon);
             break;
         case BROCCOLI:
-           //bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
+           bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
             break;
         case CIPOLLE:
-          //bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
+          bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
             break;
         case FORMAGGIO:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
             break;
         case GAMBERETTI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
             break;
         case MELANZANE:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
             break;
         case OLIVE:
-          // bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
+           bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
             break;
         case PATATINE:
             bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
             break;
         case PEPERONI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
             break;
         case PEPERONCINI:
             bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
             break;
         case POMODORI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
             break;
         case SALAME:
             bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
@@ -756,19 +759,19 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
             bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
             break;
         case WURSTEL:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
             break;
         case ZUCCHINE:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
             break;
         case CAPPERI:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
+           // bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
             break;
         case ACCIUGHE:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
             break;
         case COTTO:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
             break;
         default:
             Toast.makeText(CreaPizza.this,"Ci siamo dimenticati un ingrediente", Toast.LENGTH_SHORT).show();
