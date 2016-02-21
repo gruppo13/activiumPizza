@@ -1,6 +1,8 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Dialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -16,13 +18,20 @@ import android.view.ActionProvider;
 import android.view.ContextMenu;
 import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -192,18 +201,114 @@ public class CreaPizza extends AppCompatActivity {
 
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
         //imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
-        imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
+        imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+              //  openContextMenu(v);
+                //registerForContextMenu(v);
+                dialogRimuoviIngredienti();
 
+                return true;
+            }
+        });
+        //imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
+private void dialogRimuoviIngredienti(){
 
-    View.OnCreateContextMenuListener menuPizza = new View.OnCreateContextMenuListener() {
-        //registerForContextMenu(v);
+    final Dialog dialog = new Dialog (CreaPizza.this);
+    dialog.setTitle("rimuovi ingredienti");
+    dialog.setContentView(R.layout.dialog_ingredienti);
+
+    final TableLayout table = (TableLayout) dialog.findViewById(R.id.table);
+
+
+
+    LayoutInflater infalInflater;
+    View convertView;
+
+    for (ListaIngrediente ingrediente : listingredienti) {
+        if (ingrediente.getCount() > 0) {
+            infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_check, null);
+            CheckBox check = (CheckBox)convertView.findViewById(R.id.checkBox1);
+            check.setText(ingrediente.getStringNome());
+            table.addView(convertView);
+        }
+    }
+
+
+
+    dialog.show();
+
+    dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
         @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        public void onClick(View v) {
+            for (int i = 0; i < listingredienti.size(); i++) {
+                listingredienti.get(i).setIngrediente(0);
+            }
+            countIngredienti = 0;
+            updatePizza();
+            Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < listingredienti.size(); i++) {
+                setVisibilityIngrediente(listingredienti.get(i));
+            }
 
+            dialog.cancel();
+        }
+    });
+    dialog.findViewById(R.id.txtRimuoviSelezionati).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (int i=0;i<table.getChildCount();i++){
+                //LayoutInflater infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View convertView = table.getChildAt(i);
+                if (convertView==null)
+                    Log.i("View check ", "non esiste");
+                CheckBox check = (CheckBox)convertView.findViewById(R.id.checkBox1);
+                if (check==null)
+                    Log.i("View checkbox ", "non esiste");
+                if (check.isChecked()){
+                    Log.i("View checkbox testo", check.getText().toString());
+                    if ((Pizza.trovaIngredientiInseriti(listingredienti, (check.getText().toString())))) {
+                        listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))).setIngrediente(0);
+                        countIngredienti--;
+                        updatePizza();
+                        setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))));
+                    }
+
+                }
+
+            }
+
+
+
+
+
+            dialog.cancel();
+        }
+    });
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+/*
+       @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             MenuInflater inflater = getMenuInflater();
             menu.setHeaderTitle("rimuovi ingrediente");
             menu.add("rimuovi tutti gli ingredienti");
@@ -246,7 +351,8 @@ public class CreaPizza extends AppCompatActivity {
 //seleziona
 
 
-                //elimina solo gli elementi selezionati
+
+                                //elimina solo gli elementi selezionati
                 menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -257,7 +363,7 @@ public class CreaPizza extends AppCompatActivity {
 
 
                 // rimuove solo l-ingrediente selezionato
-
+/*
                 for (int j = 2; j < menu.size(); j++) {
                     menu.getItem(j).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
@@ -275,22 +381,52 @@ public class CreaPizza extends AppCompatActivity {
                 }
             }
         }
+*/
 
-
-
-    };
 
 
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getTitle().toString()) {
+            case "true":
+                Log.d("check ", "first case");
+                //editNote(info.id);
+                return true;
+            case "bo":
+                Log.d("check ", "second case");
+
+
+                return super.onContextItemSelected(item);
+            default:
+                return false;
+        }
+    }
+/*
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         for(ListaIngrediente ingrediente: listingredienti)
             if (item.getTitle().equals(ingrediente.getStringNome())){
                 item.setChecked(true);
-                return true;
+                Log.d("checked", ingrediente.getStringNome());
+                //Log.d("info", String.valueOf(info.position));
+                //onPrepareOptionsMenu((Menu)item);
+
+                return super.onOptionsItemSelected(item);
+
+
             }
+
+        Log.d("checked", "false");
+
         return false;
-    }
+    }*/
+
+
+
 
     /* rende visibile gli ingredienti */
     private void setVisibilityIngrediente(ListaIngrediente ingrediente){
