@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-
+    android:background="@drawable/tialla"
     tools:context="it.unica.ium.pizzalove.Scelta">
 
     <LinearLayout
@@ -27,19 +27,22 @@
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/btnCrea"
-            android:text="@string/btnCrea" />
+            android:text="@string/btnCrea"
+            android:layout_gravity="center_horizontal"
+            android:allowUndo="false" />
 
 
 
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/btnElenco"
-        android:contentDescription="@string/btnElenco"
-        android:text="Il nostro menu" />
+        android:contentDescription="Il nostro menu"
+        android:text="Il nostro menu"
+            android:layout_gravity="center_horizontal" />
 
 
 </LinearLayout>

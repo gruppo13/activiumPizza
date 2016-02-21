@@ -17,17 +17,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".ElencoPizze"></activity>
-        <activity android:name=".CreaPizza" />
-        <activity android:name=".Scelta" />
-        <activity android:name=".Carrello" />
+        <activity android:name=".CreaPizza" ></activity>
+        <activity android:name=".Scelta" ></activity>
+        <activity android:name=".Carrello" ></activity>
 
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
+        --><!--android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY" -->
         <meta-data
-            android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY"
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
 
     </application>
 

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-
+    android:background="@drawable/tialla"
     tools:context="it.unica.ium.pizzalove.CreaPizza">
 
     <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/sugo"
-                android:src="@drawable/sugo"
+                android:src="@drawable/icon_sugo"
                 android:contentDescription="@string/image0" />
 
             <ImageView
@@ -52,7 +52,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/mozzarella"
-                android:src="@drawable/mozzarella"
+                android:src="@drawable/icon_mozzarella"
                 android:contentDescription="@string/image1" />
 
             <ImageView
@@ -68,7 +68,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/acciughe"
-                android:src="@drawable/mozzarella"
+                android:src="@drawable/icon_acciughe"
                 android:contentDescription="@string/image19" />
 
             <ImageView
