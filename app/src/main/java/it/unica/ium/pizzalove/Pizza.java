@@ -121,4 +121,15 @@ public class Pizza {
         }
         return -1;
     }
+
+
+    public static boolean getContainIngredienti(List<ListaIngrediente> lista){
+        for(ListaIngrediente ingrediente :lista){
+            if (ingrediente.getCount()>0)
+                return true;
+
+        }
+        return false;
+    }
+
 }

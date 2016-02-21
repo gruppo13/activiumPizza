@@ -27,8 +27,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -218,83 +220,103 @@ public class CreaPizza extends AppCompatActivity {
 
 private void dialogRimuoviIngredienti(){
 
-    final Dialog dialog = new Dialog (CreaPizza.this);
-    dialog.setTitle("rimuovi ingredienti");
-    dialog.setContentView(R.layout.dialog_ingredienti);
-
-    final TableLayout table = (TableLayout) dialog.findViewById(R.id.table);
+    if (Pizza.getContainIngredienti(listingredienti)) {
 
 
+        final Dialog dialog = new Dialog(CreaPizza.this);
+        dialog.setTitle("rimuovi ingredienti");
+        dialog.setContentView(R.layout.dialog_ingredienti);
 
-    LayoutInflater infalInflater;
-    View convertView;
+        final TableLayout table = (TableLayout) dialog.findViewById(R.id.table);
+        LayoutInflater infalInflater;
+        View convertView;
 
-    for (ListaIngrediente ingrediente : listingredienti) {
-        if (ingrediente.getCount() > 0) {
-            infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_check, null);
-            CheckBox check = (CheckBox)convertView.findViewById(R.id.checkBox1);
-            check.setText(ingrediente.getStringNome());
-            table.addView(convertView);
-        }
-    }
-
-
-
-    dialog.show();
-
-    dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            for (int i = 0; i < listingredienti.size(); i++) {
-                listingredienti.get(i).setIngrediente(0);
+        for (ListaIngrediente ingrediente : listingredienti) {
+            if (ingrediente.getCount() > 0) {
+                infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.list_check, null);
+                CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
+                check.setText(ingrediente.getStringNome());
+                table.addView(convertView);
             }
-            countIngredienti = 0;
-            updatePizza();
-            Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
-            for (int i = 0; i < listingredienti.size(); i++) {
-                setVisibilityIngrediente(listingredienti.get(i));
-            }
-
-            dialog.cancel();
         }
-    });
-    dialog.findViewById(R.id.txtRimuoviSelezionati).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            for (int i=0;i<table.getChildCount();i++){
-                //LayoutInflater infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                View convertView = table.getChildAt(i);
-                if (convertView==null)
-                    Log.i("View check ", "non esiste");
-                CheckBox check = (CheckBox)convertView.findViewById(R.id.checkBox1);
-                if (check==null)
-                    Log.i("View checkbox ", "non esiste");
-                if (check.isChecked()){
-                    Log.i("View checkbox testo", check.getText().toString());
-                    if ((Pizza.trovaIngredientiInseriti(listingredienti, (check.getText().toString())))) {
-                        listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))).setIngrediente(0);
-                        countIngredienti--;
-                        updatePizza();
-                        setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))));
+
+        dialog.show();
+
+        dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < listingredienti.size(); i++) {
+                    listingredienti.get(i).setIngrediente(0);
+                }
+                countIngredienti = 0;
+                updatePizza();
+                Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < listingredienti.size(); i++) {
+                    setVisibilityIngrediente(listingredienti.get(i));
+                }
+
+                dialog.cancel();
+            }
+        });
+
+
+
+          final int[] flagcheck = {0};
+        for(int i=0; i<table.getChildCount();i++) {
+            convertView = table.getChildAt(i);
+            CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
+
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    flagcheck[0]++;
+                else
+                    flagcheck[0]--;
+
+                if (flagcheck[0]>0)
+                    dialog.findViewById(R.id.txtRimuoviSelezionati).setEnabled(true);
+                else
+                    dialog.findViewById(R.id.txtRimuoviSelezionati).setEnabled(false);
+                Log.i("Rimuovi Selezionati","abilitato");
+
+            }
+        }
+);
+
+
+        }
+
+
+        dialog.findViewById(R.id.txtRimuoviSelezionati).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < table.getChildCount(); i++) {
+                    //LayoutInflater infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                    View convertView = table.getChildAt(i);
+                    CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
+                    if (check.isChecked()) {
+                        if ((Pizza.trovaIngredientiInseriti(listingredienti, (check.getText().toString())))) {
+                            listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))).setIngrediente(0);
+                            countIngredienti--;
+                            updatePizza();
+                            setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))));
+                        }
+
                     }
 
                 }
 
+
+                dialog.cancel();
             }
+        });
 
 
-
-
-
-            dialog.cancel();
-        }
-    });
-
-
-
-
+    }
 
 
 
@@ -303,7 +325,17 @@ private void dialogRimuoviIngredienti(){
 }
 
 
+private boolean leastOneCheck(TableLayout table){
+    for (int i = 0; i < table.getChildCount(); i++) {
+        View convertView = table.getChildAt(i);
+        CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
+        if (check.isChecked())
+            return true;
+    }
 
+    return false;
+
+}
 
 
 /*
@@ -685,43 +717,43 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
             break;
         case BECON:
-          //  bm = BitmapFactory.decodeResource(resources, R.drawable.becon);
+           bm = BitmapFactory.decodeResource(resources, R.drawable.becon);
             break;
         case BROCCOLI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
+           //bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
             break;
         case CIPOLLE:
-          //  bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
+          //bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
             break;
         case FORMAGGIO:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
             break;
         case GAMBERETTI:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
             break;
         case MELANZANE:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
             break;
         case OLIVE:
-          //  bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
+          // bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
             break;
         case PATATINE:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
             break;
         case PEPERONI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
             break;
         case PEPERONCINI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
             break;
         case POMODORI:
            // bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
             break;
         case SALAME:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
             break;
         case UOVA:
-            //bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
             break;
         case WURSTEL:
             //bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);

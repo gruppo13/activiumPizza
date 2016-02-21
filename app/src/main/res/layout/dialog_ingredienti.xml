@@ -9,26 +9,32 @@
         android:id="@+id/txtRimuoviTutto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:textSize="19dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:text="Rimuovi tutti gli ingredienti"
         android:clickable="true"
-        android:contextClickable="true" />
+        android:contextClickable="true"
+        android:linksClickable="true"
+        android:textIsSelectable="true"
+        android:gravity="center"
+        android:layout_margin="2dp" />
 
     <TextView
         android:id="@+id/txtRimuoviSelezionati"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:textSize="19dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:enabled="true"
+
+        android:enabled="false"
         android:text="Rimuovi ingredienti selezionati"
         android:contextClickable="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:textIsSelectable="true"
+        android:gravity="center"
+        android:layout_margin="2dp" />
 
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,7 +47,9 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/table"
 
-        >
+        android:showDividers="beginning"
+        android:textAlignment="textStart"
+        android:gravity="left">
 
 
 
