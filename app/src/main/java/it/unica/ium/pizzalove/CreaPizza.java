@@ -13,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ActionProvider;
 import android.view.ContextMenu;
@@ -37,6 +39,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,7 +50,7 @@ import java.util.List;
 /**
  * Created by perlo on 13/02/16.
  */
-public class CreaPizza extends Activity {
+public class CreaPizza extends AppCompatActivity  {
     int countIngredienti;
 
     List<ListaIngrediente> listingredienti;
@@ -63,6 +66,14 @@ public class CreaPizza extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+ /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+    setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);*/
+
 
         String pizza;
         Bundle bundle;
@@ -219,7 +230,9 @@ public class CreaPizza extends Activity {
     }
 
 
-private void dialogRimuoviIngredienti(){
+
+
+    private void dialogRimuoviIngredienti(){
 
     if (Pizza.getContainIngredienti(listingredienti)) {
 

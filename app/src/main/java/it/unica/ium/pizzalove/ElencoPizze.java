@@ -116,74 +116,77 @@ public class ElencoPizze extends AppCompatActivity{
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
                                                 @Override
                                                 public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
-                                                    // cambia attivita
-                                                    //setContentView(R.layout.activity_creapizza);
-                                                    expListView.collapseGroup(groupPosition);
-                                                    //cambia la quantita delle pizze selezionate
-               /**/
-                                                    if (expListView.isGroupExpanded(groupPosition)) {
-                                                        //vai al carrello doppio click
-                                                        if (lastExpandedPosition[1] == groupPosition) {
-                                                            // Log.i("group position", groupPosition);
-                                                            //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
+                            // cambia attivita
+                            //setContentView(R.layout.activity_creapizza);
+                            expListView.collapseGroup(groupPosition);
+                            //cambia la quantita delle pizze selezionate
+/**/
+                            if (expListView.isGroupExpanded(groupPosition)) {
+                                //vai al carrello doppio click
+                                if (lastExpandedPosition[1] == groupPosition) {
+                                    // Log.i("group position", groupPosition);
+                                    //Log.i("group position", ((Pizza.PizzaClassica)listAdapter.getGroup(groupPosition));
 /*
-                            Intent intent = new Intent(ElencoPizze.this, Carrello.class);
-                            Bundle b = getIntent().getExtras();
+    Intent intent = new Intent(ElencoPizze.this, Carrello.class);
+    Bundle b = getIntent().getExtras();
 
-                            ArrayList<String> pizzeClassiche;
+    ArrayList<String> pizzeClassiche;
 
-                            if (b.getStringArrayList("classica") != null)
-                                pizzeClassiche = b.getStringArrayList("classica");
-                            else
-                                pizzeClassiche = new ArrayList<String>();
+    if (b.getStringArrayList("classica") != null)
+        pizzeClassiche = b.getStringArrayList("classica");
+    else
+        pizzeClassiche = new ArrayList<String>();
 
-                            pizzeClassiche.add(Pizza.getPizzeClassiche().get(groupPosition).getStringNome());
-                            b.putStringArrayList("classica", pizzeClassiche);
-                            // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
-                            intent.putExtras(b);
-                            startActivityForResult(intent, 0);
+    pizzeClassiche.add(Pizza.getPizzeClassiche().get(groupPosition).getStringNome());
+    b.putStringArrayList("classica", pizzeClassiche);
+    // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
+    intent.putExtras(b);
+    startActivityForResult(intent, 0);
 */
-                                                            System.out.println("group clicked 1");
+                                    System.out.println("group clicked 1");
 
-                                                        } else {
-                                                            System.out.println("group clicked 2");
-                                                            expListView.collapseGroup(groupPosition);
-                                                        }
-
-
-                                                    } else {//espandi lista
-                      /*  */
-
-                                                        System.out.println("group clicked 3");
+                                } else {
+                                    System.out.println("group clicked 2");
+                                    expListView.collapseGroup(groupPosition);
+                                }
 
 
-                                                        lastExpandedPosition[1] = groupPosition;
-                                                        if (lastExpandedPosition[0] == groupPosition) {
-                                                            System.out.println("same expanded group");
-                                                        } else {
-                                                            if (lastExpandedPosition[0] != -1
-                                                                    && groupPosition != lastExpandedPosition[0]) {
-                                                                expListView.collapseGroup(lastExpandedPosition[0]);
-                                                            }
-                                                            lastExpandedPosition[0] = groupPosition;
+                            } else {//espandi lista
+/*  */
+
+                                System.out.println("group clicked 3");
 
 
-                                                        }
-                                                        expListView.expandGroup(groupPosition);
+                                lastExpandedPosition[1] = groupPosition;
+                                if (lastExpandedPosition[0] == groupPosition) {
+                                    System.out.println("same expanded group");
+                                    lastExpandedPosition[0]=-1;
+                                    lastExpandedPosition[1]=-1;
+                                    expListView.collapseGroup(groupPosition);
+                                } else {
+                                    if (lastExpandedPosition[0] != -1
+                                            && groupPosition != lastExpandedPosition[0]) {
+                                        expListView.collapseGroup(lastExpandedPosition[0]);
+                                    }
+                                    lastExpandedPosition[0] = groupPosition;
+
+                                    expListView.expandGroup(groupPosition);
+                                }
 
 
-                                                    }
+
+                            }
 
 
-                                                    // Toast.makeText(ElencoPizze.this,"You selected"+String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).
+                            // Toast.makeText(ElencoPizze.this,"You selected"+String.valueOf(listAdapter.getGroupId(groupPosition)),Toast.LENGTH_SHORT).
 
-                                                    // show();
+                            // show();
 
-                                                    return true;
-                                                }
+                            return true;
+                        }
 
 
-                                            }
+                    }
 
         );
 

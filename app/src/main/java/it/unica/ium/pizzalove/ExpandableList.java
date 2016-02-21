@@ -173,9 +173,9 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
             lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
 
-            TextView quantita = (TextView)convertView.findViewById(R.id.lblListHeaderN);
+            //TextView quantita = (TextView)convertView.findViewById(R.id.lblListHeaderN);
 
-            quantita.setText("");
+            //quantita.setText("");
         }
 
 

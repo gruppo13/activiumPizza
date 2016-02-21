@@ -7,7 +7,10 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     tools:context="it.unica.ium.pizzalove.ElencoPizze"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:padding="10dp">
 
 
 
@@ -16,10 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expandableList"
-            android:divider="#ffffff"
-            android:footerDividersEnabled="true"
-            android:longClickable="false"
-            android:contextClickable="false"/>
+            android:divider="#000000"
+            android:dividerHeight="2dp"
+            android:groupIndicator="@null"
+            android:childDivider="#00ffffff"
+            android:childIndicatorLeft="2dp" />
+
+
 
 
 
@@ -40,7 +46,8 @@
             android:textSize="17dp"
             android:text="Ordina"
             android:editable="false"
-            android:visibility="visible" />
+            android:visibility="visible"
+            />
 
         <Button
             android:layout_weight="1"
@@ -49,7 +56,8 @@
             android:layout_height="wrap_content"
             android:textSize="17dp"
             android:text="Aggiunte"
-            android:visibility="visible" />
+            android:visibility="visible"
+           />
 
     </LinearLayout>
 
