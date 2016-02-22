@@ -1,14 +1,74 @@
 package it.unica.ium.pizzalove;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by perlo on 14/02/16.
+ * Created by manuf_000 on 22/02/16.
  */
 public class Pizza {
 
+    private String nomePizza;
+    private List<Ingredienti> listaIngredienti;
+
+
+    public Pizza(String nomePizza){
+        this.nomePizza = nomePizza;
+        switch(nomePizza){
+            case "margherita":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella);
+                break;
+            case "napoli":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Capperi,
+                        Ingredienti.Acciughe, Ingredienti.Basilico);
+                break;
+            case "wurstelCipolle":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Wurstel,
+                        Ingredienti.Cipolle);
+                break;
+            case "funghi":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi);
+                break;
+            case "capricciosa":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi,
+                        Ingredienti.Cotto, Ingredienti.Uova, Ingredienti.Wurstel);
+                break;
+            case "prosciuttoFunghi":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi,
+                        Ingredienti.Cotto
+                );
+                break;
+            case "allAmerican":
+                this.listaIngredienti =  Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella,Ingredienti.Patatine,
+                        Ingredienti.Wurstel);
+                break;
+            case "carbonara":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Mozzarella, Ingredienti.Uova, Ingredienti.Bacon);
+                break;
+            case "parmigiana":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Melanzane,
+                        Ingredienti.Grana);
+                break;
+            case "cotto":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Cotto);
+                break;
+            default:
+                this.nomePizza = "creata";
+                break;
+        }
+    }
+
+    public String getNomePizza(){
+        return this.nomePizza;
+    }
+
+
+    public List<Ingredienti> getIngredienti(){
+        return this.listaIngredienti;
+    }
+
+
+    /*
     public static List<ListaPizza> getPizzeClassiche(){
         List<ListaPizza> tmp = new ArrayList<>();
         tmp.add(new ListaPizza(ListaPizza.Classica.Margherita));
@@ -55,7 +115,7 @@ public class Pizza {
         return listingredienti;
     }
 
-    /* return l-indice nella quale si trova ingrediente in cui ha valore magg di zero */
+    /* return l-indice nella quale si trova ingrediente in cui ha valore magg di zero
     public static boolean trovaIngredientiInseriti(List<ListaIngrediente> listaingredienti, String nomeString) {
         List <ListaIngrediente> listingredienti = new ArrayList<>();
         // Adding child data
@@ -91,7 +151,7 @@ public class Pizza {
         return formatoPrezzo(prezzo);
     }
 
-/* ritorna il formato standard */
+/* ritorna il formato standard
     public static String formatoPrezzo(float prezzo) {
         DecimalFormat form = new DecimalFormat("0.00");
         return form.format(prezzo) + " €";
@@ -130,6 +190,6 @@ public class Pizza {
 
         }
         return false;
-    }
+    }*/
 
 }

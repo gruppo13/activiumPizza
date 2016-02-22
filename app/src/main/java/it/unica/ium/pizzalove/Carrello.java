@@ -27,7 +27,7 @@ public class Carrello extends AppCompatActivity{
 
 
     List<String> listpizze;
-    List<ListaIngrediente> listingredienti;
+    //List<ListaIngrediente> listingredienti;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -56,7 +56,7 @@ public class Carrello extends AppCompatActivity{
         }
         if (bundle.getInt("creata")>0) {
             for(int i=0; i<bundle.getInt("creata");i++) {
-                listingredienti = Pizza.resetIngredienti();
+                //listingredienti = Pizza.resetIngredienti();
                 for(String nome : bundle.getStringArrayList(String.valueOf(i+1))){
                     listingredienti.get((Pizza.trovaIngrediente(listingredienti,nome))).addIngrediente();
 
@@ -252,16 +252,4 @@ public class Carrello extends AppCompatActivity{
         popupMenu.show();
 
     }
-
-
-
-//seleziona}
-
-
-
-
-
-
-
-
 }
