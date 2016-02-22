@@ -66,13 +66,7 @@ public class CreaPizza extends AppCompatActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-    setSupportActionBar(myToolbar);
 
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);*/
 
 
         String pizza;
@@ -82,6 +76,20 @@ public class CreaPizza extends AppCompatActivity  {
         List<ListaPizza> elenco = new ArrayList<>();
 
         setContentView(R.layout.activity_creapizza);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        if (myToolbar==null)
+            Log.d("Toolbar","null");
+
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
+
         this.countIngredienti = 0;
         listingredienti = new ArrayList<>();
         listingredienti = Pizza.resetIngredienti();
@@ -778,7 +786,7 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
             bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
             break;
         case CAPPERI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
+            bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
             break;
         case ACCIUGHE:
             bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);

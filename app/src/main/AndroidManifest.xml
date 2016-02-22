@@ -8,8 +8,8 @@
         android:label="Pizza and Love"
         android:largeHeap="true"
         android:supportsRtl="true"
+android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 
-android:theme="@style/prova"
         >
         <activity android:name=".Main">
             <intent-filter>
