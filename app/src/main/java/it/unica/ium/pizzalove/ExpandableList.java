@@ -126,18 +126,18 @@ public class ExpandableList extends BaseExpandableListAdapter {
             lblListPrezzoTotale.setTypeface(null, Typeface.BOLD);
 
 
-            lblListPrezzoTotale.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo() * headerTitle.getCount()));
+            lblListPrezzoTotale.setText(Ingredienti.formatoPrezzo(headerTitle.getPrezzo() * headerTitle.getCount()));
             lblListNum.setText(Integer.toString(headerTitle.getCount()));
 
-            if (headerTitle.getNome().equals(ListaPizza.Classica.Creata)) {
+            if (headerTitle.getNomePizza().equals("creata")) {
                 lblListNome.setText("La tua creazione");
 
             }else {
 
-                lblListNome.setText(headerTitle.getStringNome());
+                lblListNome.setText(headerTitle.getNomePizza());
             }
 
-            lblListPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+            lblListPrezzo.setText(Ingredienti.formatoPrezzo(headerTitle.getPrezzo()));
 
         }
        else {// si tratta delle pizze classiche
@@ -147,9 +147,9 @@ public class ExpandableList extends BaseExpandableListAdapter {
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
 
-            lblListHeader.setText(headerTitle.getStringNome());
+            lblListHeader.setText(headerTitle.getNomePizza());
 
-            lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
+            lblListHeaderPrezzo.setText(Ingredienti.formatoPrezzo(headerTitle.getPrezzo()));
         }
        return convertView;
    }

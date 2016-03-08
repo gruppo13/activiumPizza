@@ -53,7 +53,7 @@ import java.util.List;
 public class CreaPizza extends AppCompatActivity  {
     int countIngredienti;
 
-    List<ListaIngrediente> listingredienti;
+    List<Ingredienti> listingredienti;
 
     LayerDrawable layerDrawable;
 
@@ -66,7 +66,7 @@ public class CreaPizza extends AppCompatActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+    /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
     setSupportActionBar(myToolbar);
 
         ActionBar ab = getSupportActionBar();
@@ -74,43 +74,35 @@ public class CreaPizza extends AppCompatActivity  {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);*/
 
-
-        String pizza;
         Bundle bundle;
 
         bundle = getIntent().getExtras();
-        List<ListaPizza> elenco = new ArrayList<>();
 
         setContentView(R.layout.activity_creapizza);
         this.countIngredienti = 0;
         listingredienti = new ArrayList<>();
-        listingredienti = Pizza.resetIngredienti();
+        //modifiche pizza
+        if(bundle.getString("aggiunte")!= null) {
+            String pizzaModificare = bundle.getString("aggiunte");
+            if (pizzaModificare.equals("not valid")) {
 
-        if (bundle.getString("aggiunte")!= null) {
-            pizza = bundle.getString("aggiunte");
-            if (bundle.getString("aggiunte").equals("not valid")) {
-                if (bundle.getStringArrayList("aggiunteCreata")==null)
-                    Log.d("aggiunte","null");
                 for(String nome : bundle.getStringArrayList("aggiunteCreata")){
-                    listingredienti.get((Pizza.trovaIngrediente(listingredienti,nome))).addIngrediente();
-                    countIngredienti++;
-                    setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, nome)));
+                    listingredienti.add(Ingredienti.valueOf(nome));
+                    //countIngredienti++;
+                    //setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, nome)));
+                    this.setEnableIngrediente(nome, false);
                 }
-
-
-            }else{
-                ListaPizza pizzanuova = new ListaPizza(ListaPizza.getClassicaS(pizza));
-                for (ListaIngrediente ingrediente : pizzanuova.getIngredienti()) {
-                    listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())).addIngrediente();
-                    countIngredienti++;
-                    setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())));
+            }
+            else{
+                Pizza nuovaPizza = new Pizza(pizzaModificare);
+                for (Ingredienti ingrediente : nuovaPizza.getIngredienti()){
+                    listingredienti.add(ingrediente);
+                    //countIngredienti++;
+                    //setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())));
+                    this.setEnableIngrediente(ingrediente.toString(), false);
 
                 }
             }
-
-
-
-
         }
 
 
@@ -185,7 +177,7 @@ public class CreaPizza extends AppCompatActivity  {
                     b.putIntegerArrayList(ingrediente.getStringNome(), ingredientiCreata);
                 }*/
 
-                ArrayList<String> ingredienti = new ArrayList<String>();
+                List<String> ingredienti = new ArrayList<>();
                 for (ListaIngrediente ingrediente : listingredienti){
                     if (ingrediente.getCount()>0)
                         ingredienti.add(ingrediente.getStringNome());
@@ -477,153 +469,77 @@ private boolean leastOneCheck(TableLayout table){
 
 
     /* rende visibile gli ingredienti */
-    private void setVisibilityIngrediente(ListaIngrediente ingrediente){
+    private void setEnableIngrediente(String ingrediente, boolean value){
 
-        switch (ingrediente.getNome()) {
-            case SUGO:
-                findViewById(R.id.sugo).setVisibility(View.VISIBLE);
+        switch (ingrediente) {
+            case "Sugo":
+                findViewById(R.id.sugo).setEnabled(value);
                 break;
-            case MOZZARELLA:
-                findViewById(R.id.mozzarella).setVisibility(View.VISIBLE);
+            case "Mozzarella":
+                findViewById(R.id.mozzarella).setEnabled(value);
                 break;
-            case BASILICO:
-               findViewById(R.id.basilico).setVisibility(View.VISIBLE);
+            case "Basilico":
+               findViewById(R.id.basilico).setEnabled(value);
                 break;
-            case FUNGHI:
-                findViewById(R.id.funghi).setVisibility(View.VISIBLE);
+            case "Funghi":
+                findViewById(R.id.funghi).setEnabled(value);
                 break;
-            case BECON:
-                findViewById(R.id.becon).setVisibility(View.VISIBLE);
+            case "Bacon":
+                findViewById(R.id.becon).setEnabled(value);
                 break;
-            case BROCCOLI:
-                findViewById(R.id.broccoli).setVisibility(View.VISIBLE);
+            case "Broccoli":
+                findViewById(R.id.broccoli).setEnabled(value);
                 break;
-            case CIPOLLE:
-                findViewById(R.id.cipolle).setVisibility(View.VISIBLE);
+            case "Cipolle":
+                findViewById(R.id.cipolle).setEnabled(value);
                 break;
-            case FORMAGGIO:
-                findViewById(R.id.formaggio).setVisibility(View.VISIBLE);
+            case "Grana":
+                findViewById(R.id.formaggio).setEnabled(value);
                 break;
-            case GAMBERETTI:
-                findViewById(R.id.gamberetti).setVisibility(View.VISIBLE);
+            case "Gamberetti":
+                findViewById(R.id.gamberetti).setEnabled(value);
                 break;
-            case MELANZANE:
-                findViewById(R.id.melanzane).setVisibility(View.VISIBLE);
+            case "Melanzane":
+                findViewById(R.id.melanzane).setEnabled(value);
                 break;
-            case OLIVE:
-                findViewById(R.id.olive).setVisibility(View.VISIBLE);
+            case "Olive":
+                findViewById(R.id.olive).setEnabled(value);
                 break;
-            case PATATINE:
-                findViewById(R.id.patatine).setVisibility(View.VISIBLE);
+            case "Patatine":
+                findViewById(R.id.patatine).setEnabled(value);
                 break;
-            case PEPERONI:
-                findViewById(R.id.peperoni).setVisibility(View.VISIBLE);
+            case "Peperoni":
+                findViewById(R.id.peperoni).setEnabled(value);
                 break;
-            case PEPERONCINI:
-                findViewById(R.id.peperoncini).setVisibility(View.VISIBLE);
+            case "Peperoncino":
+                findViewById(R.id.peperoncini).setEnabled(value);
                 break;
-            case POMODORI:
-                findViewById(R.id.pomodori).setVisibility(View.VISIBLE);
+            case "Pomodori":
+                findViewById(R.id.pomodori).setEnabled(value);
                 break;
-            case SALAME:
-                findViewById(R.id.salame).setVisibility(View.VISIBLE);
+            case "Salame":
+                findViewById(R.id.salame).setEnabled(value);
                 break;
-            case UOVA:
-                findViewById(R.id.uova).setVisibility(View.VISIBLE);
+            case "Uova":
+                findViewById(R.id.uova).setEnabled(value);
                 break;
-            case WURSTEL:
-                findViewById(R.id.wurstel).setVisibility(View.VISIBLE);
+            case "Wurstel":
+                findViewById(R.id.wurstel).setEnabled(value);
                 break;
-            case ZUCCHINE:
-                findViewById(R.id.zucchine).setVisibility(View.VISIBLE);
+            case "Zucchine":
+                findViewById(R.id.zucchine).setEnabled(value);
                 break;
-            case COTTO:
-                findViewById(R.id.cotto).setVisibility(View.VISIBLE);
+            case "Cotto":
+                findViewById(R.id.cotto).setEnabled(value);
                 break;
-            case ACCIUGHE:
-                findViewById(R.id.acciughe).setVisibility(View.VISIBLE);
+            case "Acciughe":
+                findViewById(R.id.acciughe).setEnabled(value);
                 break;
-            case CAPPERI:
-                findViewById(R.id.capperi).setVisibility(View.VISIBLE);
+            case "Capperi":
+                findViewById(R.id.capperi).setEnabled(value);
                 break;
             default:
-                Log.d("No Found", "ingrediente non ancora disponibile");
-                break;
-
-        }
-    }
-
-
-    private void setGoneIngrediente(ListaIngrediente ingrediente){
-
-        switch (ingrediente.getNome()) {
-            case SUGO:
-                findViewById(R.id.sugo).setVisibility(View.GONE);
-                break;
-            case MOZZARELLA:
-                findViewById(R.id.mozzarella).setVisibility(View.GONE);
-                break;
-            case BASILICO:
-                findViewById(R.id.basilico).setVisibility(View.GONE);
-                break;
-            case FUNGHI:
-                findViewById(R.id.funghi).setVisibility(View.GONE);
-            case BECON:
-                findViewById(R.id.becon).setVisibility(View.GONE);
-                break;
-            case BROCCOLI:
-                findViewById(R.id.broccoli).setVisibility(View.GONE);
-                break;
-            case CIPOLLE:
-                findViewById(R.id.cipolle).setVisibility(View.GONE);
-                break;
-            case FORMAGGIO:
-                findViewById(R.id.formaggio).setVisibility(View.GONE);
-                break;
-            case GAMBERETTI:
-                findViewById(R.id.gamberetti).setVisibility(View.GONE);
-                break;
-            case MELANZANE:
-                findViewById(R.id.melanzane).setVisibility(View.GONE);
-                break;
-            case OLIVE:
-                findViewById(R.id.olive).setVisibility(View.GONE);
-                break;
-            case PATATINE:
-                findViewById(R.id.patatine).setVisibility(View.GONE);
-                break;
-            case PEPERONI:
-                findViewById(R.id.peperoni).setVisibility(View.GONE);
-                break;
-            case PEPERONCINI:
-                findViewById(R.id.peperoncini).setVisibility(View.GONE);
-                break;
-            case POMODORI:
-                findViewById(R.id.pomodori).setVisibility(View.GONE);
-                break;
-            case SALAME:
-                findViewById(R.id.salame).setVisibility(View.GONE);
-                break;
-            case UOVA:
-                findViewById(R.id.uova).setVisibility(View.GONE);
-                break;
-            case WURSTEL:
-                findViewById(R.id.wurstel).setVisibility(View.GONE);
-                break;
-            case ZUCCHINE:
-                findViewById(R.id.zucchine).setVisibility(View.GONE);
-                break;
-            case COTTO:
-                findViewById(R.id.cotto).setVisibility(View.GONE);
-                break;
-            case CAPPERI:
-                findViewById(R.id.capperi).setVisibility(View.GONE);
-                break;
-            case ACCIUGHE:
-                findViewById(R.id.acciughe).setVisibility(View.GONE);
-                break;
-            default:
-                Log.d("No Found", "ingrediente non ancora disponibile");
+                Log.d("Not Found", "ingrediente non ancora disponibile");
                 break;
 
         }

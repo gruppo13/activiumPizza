@@ -27,11 +27,11 @@ public class Carrello extends AppCompatActivity{
 
 
     List<String> listpizze;
-    //List<ListaIngrediente> listingredienti;
+    List<Ingredienti> listingredienti;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    List<ListaPizza> elenco = new ArrayList<>();
+    List<Pizza> elenco = new ArrayList<>();
 
     Bundle bundle;
 
@@ -47,16 +47,12 @@ public class Carrello extends AppCompatActivity{
             listpizze = bundle.getStringArrayList("classica");
 
             for (String pizza : listpizze) {
-                if (Pizza.containPizza(elenco,pizza)==-1){
-                    elenco.add(new ListaPizza(ListaPizza.getClassicaS(pizza),1));
-                }
-                else
-                    elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
-            }
+                if (Pizza.containPizza(elenco, pizza) == -1)
+                    elenco.add(new Pizza(pizza));
+                elenco.get(Pizza.containPizza(elenco,pizza)).addCount();
         }
-        if (bundle.getInt("creata")>0) {
-            for(int i=0; i<bundle.getInt("creata");i++) {
-                //listingredienti = Pizza.resetIngredienti();
+        if (bundle.getInt("creata") > 0) {
+            for(int i=0; i < bundle.getInt("creata"); i++) {
                 for(String nome : bundle.getStringArrayList(String.valueOf(i+1))){
                     listingredienti.get((Pizza.trovaIngrediente(listingredienti,nome))).addIngrediente();
 
@@ -140,7 +136,7 @@ public class Carrello extends AppCompatActivity{
             if (flag==true) {
                 intent= new Intent(Carrello.this, Scelta.class);
                 Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
-            }else{
+            }else{//torna a scelta perche' il carrello e' vuoto
                 if (ListaPizza.getClassicaS(nomePizza)== ListaPizza.Classica.Creata){
 
                     ArrayList<String> ingredienti = new ArrayList<String>();
@@ -171,7 +167,7 @@ public class Carrello extends AppCompatActivity{
                 if (!pizza.getStringNome().equals("not valid")) {
                     nomiPizze.add(pizza.getStringNome());
                 } else {// aggiorna le pizze create dall utente
-                    ArrayList<String> ingredienti = new ArrayList<String>();
+                    ArrayList<String> ingredienti = new ArrayList<>();
                     for (ListaIngrediente ingrediente : pizza.getIngredienti()){
                         ingredienti.add(ingrediente.getStringNome());
                     }

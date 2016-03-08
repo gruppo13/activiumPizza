@@ -6,8 +6,9 @@ import java.util.List;
 /**
  * Created by manuf_000 on 22/02/16.
  */
-public class Pizza {
+public class Pizza{
 
+    private static int COUNT = 0;
     private String nomePizza;
     private List<Ingredienti> listaIngredienti;
 
@@ -68,7 +69,95 @@ public class Pizza {
     }
 
 
-    /*
+    public boolean removeIngrediente(Ingredienti i){
+       try {
+           listaIngredienti.remove(i);
+       }
+        catch (Exception r){
+            r.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean addIngrediente(String i){
+        try{
+            listaIngredienti.add(Ingredienti.valueOf(i));
+        }
+        catch (Exception r){
+            r.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public void addCount(){
+        this.COUNT++;
+    }
+
+    public int getCount(){
+        return this.COUNT;
+    }
+
+    public Float getPrezzo(){
+        Float totale = 3.0f;
+        for (Ingredienti i : listaIngredienti){
+            totale += i.getPrice();
+        }
+        return totale;
+    }
+
+    public static int containPizza(List<Pizza> lista, String nome){
+        int i=0;
+        for(Pizza pizze: lista){
+            if (pizze.getNomePizza().equals(nome))
+                return i;
+            i++;
+        }
+        return -1;
+    }
+
+
+/*
+    public static final Parcelable.Creator<Pizza> CREATOR = new
+            Parcelable.Creator<Pizza>() {
+                public Pizza createFromParcel(Parcel in) {
+                    return new Pizza(in);
+                }
+
+                public Pizza[] newArray(int size) {
+                    return new Pizza[size];
+                }
+            };
+
+
+    private Pizza(Parcel in) {
+        readFromParcel(in);
+    }
+
+    private void readFromParcel(Parcel in) {
+        this.COUNT = in.readInt();
+        this.nomePizza = in.readString();
+        in.readArrayList((ClassLoader) listaIngredienti);
+        /*for(Ingredienti i : in.readArrayList()) {
+            this.listaIngredienti.add(i);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(COUNT);
+        out.writeString(nomePizza);
+        out.writeList(listaIngredienti);
+    }
+
+
+
     public static List<ListaPizza> getPizzeClassiche(){
         List<ListaPizza> tmp = new ArrayList<>();
         tmp.add(new ListaPizza(ListaPizza.Classica.Margherita));
@@ -170,16 +259,6 @@ public class Pizza {
             }
             System.out.println();
         }
-    }
-
-    public static int containPizza(List<ListaPizza> lista, String nome){
-        int i=0;
-        for(ListaPizza pizze: lista){
-            if (pizze.getStringNome().equals(nome))
-                return i;
-            i++;
-        }
-        return -1;
     }
 
 

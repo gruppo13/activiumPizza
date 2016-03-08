@@ -45,7 +45,6 @@ public class ElencoPizze extends AppCompatActivity{
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
-        //listePizzeClassiche = new ArrayList<>();
         listaPizzeClassiche = Arrays.asList(new Pizza("margherita"),
                 new Pizza("napoli"),new Pizza("wurstelCipolle"),
                 new Pizza("funghi"),new Pizza("cotto"),
@@ -58,10 +57,8 @@ public class ElencoPizze extends AppCompatActivity{
 
 
         listAdapter = new ExpandableList(this, listaPizzeClassiche);
-        // setting list adapter
         expListView.setAdapter(listAdapter);
 
-        // expListView.setOnGroupExpandListener((OnGroupExpandListener) clickGroup);
 
 
 
@@ -69,7 +66,6 @@ public class ElencoPizze extends AppCompatActivity{
                 new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-
                         return false;
                     }
                 }
@@ -120,7 +116,9 @@ public class ElencoPizze extends AppCompatActivity{
                         }
                     }
         );
-
+        /**
+         * Evento sul pulsante per le aggiunte su una pizza classica selezionata dall'elenco delle pizze
+         */
             btn2.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,6 +134,10 @@ public class ElencoPizze extends AppCompatActivity{
                     }
                 }
             });
+
+        /**
+         * Evento sul pulsante che aggiunge al carrello
+         */
             btn1.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,7 +149,7 @@ public class ElencoPizze extends AppCompatActivity{
                         if (b.getStringArrayList("classica") != null)
                             pizzeClassiche = b.getStringArrayList("classica");
                         else
-                            pizzeClassiche = new ArrayList<String>();
+                            pizzeClassiche = new ArrayList<>();
 
                         pizzeClassiche.add(listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
                         b.putStringArrayList("classica", pizzeClassiche);
