@@ -51,10 +51,10 @@ import java.util.List;
  * Created by perlo on 13/02/16.
  */
 public class CreaPizza extends AppCompatActivity  {
-    int countIngredienti;
 
+
+    //int countIngredienti;
     List<Ingredienti> listingredienti;
-
     LayerDrawable layerDrawable;
 
     /**
@@ -74,13 +74,12 @@ public class CreaPizza extends AppCompatActivity  {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);*/
 
-        Bundle bundle;
-
-        bundle = getIntent().getExtras();
-
+        Bundle bundle = getIntent().getExtras();
         setContentView(R.layout.activity_creapizza);
-        this.countIngredienti = 0;
+        //this.countIngredienti = 0;
         listingredienti = new ArrayList<>();
+
+
         //modifiche pizza
         if(bundle.getString("aggiunte")!= null) {
             String pizzaModificare = bundle.getString("aggiunte");
@@ -161,39 +160,21 @@ public class CreaPizza extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
-
-                //ArrayList<ArrayList<Integer>>
                 Bundle b = getIntent().getExtras();
 
-               /* for (ListaIngrediente ingrediente : listingredienti) {
-                    ArrayList<Integer> ingredientiCreata;
-                    if (b.getStringArrayList(ingrediente.getStringNome()) != null)
-                        ingredientiCreata= b.getIntegerArrayList(ingrediente.getStringNome());
-                    else
-                        ingredientiCreata = new ArrayList<Integer>();
-                    ingredientiCreata.add(ingrediente.getCount());
-                    b.putIntegerArrayList(ingrediente.getStringNome(), ingredientiCreata);
-                }*/
-
-                List<String> ingredienti = new ArrayList<>();
-                for (ListaIngrediente ingrediente : listingredienti){
-                    if (ingrediente.getCount()>0)
-                        ingredienti.add(ingrediente.getStringNome());
+                ArrayList<String> ingredienti = new ArrayList<>();
+                for (Ingredienti ingrediente : listingredienti){
+                    ingredienti.add(ingrediente.toString());
                 }
                 if (b.getInt("creata")>0)
                     b.putInt("creata", b.getInt("creata")+1);
                 else
                     b.putInt("creata",1);
-
                 b.putStringArrayList(String.valueOf(b.getInt("creata")), ingredienti);
-
-
-               // b.putStringArrayList("lista", new ArrayList<String>(listingredienti.keySet()));
                 intent.putExtras(b);
-                onResume();
 
+                onResume();
                 startActivityForResult(intent, 0);
 
             }
@@ -226,8 +207,7 @@ public class CreaPizza extends AppCompatActivity  {
 
     private void dialogRimuoviIngredienti(){
 
-    if (Pizza.getContainIngredienti(listingredienti)) {
-
+    if (!listingredienti.isEmpty()) {
 
         final Dialog dialog = new Dialog(CreaPizza.this);
         dialog.setTitle("rimuovi ingredienti");
@@ -237,44 +217,36 @@ public class CreaPizza extends AppCompatActivity  {
         LayoutInflater infalInflater;
         View convertView;
 
-        for (ListaIngrediente ingrediente : listingredienti) {
-            if (ingrediente.getCount() > 0) {
-                infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.list_check, null);
-                CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
-                check.setText(ingrediente.getStringNome());
-                table.addView(convertView);
-            }
+        for (Ingredienti ingrediente : listingredienti) {
+            infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_check, null);
+            CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
+            check.setText(ingrediente.toString());
+            table.addView(convertView);
         }
-
-
         dialog.show();
 
         dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < listingredienti.size(); i++) {
-                    listingredienti.get(i).setIngrediente(0);
+                    setEnableIngrediente(listingredienti.get(i).toString(), true);
+                    listingredienti.remove(i);
                 }
-                countIngredienti = 0;
                 updatePizza();
                 Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < listingredienti.size(); i++) {
-                    setVisibilityIngrediente(listingredienti.get(i));
-                }
-
                 dialog.cancel();
             }
         });
 
 
 
-          final int[] flagcheck = {0};
-        for(int i=0; i<table.getChildCount();i++) {
+        final int[] flagcheck = {0};
+        for(int i=0; i < table.getChildCount();i++) {
             convertView = table.getChildAt(i);
             CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
-        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
@@ -289,11 +261,7 @@ public class CreaPizza extends AppCompatActivity  {
                 Log.i("Rimuovi Selezionati","abilitato");
 
             }
-        }
-);
-
-
-        }
+        });}
 
 
         dialog.findViewById(R.id.txtRimuoviSelezionati).setOnClickListener(new View.OnClickListener() {
@@ -301,33 +269,18 @@ public class CreaPizza extends AppCompatActivity  {
             public void onClick(View v) {
                 for (int i = 0; i < table.getChildCount(); i++) {
                     //LayoutInflater infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
                     View convertView = table.getChildAt(i);
                     CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
                     if (check.isChecked()) {
-                        if ((Pizza.trovaIngredientiInseriti(listingredienti, (check.getText().toString())))) {
-                            listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))).setIngrediente(0);
-                            countIngredienti--;
-                            updatePizza();
-                            setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, (check.getText().toString()))));
-                        }
-
+                        listingredienti.remove(check.getText().toString());
+                        updatePizza();
+                        setEnableIngrediente(check.getText().toString(), true);
                     }
-
                 }
-
-
                 dialog.cancel();
             }
         });
-
-
     }
-
-
-
-
-
 }
 
 
