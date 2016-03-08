@@ -1,6 +1,5 @@
 package it.unica.ium.pizzalove;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -13,19 +12,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -33,12 +25,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.RadioGroup;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -184,7 +172,7 @@ public class CreaPizza extends AppCompatActivity  {
         updatePizza();
 
         //immagini da modificare
-        findViewById(R.id.imageMain).setOnDragListener(dropListener);
+        //findViewById(R.id.imageMain).setOnDragListener(dropListener);
 
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
         //imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
@@ -517,35 +505,21 @@ private boolean leastOneCheck(TableLayout table){
         @Override
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
-// aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
-            if (!(Pizza.trovaIngredientiInseriti(listingredienti,imageClick))) {
-                listingredienti.get(Pizza.trovaIngrediente(listingredienti,imageClick)).addIngrediente();
-                countIngredienti++;
-                updatePizza();
-                Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
-                v.setVisibility(View.GONE);
-
-            } /*else{//ingrediente gia inserito nell immagine allora toglielo
-                if ((Pizza.trovaIngredientiInseriti(listingredienti, imageClick))) {
-                    listingredienti.get(Pizza.trovaIngrediente(listingredienti, imageClick)).setIngrediente(0);
-                    countIngredienti--;
-                    updatePizza();
-                    Toast.makeText(CreaPizza.this,"Hai rimosso "+ imageClick,Toast.LENGTH_SHORT).show();
-                }
-            }*/
+            //aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
+            listingredienti.add(Ingredienti.valueOf(imageClick));
+            updatePizza();
+            Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
+            v.setEnabled(false);
         }
-
-
     };
 
-
+/*
     View.OnDragListener dropListener; {
         dropListener = new View.OnDragListener() {
             @Override
             public boolean onDrag(View v, DragEvent event) {
                 int dragEvent = event.getAction();
                 final ImageView dropImage = (ImageView) v;
-                //TextView dropText2 = (TextView) v;
 
                 switch (dragEvent) {
                     case DragEvent.ACTION_DRAG_ENTERED:
@@ -582,77 +556,77 @@ private boolean leastOneCheck(TableLayout table){
             }
 
         };
-    }
+    }*/
 
 
 
-private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources resources){
+private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
     Bitmap bm = null;
-    switch (ingrediente.getNome()) {
-        case SUGO:
+    switch (ingrediente) {
+        case Sugo:
             bm = BitmapFactory.decodeResource(resources, R.drawable.sugo);
             break;
-        case MOZZARELLA:
+        case Mozzarella:
             bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
             break;
-        case BASILICO:
+        case Basilico:
             bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
             break;
-        case FUNGHI:
+        case Funghi:
             bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
             break;
-        case BECON:
+        case Bacon:
            bm = BitmapFactory.decodeResource(resources, R.drawable.bacon);
             break;
-        case BROCCOLI:
+        case Broccoli:
            bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
             break;
-        case CIPOLLE:
+        case Cipolle:
           bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
             break;
-        case FORMAGGIO:
+        case Grana:
             bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
             break;
-        case GAMBERETTI:
+        case Gamberetti:
             bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
             break;
-        case MELANZANE:
+        case Melanzane:
             bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
             break;
-        case OLIVE:
+        case Olive:
            bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
             break;
-        case PATATINE:
+        case Patatine:
             bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
             break;
-        case PEPERONI:
+        case Pepeperoni:
             bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
             break;
-        case PEPERONCINI:
+        case Peperoncino:
             bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
             break;
-        case POMODORI:
+        case Pomodoro:
             bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
             break;
-        case SALAME:
+        case Salame:
             bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
             break;
-        case UOVA:
+        case Uova:
             bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
             break;
-        case WURSTEL:
+        case Wurstel:
             bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
             break;
-        case ZUCCHINE:
+        case Zucchine:
             bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
             break;
-        case CAPPERI:
-           // bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
+        case Capperi:
+            //bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
             break;
-        case ACCIUGHE:
+        case Acciughe:
             bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
             break;
-        case COTTO:
+        case Cotto:
             bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
             break;
         default:
@@ -667,30 +641,26 @@ private Bitmap trovaIngredienteBitmap(ListaIngrediente ingrediente, Resources re
 
 
 private void updatePizza() {
-    Drawable[] layers = new Drawable[countIngredienti+1];
+    Drawable[] layers = new Drawable[listingredienti.size()+1];
     Resources resources = getResources();
     ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
     Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
-    BitmapDrawable bmd = new BitmapDrawable(bm);
+    BitmapDrawable bmd = new BitmapDrawable(resources, bm);
     bmd.setGravity(Gravity.TOP);
 
     layers[0] = bmd;
 
     int i=1;
-    if (countIngredienti>0) {
-        for (ListaIngrediente ingrediente : listingredienti)
-            if (ingrediente.getCount()>0){
-                bmd = new BitmapDrawable(trovaIngredienteBitmap(ingrediente, resources));
+    if (!listingredienti.isEmpty()) {
+        for (Ingredienti ingrediente : listingredienti)
+                bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
                 //  bmd.setTargetDensity(metrics);
-                if (i < countIngredienti + 1) {
+                if (i < listingredienti.size() + 1) {
                     layers[i] = bmd;
                     i++;
-                } else {
-                    System.out.println("errore nel conteggio degli ingredienti");
                 }
-            }
         findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
     }
     else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
@@ -700,8 +670,6 @@ private void updatePizza() {
 
     layerDrawable = new LayerDrawable(layers);
     imgMain.setImageDrawable(layerDrawable);
-
-
 }
 
 
