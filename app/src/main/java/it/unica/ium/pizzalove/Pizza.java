@@ -59,6 +59,13 @@ public class Pizza{
         }
     }
 
+    public Pizza(List<Ingredienti> list){
+        this.nomePizza = "creata";
+        for(Ingredienti i : list){
+            this.listaIngredienti.add(i);
+        }
+    }
+
     public String getNomePizza(){
         return this.nomePizza;
     }
@@ -177,36 +184,36 @@ public class Pizza{
 
 
     public static List<ListaIngrediente> resetIngredienti() {
-        List <ListaIngrediente> listingredienti = new ArrayList<>();
+        List <ListaIngrediente> listIngredienti = new ArrayList<>();
 
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BECON, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BROCCOLI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CIPOLLE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FORMAGGIO, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.GAMBERETTI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MELANZANE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.OLIVE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PATATINE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONCINI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.POMODORI, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SALAME, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.UOVA, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ZUCCHINE, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO, 0));
-        listingredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CAPPERI, 0));
-        return listingredienti;
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SUGO, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MOZZARELLA, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BASILICO, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ACCIUGHE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FUNGHI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BECON, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.BROCCOLI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CIPOLLE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.FORMAGGIO, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.GAMBERETTI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.MELANZANE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.OLIVE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PATATINE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONCINI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.PEPERONI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.POMODORI, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.SALAME, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.UOVA, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.WURSTEL, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.ZUCCHINE, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.COTTO, 0));
+        listIngredienti.add(new ListaIngrediente(ListaIngrediente.Ingrediente.CAPPERI, 0));
+        return listIngredienti;
     }
 
     /* return l-indice nella quale si trova ingrediente in cui ha valore magg di zero
     public static boolean trovaIngredientiInseriti(List<ListaIngrediente> listaingredienti, String nomeString) {
-        List <ListaIngrediente> listingredienti = new ArrayList<>();
+        List <ListaIngrediente> listIngredienti = new ArrayList<>();
         // Adding child data
         int i=0;
         for (ListaIngrediente ingrediente : listaingredienti){
@@ -218,7 +225,7 @@ public class Pizza{
     }
 
     public static int trovaIngrediente(List<ListaIngrediente> listaingredienti, String nomeString) {
-        List <ListaIngrediente> listingredienti = new ArrayList<>();
+        List <ListaIngrediente> listIngredienti = new ArrayList<>();
         // Adding child data
         int i=0;
         for (ListaIngrediente ingrediente : listaingredienti){

@@ -76,7 +76,7 @@ public class CreaPizza extends AppCompatActivity  {
                 for(String nome : bundle.getStringArrayList("aggiunteCreata")){
                     listingredienti.add(Ingredienti.valueOf(nome));
                     //countIngredienti++;
-                    //setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, nome)));
+                    //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, nome)));
                     this.setEnableIngrediente(nome, false);
                 }
             }
@@ -85,7 +85,7 @@ public class CreaPizza extends AppCompatActivity  {
                 for (Ingredienti ingrediente : nuovaPizza.getIngredienti()){
                     listingredienti.add(ingrediente);
                     //countIngredienti++;
-                    //setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, ingrediente.getStringNome())));
+                    //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, ingrediente.getStringNome())));
                     this.setEnableIngrediente(ingrediente.toString(), false);
 
                 }
@@ -295,7 +295,7 @@ private boolean leastOneCheck(TableLayout table){
 
             int i = 2;
 
-            for (ListaIngrediente ingrediente : listingredienti) {
+            for (ListaIngrediente ingrediente : listIngredienti) {
                 if (ingrediente.getCount() > 0) {
                     menu.addSubMenu(2, i + 1, menu.NONE, ingrediente.getStringNome());
                     menu.setGroupCheckable(2, true, false);
@@ -314,14 +314,14 @@ private boolean leastOneCheck(TableLayout table){
                 menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        for (int i = 0; i < listingredienti.size(); i++) {
-                            listingredienti.get(i).setIngrediente(0);
+                        for (int i = 0; i < listIngredienti.size(); i++) {
+                            listIngredienti.get(i).setIngrediente(0);
                         }
                         countIngredienti = 0;
                         updatePizza();
                         Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
-                        for (int i = 0; i < listingredienti.size(); i++) {
-                            setVisibilityIngrediente(listingredienti.get(i));
+                        for (int i = 0; i < listIngredienti.size(); i++) {
+                            setVisibilityIngrediente(listIngredienti.get(i));
                         }
 
                         return true;
@@ -347,12 +347,12 @@ private boolean leastOneCheck(TableLayout table){
                     menu.getItem(j).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            if ((Pizza.trovaIngredientiInseriti(listingredienti, item.toString()))) {
-                                listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())).setIngrediente(0);
+                            if ((Pizza.trovaIngredientiInseriti(listIngredienti, item.toString()))) {
+                                listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, item.toString())).setIngrediente(0);
                                 countIngredienti--;
                                 updatePizza();
                                 Toast.makeText(CreaPizza.this, "Hai rimosso " + item.toString(), Toast.LENGTH_SHORT).show();
-                                setVisibilityIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, item.toString())));
+                                setVisibilityIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, item.toString())));
                             }
                             return true;
                         }
@@ -389,7 +389,7 @@ private boolean leastOneCheck(TableLayout table){
     public boolean onContextItemSelected(MenuItem item) {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        for(ListaIngrediente ingrediente: listingredienti)
+        for(ListaIngrediente ingrediente: listIngredienti)
             if (item.getTitle().equals(ingrediente.getStringNome())){
                 item.setChecked(true);
                 Log.d("checked", ingrediente.getStringNome());
@@ -535,16 +535,16 @@ private boolean leastOneCheck(TableLayout table){
                     case DragEvent.ACTION_DROP:
                         //aggiorna immagine pizza
                        String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
-                        if (!(Pizza.trovaIngredientiInseriti(listingredienti,draggedImageText))) {
-                           listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
+                        if (!(Pizza.trovaIngredientiInseriti(listIngredienti,draggedImageText))) {
+                           listIngredienti.get(Pizza.trovaIngrediente(listIngredienti,draggedImageText)).addIngrediente();
                            countIngredienti++;
                            updatePizza();
-                            setGoneIngrediente(listingredienti.get(Pizza.trovaIngrediente(listingredienti, draggedImageText)));
+                            setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, draggedImageText)));
 
                             Toast.makeText(CreaPizza.this,"Hai aggiunto "+ draggedImageText,Toast.LENGTH_SHORT).show();
 
                         }else{//ingrediente gia inserito nell immagine
-                            listingredienti.get(Pizza.trovaIngrediente(listingredienti,draggedImageText)).addIngrediente();
+                            listIngredienti.get(Pizza.trovaIngrediente(listIngredienti,draggedImageText)).addIngrediente();
                                 System.out.println("hai inserito troppi ingredienti dello stesso tipo");
                         }
 
