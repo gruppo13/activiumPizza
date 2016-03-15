@@ -33,7 +33,12 @@ public class ElencoPizze extends AppCompatActivity{
 
     private GoogleApiClient client;
     /* menu pizze */
-    List<Pizza> listaPizzeClassiche;
+    List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
+            new Pizza("Napoli"),new Pizza("Wurstel e Cipolle"),
+            new Pizza("Funghi"),new Pizza("Cotto"),
+            new Pizza("Prosciutto e Funghi"),new Pizza("Vegetariana"),
+            new Pizza("Parmigiana"),new Pizza("Capricciosa"),
+            new Pizza("Carbonara"),new Pizza("All American"));;
 
 
 
@@ -45,12 +50,6 @@ public class ElencoPizze extends AppCompatActivity{
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
-        listaPizzeClassiche = Arrays.asList(new Pizza("margherita"),
-                new Pizza("napoli"),new Pizza("wurstelCipolle"),
-                new Pizza("funghi"),new Pizza("cotto"),
-                new Pizza("prosciuttoFunghi"),new Pizza("vegetariana"),
-                new Pizza("parmigiana"),new Pizza("capricciosa"),
-                new Pizza("carbonara"),new Pizza("allAmerican"));
         Button btn2 =  (Button)findViewById(R.id.btnModificaClassica);
         Button btn1 = (Button)findViewById(R.id.btnAgggiungiClassica);
         final int[] lastExpandedPosition = {-1, -1}; // ultima posizione aperta, ultima posizione chiusa

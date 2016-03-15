@@ -42,7 +42,7 @@ public class CreaPizza extends AppCompatActivity  {
 
 
     //int countIngredienti;
-    List<Ingredienti> listingredienti;
+    Pizza nuovaPizza = new Pizza("creata");
     LayerDrawable layerDrawable;
 
     /**
@@ -65,25 +65,25 @@ public class CreaPizza extends AppCompatActivity  {
         Bundle bundle = getIntent().getExtras();
         setContentView(R.layout.activity_creapizza);
         //this.countIngredienti = 0;
-        listingredienti = new ArrayList<>();
-
 
         //modifiche pizza
         if(bundle.getString("aggiunte")!= null) {
             String pizzaModificare = bundle.getString("aggiunte");
+            //modifica pizza carrello
             if (pizzaModificare.equals("not valid")) {
 
                 for(String nome : bundle.getStringArrayList("aggiunteCreata")){
-                    listingredienti.add(Ingredienti.valueOf(nome));
+                    nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
                     //countIngredienti++;
                     //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, nome)));
                     this.setEnableIngrediente(nome, false);
                 }
             }
             else{
+                //modifica pizza esistente (elenco / carrello)
                 Pizza nuovaPizza = new Pizza(pizzaModificare);
                 for (Ingredienti ingrediente : nuovaPizza.getIngredienti()){
-                    listingredienti.add(ingrediente);
+                    nuovaPizza.addIngrediente(ingrediente);
                     //countIngredienti++;
                     //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, ingrediente.getStringNome())));
                     this.setEnableIngrediente(ingrediente.toString(), false);
@@ -151,9 +151,10 @@ public class CreaPizza extends AppCompatActivity  {
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
                 Bundle b = getIntent().getExtras();
 
+                List<Ingredienti> ingredientib = nuovaPizza.getIngredienti();
                 ArrayList<String> ingredienti = new ArrayList<>();
-                for (Ingredienti ingrediente : listingredienti){
-                    ingredienti.add(ingrediente.toString());
+                for(Ingredienti i : ingredientib){
+                    ingredienti.add(i.toString());
                 }
                 if (b.getInt("creata")>0)
                     b.putInt("creata", b.getInt("creata")+1);
@@ -195,7 +196,7 @@ public class CreaPizza extends AppCompatActivity  {
 
     private void dialogRimuoviIngredienti(){
 
-    if (!listingredienti.isEmpty()) {
+    if (!nuovaPizza.getIngredienti().isEmpty()) {
 
         final Dialog dialog = new Dialog(CreaPizza.this);
         dialog.setTitle("rimuovi ingredienti");
@@ -205,7 +206,7 @@ public class CreaPizza extends AppCompatActivity  {
         LayoutInflater infalInflater;
         View convertView;
 
-        for (Ingredienti ingrediente : listingredienti) {
+        for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
             infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_check, null);
             CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
@@ -217,9 +218,9 @@ public class CreaPizza extends AppCompatActivity  {
         dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < listingredienti.size(); i++) {
-                    setEnableIngrediente(listingredienti.get(i).toString(), true);
-                    listingredienti.remove(i);
+                for (int i = 0; i < nuovaPizza.countIngredienti(); i++) {
+                    setEnableIngrediente(nuovaPizza.getIngrediente(i).toString(), true);
+                    nuovaPizza.removeIngrediente(i);
                 }
                 updatePizza();
                 Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
@@ -260,7 +261,7 @@ public class CreaPizza extends AppCompatActivity  {
                     View convertView = table.getChildAt(i);
                     CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
                     if (check.isChecked()) {
-                        listingredienti.remove(check.getText().toString());
+                        nuovaPizza.removeIngrediente(Ingredienti.valueOf(check.getText().toString()));
                         updatePizza();
                         setEnableIngrediente(check.getText().toString(), true);
                     }
@@ -506,7 +507,7 @@ private boolean leastOneCheck(TableLayout table){
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
             //aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
-            listingredienti.add(Ingredienti.valueOf(imageClick));
+            nuovaPizza.addIngrediente(Ingredienti.valueOf(imageClick));
             updatePizza();
             Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
             v.setEnabled(false);
@@ -641,7 +642,7 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
 
 
 private void updatePizza() {
-    Drawable[] layers = new Drawable[listingredienti.size()+1];
+    Drawable[] layers = new Drawable[nuovaPizza.countIngredienti()+1];
     Resources resources = getResources();
     ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
@@ -652,12 +653,12 @@ private void updatePizza() {
     layers[0] = bmd;
 
     int i=1;
-    if (!listingredienti.isEmpty()) {
-        for (Ingredienti ingrediente : listingredienti)
+    if (!nuovaPizza.getIngredienti().isEmpty()) {
+        for (Ingredienti ingrediente : nuovaPizza.getIngredienti())
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
                 //  bmd.setTargetDensity(metrics);
-                if (i < listingredienti.size() + 1) {
+                if (i < nuovaPizza.countIngredienti() + 1) {
                     layers[i] = bmd;
                     i++;
                 }

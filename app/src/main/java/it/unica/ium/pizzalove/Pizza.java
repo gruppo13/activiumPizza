@@ -1,5 +1,8 @@
 package it.unica.ium.pizzalove;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,45 +19,49 @@ public class Pizza{
     public Pizza(String nomePizza){
         this.nomePizza = nomePizza;
         switch(nomePizza){
-            case "margherita":
+            case "Margherita":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella);
                 break;
-            case "napoli":
+            case "Napoli":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Capperi,
                         Ingredienti.Acciughe, Ingredienti.Basilico);
                 break;
-            case "wurstelCipolle":
+            case "Wurstel e Cipolle":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Wurstel,
                         Ingredienti.Cipolle);
                 break;
-            case "funghi":
+            case "Funghi":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi);
                 break;
-            case "capricciosa":
+            case "Capricciosa":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi,
                         Ingredienti.Cotto, Ingredienti.Uova, Ingredienti.Wurstel);
                 break;
-            case "prosciuttoFunghi":
+            case "Prosciutto e Funghi":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Funghi,
-                        Ingredienti.Cotto
-                );
+                        Ingredienti.Cotto);
                 break;
-            case "allAmerican":
-                this.listaIngredienti =  Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella,Ingredienti.Patatine,
+            case "All American":
+                this.listaIngredienti =  Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Patatine,
                         Ingredienti.Wurstel);
                 break;
-            case "carbonara":
+            case "Vegetariana":
+                this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Zucchine,
+                        Ingredienti.Melanzane, Ingredienti.Pepeperoni);
+                break;
+            case "Carbonara":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Mozzarella, Ingredienti.Uova, Ingredienti.Bacon);
                 break;
-            case "parmigiana":
+            case "Parmigiana":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Melanzane,
                         Ingredienti.Grana);
                 break;
-            case "cotto":
+            case "Cotto":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Cotto);
                 break;
             default:
-                this.nomePizza = "creata";
+                this.listaIngredienti = new ArrayList<>();
+                //this.nomePizza = "creata";
                 break;
         }
     }
@@ -70,9 +77,17 @@ public class Pizza{
         return this.nomePizza;
     }
 
+    public Ingredienti getIngrediente(int i){
+        return listaIngredienti.get(i);
+    }
+
 
     public List<Ingredienti> getIngredienti(){
         return this.listaIngredienti;
+    }
+
+    public int countIngredienti(){
+        return listaIngredienti.size();
     }
 
 
@@ -87,9 +102,20 @@ public class Pizza{
         return true;
     }
 
-    public boolean addIngrediente(String i){
+    public boolean removeIngrediente(int i){
         try{
-            listaIngredienti.add(Ingredienti.valueOf(i));
+            listaIngredienti.remove(i);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean addIngrediente(Ingredienti i){
+        try{
+            listaIngredienti.add(i);
         }
         catch (Exception r){
             r.printStackTrace();
@@ -99,11 +125,11 @@ public class Pizza{
     }
 
     public void addCount(){
-        this.COUNT++;
+        ++COUNT;
     }
 
     public int getCount(){
-        return this.COUNT;
+        return COUNT;
     }
 
     public Float getPrezzo(){

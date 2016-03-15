@@ -26,8 +26,8 @@ import java.util.List;
 public class ExpandableList extends BaseExpandableListAdapter {
 
     private Context _context;
-    List _listDataChild;
-    List<String> _listDataHeader;
+    private List<Pizza> _listDataChild;
+    private List<String> _listDataHeader;
     Button btn1;
     Button btn2;
 
@@ -39,9 +39,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
         for(Pizza pizza: listChildData){
             if (pizza.getNomePizza().equals("creata")){
                 this._listDataHeader.add("La tua creazione n." + i);
+                i++;
             }
-            else
+            else {
                 this._listDataHeader.add(pizza.getNomePizza());
+            }
 
         }
     }
@@ -49,7 +51,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    @Override
    public Object getChild(int groupPosition, int childPosititon) {
-       return ((ListaPizza)(this._listDataChild.get(groupPosition))).getIngredienti().get(childPosititon);
+       return this._listDataChild.get(groupPosition).getIngredienti().get(childPosititon);
    }
 
    @Override
@@ -61,11 +63,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public View getChildView(int groupPosition, int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-       final ListaIngrediente childText;
-       while(((ListaIngrediente) getChild(groupPosition, childPosition)).getCount()==0)
+       final Ingredienti childText;
+       while(((Ingredienti) getChild(groupPosition, childPosition)).getNumber()==0)
              childPosition++;
 
-       childText = (ListaIngrediente) getChild(groupPosition, childPosition);
+       childText = (Ingredienti) getChild(groupPosition, childPosition);
 
 
        if (convertView == null) {
@@ -77,13 +79,13 @@ public class ExpandableList extends BaseExpandableListAdapter {
        TextView txtListChild = (TextView) convertView
                .findViewById(R.id.lblListItem);
 
-       txtListChild.setText(childText.getStringNome());
+       txtListChild.setText(childText.toString());
        return convertView;
    }
 
    @Override
    public int getChildrenCount(int groupPosition) {
-       return ((ListaPizza)(this._listDataChild.get(groupPosition))).getSizeIngredienti();
+       return this._listDataChild.get(groupPosition).countIngredienti();
    }
 
    @Override
@@ -109,14 +111,18 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
 
        if (convertView == null) {
+           Log.d(_context.getClass().toString(), "1");
            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           if (headerTitle.getCount()==0)
-               convertView = infalInflater.inflate(R.layout.listgroup, null);
+           if (!(_context instanceof Carrello)){
+               Log.d(_context.getClass().toString(), "2");
+               convertView = infalInflater.inflate(R.layout.listgroup, null);}
            else
-                convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);
+           {
+               Log.d(_context.getClass().toString(), "3");
+               convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);}
        }
-        if (headerTitle.getCount()>0) {//scontrino
-
+        if (_context instanceof Carrello) {//scontrino
+            Log.d(_context.getClass().toString(), "4");
             TextView lblListNum = (TextView) convertView.findViewById(R.id.lblListHCarrelloNum);
             TextView lblListNome = (TextView) convertView.findViewById(R.id.lblListHCarrelloNome);
             TextView lblListPrezzo = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzo);
