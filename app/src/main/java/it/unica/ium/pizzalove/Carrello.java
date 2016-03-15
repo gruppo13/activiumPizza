@@ -52,12 +52,15 @@ public class Carrello extends AppCompatActivity{
 
                 elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
             }
+        }
             if (bundle.getInt("creata") > 0) {
                 for (int i = 0; i < bundle.getInt("creata"); i++) {
+                    listIngredienti = new ArrayList<>();
                     for (String nome : bundle.getStringArrayList(String.valueOf(i + 1))) {
                         listIngredienti.add(Ingredienti.valueOf(nome));
                     }
                     elenco.add(new Pizza(listIngredienti));
+                    elenco.get(elenco.size()-1).addCount();
                 }
 
             }
@@ -114,7 +117,7 @@ public class Carrello extends AppCompatActivity{
                 }
             });
 
-        }}
+        }
 
 
 
@@ -132,7 +135,7 @@ public class Carrello extends AppCompatActivity{
     private void removePizzaCarrello(boolean flag){
 
         String nomePizza = elenco.get(deletePosition).getNomePizza();
-
+        Pizza pizzaModifica = elenco.get(deletePosition);
         elenco.remove(deletePosition);
 
         int creata =0;
@@ -148,7 +151,7 @@ public class Carrello extends AppCompatActivity{
             else{//modifica pizza
 
                 ArrayList<String> ingredienti = new ArrayList<>();
-                for (Ingredienti ingrediente : listIngredienti){
+                for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                 }
                 bundle.putStringArrayList("aggiunteCreata",ingredienti);
@@ -194,10 +197,10 @@ public class Carrello extends AppCompatActivity{
                 bundle.putString("aggiunte", nomePizza);
 
                     ArrayList<String> ingredienti = new ArrayList<>();
-                    for (Ingredienti ingrediente : listIngredienti){
+                    for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                     }
-                    bundle.putStringArrayList("aggiunteCreata",ingredienti);
+                    bundle.putStringArrayList("aggiunteCreata", ingredienti);
                 intent.putExtras(bundle);
                 onResume();
                 startActivityForResult(intent, 0);
