@@ -12,9 +12,9 @@
     <style name="prova" parent="Theme.AppCompat.Light" >
 
 
-
     </style>
 
+    <style name="AppBaseTheme" parent="android:Theme.Holo.NoActionBar"></style>
 
 
 

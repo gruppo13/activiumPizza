@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tialla"
+    android:background="@drawable/tialla2"
     tools:context="it.unica.ium.pizzalove.CreaPizza"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"

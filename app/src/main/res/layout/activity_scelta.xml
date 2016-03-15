@@ -2,23 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/tialla"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tialla2"
     tools:context="it.unica.ium.pizzalove.Scelta"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:baselineAligned="false">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
 
-               >
+        android:background="#00ffffff">
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
 

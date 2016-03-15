@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Pizza{
 
-    private static int COUNT = 0;
+    private int COUNT = 0;
     private String nomePizza;
-    private List<Ingredienti> listaIngredienti;
+    private List<Ingredienti> listaIngredienti = new ArrayList<>();
 
 
     public Pizza(String nomePizza){
@@ -60,7 +60,6 @@ public class Pizza{
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Cotto);
                 break;
             default:
-                this.listaIngredienti = new ArrayList<>();
                 //this.nomePizza = "creata";
                 break;
         }

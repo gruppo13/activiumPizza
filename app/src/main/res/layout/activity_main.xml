@@ -6,14 +6,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="it.unica.ium.pizzalove.Main"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/tialla2"
+
+    >
+
+
+    <it.unica.ium.pizzalove.myNumberPicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.3"
+        android:id="@+id/lblListHCarrelloNum3"
+        max="10"
+        min="1"
+        android:showDividers="none"
+        android:measureWithLargestChild="false"
+        android:layoutMode="opticalBounds"/>
+
 
     <AutoCompleteTextView
         android:id="@+id/add_alarm_form_to"
         android:layout_height="wrap_content"
         android:inputType="text|textMultiLine"
-        android:layout_width="fill_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
         android:maxLines="2"
         android:layout_marginRight="10dp"
         android:layout_row="1"
@@ -21,7 +37,8 @@
         android:textSize="16dp"
         android:layout_column="0"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_alignTop="@+id/lblListHCarrelloNum3"
+        android:ellipsize="middle">
     </AutoCompleteTextView>
 
     <Button

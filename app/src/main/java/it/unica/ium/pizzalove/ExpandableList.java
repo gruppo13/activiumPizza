@@ -36,7 +36,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
         this._listDataChild = listChildData;
         this._listDataHeader = new ArrayList<>();
         int i=0;
-        for(Pizza pizza: listChildData){
+        /*for(Pizza pizza: listChildData){
             if (pizza.getNomePizza().equals("creata")){
                 this._listDataHeader.add("La tua creazione n." + i);
                 i++;
@@ -45,7 +45,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
                 this._listDataHeader.add(pizza.getNomePizza());
             }
 
-        }
+        }*/
     }
 
 
@@ -111,10 +111,8 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
 
        if (convertView == null) {
-           Log.d(_context.getClass().toString(), "1");
            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            if (!(_context instanceof Carrello)){
-               Log.d(_context.getClass().toString(), "2");
                convertView = infalInflater.inflate(R.layout.listgroup, null);}
            else
            {
@@ -122,7 +120,6 @@ public class ExpandableList extends BaseExpandableListAdapter {
                convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);}
        }
         if (_context instanceof Carrello) {//scontrino
-            Log.d(_context.getClass().toString(), "4");
             TextView lblListNum = (TextView) convertView.findViewById(R.id.lblListHCarrelloNum);
             TextView lblListNome = (TextView) convertView.findViewById(R.id.lblListHCarrelloNome);
             TextView lblListPrezzo = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzo);
