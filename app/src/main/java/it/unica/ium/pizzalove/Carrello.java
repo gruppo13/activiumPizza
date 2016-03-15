@@ -49,6 +49,7 @@ public class Carrello extends AppCompatActivity{
             for (String pizza : listaPizze) {
                 if (Pizza.containPizza(elenco, pizza) == -1)
                     elenco.add(new Pizza(pizza));
+
                 elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
             }
             if (bundle.getInt("creata") > 0) {
@@ -168,7 +169,7 @@ public class Carrello extends AppCompatActivity{
             //ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
             for (Pizza pizza : elenco) {
                 if (!pizza.getNomePizza().equals("not valid")) {
-                    for(int i=0;i<pizza.getCount();i++)
+                    for(int i = 0; i < pizza.getCount(); i++)
                         nomiPizze.add(pizza.getNomePizza());
                 } else {// aggiorna le pizze create dall utente
                     ArrayList<String> ingredienti = new ArrayList<>();
@@ -193,7 +194,7 @@ public class Carrello extends AppCompatActivity{
                 bundle.putString("aggiunte", nomePizza);
 
                     ArrayList<String> ingredienti = new ArrayList<>();
-                    for (Ingredienti ingrediente : pizzamodifica.getIngredienti()){
+                    for (Ingredienti ingrediente : listIngredienti){
                         ingredienti.add(ingrediente.toString());
                     }
                     bundle.putStringArrayList("aggiunteCreata",ingredienti);
