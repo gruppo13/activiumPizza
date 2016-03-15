@@ -654,14 +654,14 @@ private void updatePizza() {
 
     int i=1;
     if (!nuovaPizza.getIngredienti().isEmpty()) {
-        for (Ingredienti ingrediente : nuovaPizza.getIngredienti())
+        for (Ingredienti ingrediente : nuovaPizza.getIngredienti()){
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
                 //  bmd.setTargetDensity(metrics);
-                if (i < nuovaPizza.countIngredienti() + 1) {
+                //if (i < nuovaPizza.countIngredienti() + 1) {
                     layers[i] = bmd;
                     i++;
-                }
+               }
         findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
     }
     else{//non ci sono ingredienti quindi non puoi creare una pizza vuota

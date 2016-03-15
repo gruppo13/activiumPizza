@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Pizza{
 
-    private static int COUNT = 0;
+    private int COUNT = 0;
     private String nomePizza;
     private List<Ingredienti> listaIngredienti;
 

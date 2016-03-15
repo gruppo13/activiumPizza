@@ -47,10 +47,9 @@ public class Carrello extends AppCompatActivity{
         if(bundle.getStringArrayList("classica")!= null) {
             listaPizze = bundle.getStringArrayList("classica");
             for (String pizza : listaPizze) {
-                if (Pizza.containPizza(elenco, pizza) == -1) {
+                if (Pizza.containPizza(elenco, pizza) == -1)
                     elenco.add(new Pizza(pizza));
-                    elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
-                }
+                elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
             }
             if (bundle.getInt("creata") > 0) {
                 for (int i = 0; i < bundle.getInt("creata"); i++) {
@@ -107,7 +106,7 @@ public class Carrello extends AppCompatActivity{
                     Intent intent = new Intent(Carrello.this, ElencoPizze.class);
                     // b.putStringArrayList("lista", new ArrayList<String>(listIngredienti.keySet()));
                     bundle.putString("aggiunte", null);
-                    bundle.putStringArrayList("classica", null);
+                    //bundle.putStringArrayList("classica", null);
                     intent.putExtras(bundle);
                     onResume();
                     startActivityForResult(intent, 0);
@@ -134,6 +133,7 @@ public class Carrello extends AppCompatActivity{
         String nomePizza = elenco.get(deletePosition).getNomePizza();
 
         elenco.remove(deletePosition);
+        bundle.remove(nomePizza);
 
         int creata =0;
         if (elenco.size() == 0) {
@@ -169,7 +169,8 @@ public class Carrello extends AppCompatActivity{
             //ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
             for (Pizza pizza : elenco) {
                 if (!pizza.getNomePizza().equals("not valid")) {
-                    nomiPizze.add(pizza.getNomePizza());
+                    for(int i = 0; i < pizza.getCount(); i++)
+                        nomiPizze.add(pizza.getNomePizza());
                 } else {// aggiorna le pizze create dall utente
                     ArrayList<String> ingredienti = new ArrayList<>();
                     for (Ingredienti ingrediente : pizza.getIngredienti()){
