@@ -49,27 +49,17 @@ public class Carrello extends AppCompatActivity{
             for (String pizza : listaPizze) {
                 if (Pizza.containPizza(elenco, pizza) == -1)
                     elenco.add(new Pizza(pizza));
-
                 elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
-
             }
-        }
             if (bundle.getInt("creata") > 0) {
                 for (int i = 0; i < bundle.getInt("creata"); i++) {
-                    listIngredienti = new ArrayList<>();
                     for (String nome : bundle.getStringArrayList(String.valueOf(i + 1))) {
-
                         listIngredienti.add(Ingredienti.valueOf(nome));
-                        Log.d(nome, "cazzo");
                     }
-
                     elenco.add(new Pizza(listIngredienti));
-                    elenco.get(elenco.size()-1).addCount();
-
                 }
 
             }
-
             listAdapter = new ExpandableList(this, elenco);
             expListView = (ExpandableListView) findViewById(R.id.carrello);
 
@@ -116,14 +106,14 @@ public class Carrello extends AppCompatActivity{
                     Intent intent = new Intent(Carrello.this, ElencoPizze.class);
                     // b.putStringArrayList("lista", new ArrayList<String>(listIngredienti.keySet()));
                     bundle.putString("aggiunte", null);
-                    //bundle.putStringArrayList("classica", null);
+                    bundle.putStringArrayList("classica", null);
                     intent.putExtras(bundle);
                     onResume();
                     startActivityForResult(intent, 0);
                 }
             });
 
-        }
+        }}
 
 
 
@@ -142,11 +132,11 @@ public class Carrello extends AppCompatActivity{
 
         String nomePizza = elenco.get(deletePosition).getNomePizza();
 
-        Pizza pizzamodifica = elenco.get(deletePosition);
         elenco.remove(deletePosition);
 
         int creata =0;
-        if (elenco.size() == 1) {
+        if (elenco.size() == 0) {
+
             bundle.putStringArrayList("classica", null);
             bundle.putInt("creata", 0);
             Intent intent;
@@ -157,7 +147,7 @@ public class Carrello extends AppCompatActivity{
             else{//modifica pizza
 
                 ArrayList<String> ingredienti = new ArrayList<>();
-                for (Ingredienti ingrediente : pizzamodifica.getIngredienti()){
+                for (Ingredienti ingrediente : listIngredienti){
                         ingredienti.add(ingrediente.toString());
                 }
                 bundle.putStringArrayList("aggiunteCreata",ingredienti);
@@ -169,16 +159,16 @@ public class Carrello extends AppCompatActivity{
 
             intent.putExtras(bundle);
             onResume();
-
             startActivityForResult(intent, 0);
 
         } else {// le pizze non sono finite
+
             //aggiorna elenco pizze
             ArrayList<String> nomiPizze = new ArrayList<>();
             //ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
             for (Pizza pizza : elenco) {
                 if (!pizza.getNomePizza().equals("not valid")) {
-                    for (int i=0;i<pizza.getCount();i++)
+                    for(int i=0;i<pizza.getCount();i++)
                         nomiPizze.add(pizza.getNomePizza());
                 } else {// aggiorna le pizze create dall utente
                     ArrayList<String> ingredienti = new ArrayList<>();
@@ -206,9 +196,7 @@ public class Carrello extends AppCompatActivity{
                     for (Ingredienti ingrediente : pizzamodifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                     }
-                    bundle.putStringArrayList("aggiunteCreata", ingredienti);
-
-
+                    bundle.putStringArrayList("aggiunteCreata",ingredienti);
                 intent.putExtras(bundle);
                 onResume();
                 startActivityForResult(intent, 0);
