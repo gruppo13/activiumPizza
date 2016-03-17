@@ -2,6 +2,7 @@ package it.unica.ium.pizzalove;
 
 import android.util.Log;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -147,6 +148,12 @@ public class Pizza{
             i++;
         }
         return -1;
+    }
+
+    /* ritorna il formato standard */
+    public static String formatoPrezzo(float prezzo) {
+        DecimalFormat form = new DecimalFormat("0.00");
+        return form.format(prezzo) + " €";
     }
 
 

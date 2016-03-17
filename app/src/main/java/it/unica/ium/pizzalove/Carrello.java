@@ -15,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +45,19 @@ public class Carrello extends AppCompatActivity{
         Float tot = 0.0f;
         bundle = getIntent().getExtras();
 
+        for(String key : bundle.keySet()){
+            if(bundle.get(key) instanceof ArrayList) {
+                ArrayList temp = (ArrayList) bundle.get(key);
+                for(Object value : temp)
+                    Log.e(key, value.toString());
+            }
+        }
+
         if(bundle.getStringArrayList("classica")!= null) {
             listaPizze = bundle.getStringArrayList("classica");
             for (String pizza : listaPizze) {
                 if (Pizza.containPizza(elenco, pizza) == -1)
                     elenco.add(new Pizza(pizza));
-
                 elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
             }
         }
@@ -72,7 +80,7 @@ public class Carrello extends AppCompatActivity{
             TextView totale = (TextView) findViewById(R.id.txtTotale);
             tot = contaTotale();
 
-            totale.setText(Ingredienti.formatoPrezzo(tot));
+            totale.setText(Pizza.formatoPrezzo(tot));
 
             // expListView.setOnCreateContextMenuListener(optionPizzeCarrello);
             expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -110,7 +118,7 @@ public class Carrello extends AppCompatActivity{
                     Intent intent = new Intent(Carrello.this, ElencoPizze.class);
                     // b.putStringArrayList("lista", new ArrayList<String>(listIngredienti.keySet()));
                     bundle.putString("aggiunte", null);
-                    bundle.putStringArrayList("classica", null);
+                    //bundle.putStringArrayList("classica", null);
                     intent.putExtras(bundle);
                     onResume();
                     startActivityForResult(intent, 0);
@@ -206,7 +214,7 @@ public class Carrello extends AppCompatActivity{
                 startActivityForResult(intent, 0);
             }
             else{
-                ((TextView) findViewById(R.id.txtTotale)).setText(Ingredienti.formatoPrezzo(contaTotale()));
+                ((TextView) findViewById(R.id.txtTotale)).setText(Pizza.formatoPrezzo(contaTotale()));
                 Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
                 listAdapter = new ExpandableList(Carrello.this, elenco);
                 expListView.setAdapter(listAdapter);

@@ -51,11 +51,4 @@ public enum Ingredienti{
     int getNumber() {
         return this.number;
     }
-
-
-    /* ritorna il formato standard */
-    public static String formatoPrezzo(float prezzo) {
-        DecimalFormat form = new DecimalFormat("0.00");
-        return form.format(prezzo) + " €";
-    }
 }

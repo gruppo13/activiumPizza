@@ -93,7 +93,7 @@ public class CreaPizza extends AppCompatActivity  {
         }
 
 
-            // immagini da trascinare
+            /* immagini da trascinare
             findViewById(R.id.sugo).setOnLongClickListener(longListener);
             findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
             findViewById(R.id.funghi).setOnLongClickListener(longListener);
@@ -111,7 +111,7 @@ public class CreaPizza extends AppCompatActivity  {
             findViewById(R.id.salame).setOnLongClickListener(longListener);
             findViewById(R.id.uova).setOnLongClickListener(longListener);
             findViewById(R.id.wurstel).setOnLongClickListener(longListener);
-            findViewById(R.id.salame).setOnLongClickListener(longListener);
+            findViewById(R.id.salame).setOnLongClickListener(longListener);*/
 
 
             //immagini da click
@@ -486,7 +486,7 @@ private boolean leastOneCheck(TableLayout table){
 
         }
     }
-
+/*
 
     View.OnLongClickListener longListener = new View.OnLongClickListener() {
         @Override
@@ -497,7 +497,7 @@ private boolean leastOneCheck(TableLayout table){
 
             return false;
         }
-    };
+    };*/
 
 
 
