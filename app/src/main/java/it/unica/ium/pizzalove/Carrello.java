@@ -96,6 +96,54 @@ public class Carrello extends AppCompatActivity{
             });
 
 
+        /* solo una pizza si puo espandere*/
+            final int[] lastExpandedPosition = {-1, -1}; // ultima posizione aperta, ultima posizione chiusa
+
+            /// fa espandere solo un gruppo per volta
+            expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                                                @Override
+                                                public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
+                                                    // cambia attivita
+                                                    //setContentView(R.layout.activity_creapizza);
+                                                    expListView.collapseGroup(groupPosition);
+                                                    //cambia la quantita delle pizze selezionate
+                                                    if (expListView.isGroupExpanded(groupPosition)) {
+                                                        //vai al carrello doppio click
+                                                        if (lastExpandedPosition[1] == groupPosition) {
+                                                            System.out.println("group clicked 1");
+
+                                                        } else {
+                                                            System.out.println("group clicked 2");
+                                                            expListView.collapseGroup(groupPosition);
+                                                        }
+
+
+                                                    } else {//espandi lista
+/*  */
+
+                                                        System.out.println("group clicked 3");
+
+
+                                                        lastExpandedPosition[1] = groupPosition;
+                                                        if (lastExpandedPosition[0] == groupPosition) {
+                                                            System.out.println("same expanded group");
+                                                            lastExpandedPosition[0] = -1;
+                                                            lastExpandedPosition[1] = -1;
+                                                            expListView.collapseGroup(groupPosition);
+                                                        } else {
+                                                            if (lastExpandedPosition[0] != -1) {
+                                                                expListView.collapseGroup(lastExpandedPosition[0]);
+                                                            }
+                                                            lastExpandedPosition[0] = groupPosition;
+
+                                                            expListView.expandGroup(groupPosition);
+                                                        }
+                                                    }
+                                                    return true;
+                                                }
+                                            }
+            );
+
             Button btn = (Button) findViewById(R.id.btnCreaPizza);
             Button btn2 = (Button) findViewById(R.id.btnCreaElenco);
             //aggiungi una pizza da creare
