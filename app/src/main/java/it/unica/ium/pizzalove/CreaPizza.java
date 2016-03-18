@@ -67,7 +67,7 @@ public class CreaPizza extends AppCompatActivity  {
         //this.countIngredienti = 0;
 
         //modifiche pizza
-        if(bundle.getString("aggiunte")!= null) {
+       /*if(bundle.getString("aggiunte")!= null) {
             String pizzaModificare = bundle.getString("aggiunte");
             //modifica pizza carrello
             if (pizzaModificare.equals("creata")) {
@@ -89,6 +89,17 @@ public class CreaPizza extends AppCompatActivity  {
                     this.setEnableIngrediente(ingrediente.toString(), false);
 
                 }
+            }
+        }*/
+
+
+        //pizza da modificare
+        if(bundle.getStringArrayList("aggiunte")!=null){
+            for(String nome : bundle.getStringArrayList("aggiunte")){//preleva tutti gli ingredienti
+                nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
+                //countIngredienti++;
+                //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, nome)));
+                this.setEnableIngrediente(nome, false);
             }
         }
 
@@ -163,7 +174,7 @@ public class CreaPizza extends AppCompatActivity  {
                 b.putStringArrayList(String.valueOf(b.getInt("creata")), ingredienti);
                 intent.putExtras(b);
 
-                onResume();
+               // onResume();
                 startActivityForResult(intent, 0);
 
             }

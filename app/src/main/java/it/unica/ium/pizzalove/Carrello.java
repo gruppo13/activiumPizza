@@ -177,8 +177,7 @@ public class Carrello extends AppCompatActivity{
 
 
 
-    // flag true -> elimina pizza
-    // flag false ->modifica pizza
+
 
     private Float contaTotale() {
         Float tot = 0.0f;
@@ -188,9 +187,15 @@ public class Carrello extends AppCompatActivity{
         return tot;
     }
 
+    /*removePizzaCarrello
+    rimuove o modifica una pizza dal carrello
+
+    // flag true -> elimina pizza
+    // flag false ->modifica pizza
+    */
     private void removePizzaCarrello(boolean flag){
 
-        String nomePizza = elenco.get(deletePosition).getNomePizza();
+       // String nomePizza = elenco.get(deletePosition).getNomePizza();
         Pizza pizzaModifica = elenco.get(deletePosition);
         elenco.remove(deletePosition);
 
@@ -210,10 +215,10 @@ public class Carrello extends AppCompatActivity{
                 for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                 }
-                bundle.putStringArrayList("aggiunteCreata",ingredienti);
+                bundle.putStringArrayList("aggiunte",ingredienti);
 
                 intent = new Intent(Carrello.this, CreaPizza.class);
-                bundle.putString("aggiunte", nomePizza);
+               // bundle.putString("aggiunte", nomePizza);
             }
 
 
@@ -223,14 +228,14 @@ public class Carrello extends AppCompatActivity{
 
         } else {// le pizze non sono finite
 
-            //aggiorna elenco pizze
+
             ArrayList<String> nomiPizze = new ArrayList<>();
             //ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
             for (Pizza pizza : elenco) {
-                if (!pizza.getNomePizza().equals("not valid")) {
+                if (!pizza.getNomePizza().equals("creata")) {//aggiorna le pizze classiche presenti nel carrello da inserire nel bundle
                     for(int i = 0; i < pizza.getCount(); i++)
                         nomiPizze.add(pizza.getNomePizza());
-                } else {// aggiorna le pizze create dall utente
+                } else {// aggiorna le pizze create dall utente da inserire nel bundle
                     ArrayList<String> ingredienti = new ArrayList<>();
                     for (Ingredienti ingrediente : pizza.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
@@ -240,28 +245,28 @@ public class Carrello extends AppCompatActivity{
                 }
             }
 
-            bundle.putStringArrayList("classica", null);
-
             bundle.putInt("creata", creata);
             if (nomiPizze.size() > 0)
                 bundle.putStringArrayList("classica", nomiPizze);
+            else
+                bundle.putStringArrayList("classica", null);
 
 
-            if (flag==false){
+
+            if (flag==false){// flag = false pizza modifica
                 Intent intent = new Intent(Carrello.this, CreaPizza.class);
-
-                bundle.putString("aggiunte", nomePizza);
+                //bundle.putString("aggiunte", nomePizza);
 
                     ArrayList<String> ingredienti = new ArrayList<>();
                     for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                     }
-                    bundle.putStringArrayList("aggiunteCreata", ingredienti);
+                    bundle.putStringArrayList("aggiunte", ingredienti);
                 intent.putExtras(bundle);
                 onResume();
                 startActivityForResult(intent, 0);
             }
-            else{
+            else{// pizza eliminata
                 ((TextView) findViewById(R.id.txtTotale)).setText(Pizza.formatoPrezzo(contaTotale()));
                 Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
                 listAdapter = new ExpandableList(Carrello.this, elenco);

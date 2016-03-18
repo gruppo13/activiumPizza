@@ -116,7 +116,7 @@ public class ElencoPizze extends AppCompatActivity{
                     }
         );
         /**
-         * Evento sul pulsante per le aggiunte su una pizza classica selezionata dall'elenco delle pizze
+         * Evento sul pulsante per la modifica di una pizza classica selezionata dall'elenco delle pizze
          */
             btn2.setOnClickListener(new Button.OnClickListener() {
                 @Override
@@ -124,7 +124,19 @@ public class ElencoPizze extends AppCompatActivity{
                     if (lastExpandedPosition[0] >= 0) {
                         Intent intent = new Intent(ElencoPizze.this, CreaPizza.class);
                         Bundle b = getIntent().getExtras();
-                        b.putString("aggiunte", listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
+
+                        //passa tutti gli ingredienti direttamente senza passare il nome della pizza
+                        ArrayList<String> ingredienti = new ArrayList<>();
+                        for (Ingredienti ingrediente : listaPizzeClassiche.get(lastExpandedPosition[1]).getIngredienti()){
+                            ingredienti.add(ingrediente.toString());
+                        }
+                        b.putStringArrayList("aggiunte", ingredienti);
+
+
+
+                        //passa il nome della pizza a CreaPizza
+                       // b.putString("aggiunte", listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
+
                         intent.putExtras(b);
                         startActivityForResult(intent, 0);
                     }
