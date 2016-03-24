@@ -3,49 +3,55 @@
     package="it.unica.ium.pizzalove">
 <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Pizza and Love"
         android:largeHeap="true"
         android:supportsRtl="true"
+        android:theme="@style/prova">
 
-        android:theme="@style/prova"
-        >
-        <activity android:name=".Main">
+        <activity
+            android:name="it.unica.ium.pizzalove.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ElencoPizze"
-            android:parentActivityName="it.unica.ium.pizzalove.Scelta"
-            ><meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="it.unica.ium.pizzalove.Main" /></activity>
-        <activity android:name=".CreaPizza"
+
+        <activity
+            android:name="it.unica.ium.pizzalove.ElencoPizze"
+            android:parentActivityName="it.unica.ium.pizzalove.Scelta">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unica.ium.pizzalove.Main" />
+        </activity>
+
+        <activity
+            android:name="it.unica.ium.pizzalove.CreaPizza"
             android:parentActivityName="it.unica.ium.pizzalove.ElencoPizze">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="it.unica.ium.pizzalove.ElencoPizze" />
-            </activity>
-        <activity android:name=".Scelta" ><meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="it.unica.ium.pizzalove.ElencoPizze" /></activity>
-        <activity android:name=".Carrello" ><meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="it.unica.ium.pizzalove.ElencoPizze" /></activity>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+        </activity>
 
+        <activity
+            android:name="it.unica.ium.pizzalove.Scelta">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+        </activity>
+
+        <activity
+            android:name=".Carrello">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unica.ium.pizzalove.ElencoPizze" /></activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        --><!--android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY" -->
-        <meta-data
-
-
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
+        --><!--android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY"
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />-->
     </application>
-
 </manifest>
