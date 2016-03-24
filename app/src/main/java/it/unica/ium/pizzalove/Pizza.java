@@ -48,7 +48,7 @@ public class Pizza{
                 break;
             case "Vegetariana":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Zucchine,
-                        Ingredienti.Melanzane, Ingredienti.Pepeperoni);
+                        Ingredienti.Melanzane, Ingredienti.Peperoni);
                 break;
             case "Carbonara":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Mozzarella, Ingredienti.Uova, Ingredienti.Bacon);

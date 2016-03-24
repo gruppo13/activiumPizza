@@ -31,8 +31,8 @@
             android:id="@+id/imageMain"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:src="@drawable/layers"
-            android:contentDescription="imageMain" />
+            android:src="@drawable/pastapizza"
+            android:contentDescription="@string/imageMain" />
 
 
     </LinearLayout>

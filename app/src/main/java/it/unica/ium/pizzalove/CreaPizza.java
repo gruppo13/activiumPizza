@@ -181,7 +181,7 @@ public class CreaPizza extends AppCompatActivity  {
         });
 
 
-        updatePizza();
+        //updatePizza();
 
         //immagini da modificare
         //findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -517,10 +517,11 @@ private boolean leastOneCheck(TableLayout table){
         @Override
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
+            Log.e("errore grana", imageClick);
             //aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
             nuovaPizza.addIngrediente(Ingredienti.valueOf(imageClick));
             updatePizza();
-            Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
             v.setEnabled(false);
         }
     };
@@ -611,7 +612,7 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
         case Patatine:
             bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
             break;
-        case Pepeperoni:
+        case Peperoni:
             bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
             break;
         case Peperoncino:
@@ -656,14 +657,14 @@ private void updatePizza() {
     Drawable[] layers = new Drawable[nuovaPizza.countIngredienti()+1];
     Resources resources = getResources();
     ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
+    BitmapDrawable bmd;
+    //Bitmap bm = BitmapFactory.decodeResource(resources, R.id.imageMain);
+    //BitmapDrawable bmd = new BitmapDrawable(resources, bm);
+    //bmd.setGravity(Gravity.TOP);
 
-    Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
-    BitmapDrawable bmd = new BitmapDrawable(resources, bm);
-    bmd.setGravity(Gravity.TOP);
+    //layers[0] = bmd;
 
-    layers[0] = bmd;
-
-    int i=1;
+    int i=0;
     if (!nuovaPizza.getIngredienti().isEmpty()) {
         for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
             bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));

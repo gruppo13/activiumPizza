@@ -23,7 +23,7 @@ public enum Ingredienti{
     Olive (0.25f, 13),
     Patatine (0.50f, 14),
     Peperoncino (0.25f, 15),
-    Pepeperoni (0.50f, 16),
+    Peperoni (0.50f, 16),
     Pomodoro (0.50f, 17),
     Salame (1.00f, 18),
     Uova (0.50f, 19),
