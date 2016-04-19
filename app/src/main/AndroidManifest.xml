@@ -28,7 +28,10 @@
 
         <activity
             android:name="it.unica.ium.pizzalove.CreaPizza"
-            android:parentActivityName="it.unica.ium.pizzalove.ElencoPizze">
+            android:parentActivityName="it.unica.ium.pizzalove.Scelta"
+            android:screenOrientation="landscape"
+            android:hardwareAccelerated="true"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unica.ium.pizzalove.ElencoPizze" />
@@ -45,7 +48,8 @@
             android:name=".Carrello">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unica.ium.pizzalove.ElencoPizze" /></activity>
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+        </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

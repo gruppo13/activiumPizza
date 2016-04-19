@@ -31,7 +31,7 @@
     <string name="btnCrea">Crea la tua Pizza</string>
     <string name="btnPizzaGiorno">Pizza del Giorno</string>
     <string name="btnElenco">Le classiche</string>
-    <string name="btnAddPizzaCreate">Creata</string>
+    <string name="btnAddPizzaCreate">\></string>
     <string name="txtTotale">0.00€</string>
     <string name="lblListHCarrelloNum">12</string>
     <string name="lblListHCarrelloNome">12</string>

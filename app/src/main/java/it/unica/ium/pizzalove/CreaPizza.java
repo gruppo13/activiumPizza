@@ -1,5 +1,6 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -12,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,7 +41,7 @@ import java.util.List;
 /**
  * Created by perlo on 13/02/16.
  */
-public class CreaPizza extends AppCompatActivity  {
+public class CreaPizza extends Activity {
 
 
     //int countIngredienti;
@@ -55,7 +58,7 @@ public class CreaPizza extends AppCompatActivity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-    setSupportActionBar(myToolbar);
+        setSupportActionBar(myToolbar);
 
         ActionBar ab = getSupportActionBar();
 
@@ -181,7 +184,7 @@ public class CreaPizza extends AppCompatActivity  {
         });
 
 
-        //updatePizza();
+        updatePizza();
 
         //immagini da modificare
         //findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -653,38 +656,38 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
 
 
 
-private void updatePizza() {
-    Drawable[] layers = new Drawable[nuovaPizza.countIngredienti()+1];
-    Resources resources = getResources();
-    ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
-    BitmapDrawable bmd;
-    //Bitmap bm = BitmapFactory.decodeResource(resources, R.id.imageMain);
-    //BitmapDrawable bmd = new BitmapDrawable(resources, bm);
-    //bmd.setGravity(Gravity.TOP);
+    private void updatePizza() {
+        Drawable[] layers = new Drawable[nuovaPizza.countIngredienti()+1];
+        Resources resources = getResources();
+        ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
-    //layers[0] = bmd;
+        Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
+        BitmapDrawable bmd = new BitmapDrawable(resources, bm);
+        bmd.setGravity(Gravity.TOP);
 
-    int i=0;
-    if (!nuovaPizza.getIngredienti().isEmpty()) {
-        for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
-            bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
-            bmd.setGravity(Gravity.TOP);
-            //  bmd.setTargetDensity(metrics);
-            // if (i < nuovaPizza.countIngredienti() + 1) {
-            layers[i] = bmd;
-            i++;
-        //}
+        layers[0] = bmd;
+
+        int i=1;
+        if (!nuovaPizza.getIngredienti().isEmpty()) {
+            for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
+                bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
+                bmd.setGravity(Gravity.TOP);
+                //  bmd.setTargetDensity(metrics);
+                // if (i < nuovaPizza.countIngredienti() + 1) {
+                layers[i] = bmd;
+                i++;
+                //}
+            }
+            //findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
         }
-        findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
-    }
-    else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
-        findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
+        else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
+            //findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
 
-    }
+        }
 
-    layerDrawable = new LayerDrawable(layers);
-    imgMain.setImageDrawable(layerDrawable);
-}
+        layerDrawable = new LayerDrawable(layers);
+        imgMain.setImageDrawable(layerDrawable);
+    }
 
 
 
