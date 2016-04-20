@@ -2,7 +2,6 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -13,9 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.readystatesoftware.viewbadger.BadgeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +43,11 @@ public class CreaPizza extends Activity {
 
     //int countIngredienti;
     Pizza nuovaPizza = new Pizza("creata");
+    ImageView imgMain;
     LayerDrawable layerDrawable;
+    int[] countPizze = new int[22];
+    BadgeView badge1 = new BadgeView(this, findViewById(R.id.sugo));
+    BadgeView badge2 = new BadgeView(this, findViewById(R.id.mozzarella));
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -94,8 +95,7 @@ public class CreaPizza extends Activity {
                 }
             }
         }*/
-
-
+        imgMain  = (ImageView) findViewById(R.id.imageMain);
         //pizza da modificare
         if(bundle.getStringArrayList("aggiunte")!=null){
             for(String nome : bundle.getStringArrayList("aggiunte")){//preleva tutti gli ingredienti
@@ -167,17 +167,17 @@ public class CreaPizza extends Activity {
 
                 List<Ingredienti> ingredientib = nuovaPizza.getIngredienti();
                 ArrayList<String> ingredienti = new ArrayList<>();
-                for(Ingredienti i : ingredientib){
+                for (Ingredienti i : ingredientib) {
                     ingredienti.add(i.toString());
                 }
-                if (b.getInt("creata")>0)
-                    b.putInt("creata", b.getInt("creata")+1);
+                if (b.getInt("creata") > 0)
+                    b.putInt("creata", b.getInt("creata") + 1);
                 else
-                    b.putInt("creata",1);
+                    b.putInt("creata", 1);
                 b.putStringArrayList(String.valueOf(b.getInt("creata")), ingredienti);
                 intent.putExtras(b);
 
-               // onResume();
+                // onResume();
                 startActivityForResult(intent, 0);
 
             }
@@ -185,6 +185,8 @@ public class CreaPizza extends Activity {
 
 
         updatePizza();
+
+
 
         //immagini da modificare
         //findViewById(R.id.imageMain).setOnDragListener(dropListener);
@@ -194,7 +196,7 @@ public class CreaPizza extends Activity {
         imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-              //  openContextMenu(v);
+                //  openContextMenu(v);
                 //registerForContextMenu(v);
                 dialogRimuoviIngredienti();
 
@@ -204,9 +206,6 @@ public class CreaPizza extends Activity {
         //imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
-
-
 
     private void dialogRimuoviIngredienti(){
 
@@ -523,11 +522,24 @@ private boolean leastOneCheck(TableLayout table){
             Log.e("errore grana", imageClick);
             //aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
             nuovaPizza.addIngrediente(Ingredienti.valueOf(imageClick));
+            setBadge(++countPizze[Ingredienti.valueOf(imageClick).getNumber() - 1], imageClick);
+            for(int i : countPizze) Log.e("numeri", Integer.toString(i));
             updatePizza();
-            //Toast.makeText(CreaPizza.this,"Hai aggiunto "+ imageClick,Toast.LENGTH_SHORT).show();
-            v.setEnabled(false);
         }
     };
+
+    private void setBadge(int count, String id) {
+        switch(id) {
+            case "Sugo":
+                badge1.setText(Integer.toString(count));
+                badge1.show();
+                break;
+            case "Mozzarella":
+                badge2.setText(Integer.toString(count));
+                badge2.show();
+                break;
+        }
+    }
 
 /*
     View.OnDragListener dropListener; {
@@ -576,7 +588,7 @@ private boolean leastOneCheck(TableLayout table){
 
 
 
-private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
+protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
     Bitmap bm = null;
     switch (ingrediente) {
         case Sugo:
@@ -646,7 +658,7 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
             bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
             break;
         default:
-            Toast.makeText(CreaPizza.this,"Ci siamo dimenticati un ingrediente", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(CreaPizza.this,"Ci siamo dimenticati un ingrediente", Toast.LENGTH_SHORT).show();
             break;
     }
     return bm;
@@ -657,43 +669,31 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
 
 
     private void updatePizza() {
-        Drawable[] layers = new Drawable[nuovaPizza.countIngredienti()+1];
+        List<Drawable> layers = new ArrayList<>();
         Resources resources = getResources();
         ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
         Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
         BitmapDrawable bmd = new BitmapDrawable(resources, bm);
         bmd.setGravity(Gravity.TOP);
-        layers[0] = bmd;
+        layers.add(bmd);
 
-        int i = nuovaPizza.countIngredienti();
-        if (!nuovaPizza.getIngredienti().isEmpty()) {
+        if (!nuovaPizza.getIngredienti().isEmpty()){
             for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
+                Log.e("i tuoi ingredienti ", ingrediente.toString());
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
-                switch (ingrediente) {
-                    case Sugo:
-                        layers[1] = bmd;
-                        break;
-                    case Mozzarella:
-                        if(nuovaPizza.getIngredienti().contains(Ingredienti.Sugo))
-                            layers[2] = bmd;
-                        else
-                            layers[1] = bmd;
-                    default:
-                        layers[i] = bmd;
-                        break;
-                }
-                i--;
+                layers.add(bmd);
             }
             findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
         }
         else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
             findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
-
         }
 
-        layerDrawable = new LayerDrawable(layers);
+        Drawable[] temp = new Drawable[layers.size()];
+        temp = layers.toArray(temp);
+        layerDrawable = new LayerDrawable(temp);
         imgMain.setImageDrawable(layerDrawable);
     }
 

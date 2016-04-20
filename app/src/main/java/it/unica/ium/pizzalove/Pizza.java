@@ -1,10 +1,9 @@
 package it.unica.ium.pizzalove;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -83,12 +82,7 @@ public class Pizza{
 
 
     public List<Ingredienti> getIngredienti(){
-        Ingredienti tmp1;
-        for(Ingredienti i : this.listaIngredienti) {
-            if (i == Ingredienti.Sugo || i == Ingredienti.Mozzarella){
-
-            }
-        }
+        Collections.sort(listaIngredienti);
         return this.listaIngredienti;
     }
 

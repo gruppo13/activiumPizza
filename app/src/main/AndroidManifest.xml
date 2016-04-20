@@ -45,7 +45,8 @@
         </activity>
 
         <activity
-            android:name=".Carrello">
+            android:name=".Carrello"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unica.ium.pizzalove.ElencoPizze" />

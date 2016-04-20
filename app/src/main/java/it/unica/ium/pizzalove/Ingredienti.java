@@ -1,8 +1,6 @@
 package it.unica.ium.pizzalove;
 
 
-import java.text.DecimalFormat;
-
 /**
  * Created by manuf_000 on 22/02/2016.
  */
