@@ -664,24 +664,32 @@ private Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resourc
         Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
         BitmapDrawable bmd = new BitmapDrawable(resources, bm);
         bmd.setGravity(Gravity.TOP);
-
         layers[0] = bmd;
 
-        int i=1;
+        int i = nuovaPizza.countIngredienti();
         if (!nuovaPizza.getIngredienti().isEmpty()) {
             for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
-                //  bmd.setTargetDensity(metrics);
-                // if (i < nuovaPizza.countIngredienti() + 1) {
-                layers[i] = bmd;
-                i++;
-                //}
+                switch (ingrediente) {
+                    case Sugo:
+                        layers[1] = bmd;
+                        break;
+                    case Mozzarella:
+                        if(nuovaPizza.getIngredienti().contains(Ingredienti.Sugo))
+                            layers[2] = bmd;
+                        else
+                            layers[1] = bmd;
+                    default:
+                        layers[i] = bmd;
+                        break;
+                }
+                i--;
             }
-            //findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
+            findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
         }
         else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
-            //findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
+            findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
 
         }
 

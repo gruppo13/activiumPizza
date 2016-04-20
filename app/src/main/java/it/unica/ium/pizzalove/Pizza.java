@@ -83,6 +83,12 @@ public class Pizza{
 
 
     public List<Ingredienti> getIngredienti(){
+        Ingredienti tmp1;
+        for(Ingredienti i : this.listaIngredienti) {
+            if (i == Ingredienti.Sugo || i == Ingredienti.Mozzarella){
+
+            }
+        }
         return this.listaIngredienti;
     }
 

@@ -12,34 +12,10 @@
     android:padding="10dp">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-
-        <ImageView
-            android:id="@+id/imageMain"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:src="@drawable/pastapizza"
-            android:contentDescription="@string/imageMain" />
-
-
-    </LinearLayout>
-
-    <Button
-        android:layout_weight="2.2"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/ic_forward_black_24dp"
-        android:id="@+id/btnAddPizzaCreate"
-        android:text="@string/btnAddPizzaCreate" />
-
-    <ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:scrollbars="none"
+        android:scrollbars="none"
         android:visibility="visible"
         android:layout_weight="2">
 
@@ -48,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-          >
+            >
 
 
             <ImageView
@@ -251,7 +227,7 @@
                 android:src="@drawable/icon_formaggio"
                 android:contentDescription="@string/image5" />
 
-               <ImageView
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -263,6 +239,29 @@
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <ImageView
+            android:id="@+id/imageMain"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:src="@drawable/pastapizza"
+            android:contentDescription="@string/imageMain" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_weight="2.2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/btnAddPizzaCreate"
+        android:text="@string/btnAddPizzaCreate" />
+
 
 
 </LinearLayout>
