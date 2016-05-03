@@ -1,9 +1,9 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -20,11 +20,11 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ElencoPizze extends AppCompatActivity{
+public class ElencoPizze extends Activity {
     /*list view */
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-
+    public static final String CLASSICA = "it.unica.ium.pizzalove.PIZZA_CLASSICA";
     private GoogleApiClient client;
     /* menu pizze */
     List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
@@ -124,7 +124,7 @@ public class ElencoPizze extends AppCompatActivity{
                         for (Ingredienti ingrediente : listaPizzeClassiche.get(lastExpandedPosition[1]).getIngredienti()){
                             ingredienti.add(ingrediente.toString());
                         }
-                        b.putStringArrayList("aggiunte", ingredienti);
+                        b.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
 
 
 
@@ -151,13 +151,13 @@ public class ElencoPizze extends AppCompatActivity{
                         Bundle b = getIntent().getExtras();
                         ArrayList<String> pizzeClassiche;
 
-                        if (b.getStringArrayList("classica") != null)
-                            pizzeClassiche = b.getStringArrayList("classica");
+                        if (b.getStringArrayList(CLASSICA) != null)
+                            pizzeClassiche = b.getStringArrayList(CLASSICA);
                         else
                             pizzeClassiche = new ArrayList<>();
 
                         pizzeClassiche.add(listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
-                        b.putStringArrayList("classica", pizzeClassiche);
+                        b.putStringArrayList(CLASSICA, pizzeClassiche);
 
                         intent.putExtras(b);
                         onResume();

@@ -1,15 +1,15 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 /**
  * Created by perlo on 14/02/16.
  */
-public class Main extends AppCompatActivity{
+public class Main extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class Main extends AppCompatActivity{
                 //startActivityForResult(intent,0);
                 Intent intent = new Intent(Main.this, Scelta.class);
                 Bundle b = new Bundle();
-                b.putInt("creata", 0);
+                b.putInt(CreaPizza.NUOVA_PIZZA, 0);
                 intent.putExtras(b);
 
                 startActivityForResult(intent, 0);
@@ -33,14 +33,6 @@ public class Main extends AppCompatActivity{
 
             }
         });
-
-
-
-
-
-
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
     }
 
 

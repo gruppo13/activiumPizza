@@ -44,6 +44,7 @@ public class CreaPizza extends Activity {
 
 
     public static final String NUOVA_PIZZA = "it.unica.ium.pizzalove.NuovaPizza";
+    public static final String MODIFICA_PIZZA = "it.unica.ium.pizzalove.ModificaPizza";
     Pizza nuovaPizza = new Pizza("creata");
     ImageView imgMain;
     LayerDrawable layerDrawable;
@@ -66,12 +67,7 @@ public class CreaPizza extends Activity {
 
         imgMain  = (ImageView) findViewById(R.id.imageMain);
         //pizza da modificare
-        if(bundle.getStringArrayList("aggiunte")!=null){
-            for(String nome : bundle.getStringArrayList("aggiunte")){//preleva tutti gli ingredienti
-                nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
-                this.setEnableIngrediente(nome, false);
-            }
-        }
+
 
 
             //immagini da trascinare
@@ -144,6 +140,12 @@ public class CreaPizza extends Activity {
                 new BadgeView(this, findViewById(R.id.cotto))
         };
 
+        if(bundle.getStringArrayList(MODIFICA_PIZZA)!=null){
+            for(String nome : bundle.getStringArrayList(MODIFICA_PIZZA)){//preleva tutti gli ingredienti
+                //nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
+                setBadge(nome);
+            }
+        }
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
 
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {

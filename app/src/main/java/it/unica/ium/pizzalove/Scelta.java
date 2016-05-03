@@ -1,15 +1,15 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 /**
  * Created by perlo on 14/02/16.
  */
-public class Scelta extends AppCompatActivity{
+public class Scelta extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

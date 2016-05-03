@@ -11,7 +11,8 @@
         android:theme="@style/prova">
 
         <activity
-            android:name="it.unica.ium.pizzalove.Main">
+            android:name="it.unica.ium.pizzalove.Main"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -20,6 +21,7 @@
 
         <activity
             android:name="it.unica.ium.pizzalove.ElencoPizze"
+            android:screenOrientation="landscape"
             android:parentActivityName="it.unica.ium.pizzalove.Scelta">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -28,8 +30,8 @@
 
         <activity
             android:name="it.unica.ium.pizzalove.CreaPizza"
-            android:parentActivityName="it.unica.ium.pizzalove.Scelta"
             android:screenOrientation="landscape"
+            android:parentActivityName="it.unica.ium.pizzalove.Scelta"
             android:hardwareAccelerated="true"
             >
             <meta-data
@@ -38,15 +40,16 @@
         </activity>
 
         <activity
-            android:name="it.unica.ium.pizzalove.Scelta">
+            android:name="it.unica.ium.pizzalove.Scelta"
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unica.ium.pizzalove.ElencoPizze" />
         </activity>
 
         <activity
-            android:name=".Carrello"
-            android:screenOrientation="portrait">
+            android:name="it.unica.ium.pizzalove.Carrello"
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unica.ium.pizzalove.ElencoPizze" />

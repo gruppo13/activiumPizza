@@ -1,8 +1,8 @@
 package it.unica.ium.pizzalove;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +21,8 @@ import java.util.List;
 /**
  * Created by perlo on 14/02/16.
  */
-public class Carrello extends AppCompatActivity{
+public class Carrello extends Activity {
 
-    public static final String MODIFICA_PIZZA = "it.unica.ium.pizzalove.ModificaPizza";
     private int deletePosition = -1;
 
     private List<String> listaPizze;
@@ -52,8 +51,8 @@ public class Carrello extends AppCompatActivity{
             }
         }
 
-        if(bundle.getStringArrayList("classica")!= null) {
-            listaPizze = bundle.getStringArrayList("classica");
+        if(bundle.getStringArrayList(ElencoPizze.CLASSICA)!= null) {
+            listaPizze = bundle.getStringArrayList(ElencoPizze.CLASSICA);
             for (String pizza : listaPizze) {
                 if (Pizza.containPizza(elenco, pizza) == -1)
                     elenco.add(new Pizza(pizza));
@@ -151,7 +150,7 @@ public class Carrello extends AppCompatActivity{
                 public void onClick(View v) {
                     Intent intent = new Intent(Carrello.this, CreaPizza.class);
                     // b.putStringArrayList("lista", new ArrayList<String>(listIngredienti.keySet()));
-                    bundle.putString("aggiunte", null);
+                    bundle.putString(CreaPizza.MODIFICA_PIZZA, null);
                     intent.putExtras(bundle);
                     onResume();
                     startActivityForResult(intent, 0);
@@ -164,8 +163,7 @@ public class Carrello extends AppCompatActivity{
                 public void onClick(View v) {
                     Intent intent = new Intent(Carrello.this, ElencoPizze.class);
                     // b.putStringArrayList("lista", new ArrayList<String>(listIngredienti.keySet()));
-                    bundle.putString("aggiunte", null);
-                    //bundle.putStringArrayList("classica", null);
+                    bundle.putString(CreaPizza.MODIFICA_PIZZA, null);
                     intent.putExtras(bundle);
                     onResume();
                     startActivityForResult(intent, 0);
@@ -195,10 +193,10 @@ public class Carrello extends AppCompatActivity{
         Pizza pizzaModifica = elenco.get(deletePosition);
         elenco.remove(deletePosition);
 
-        int creata =0;
+        int creata = 0;
         if (elenco.size() == 0) {
 
-            bundle.putStringArrayList("classica", null);
+            bundle.putStringArrayList(ElencoPizze.CLASSICA, null);
             bundle.putInt(CreaPizza.NUOVA_PIZZA, 0);
             Intent intent;
             if (flag) {//delete one pizza
@@ -211,7 +209,7 @@ public class Carrello extends AppCompatActivity{
                 for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                 }
-                bundle.putStringArrayList("aggiunte",ingredienti);
+                bundle.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
 
                 intent = new Intent(Carrello.this, CreaPizza.class);
                // bundle.putString("aggiunte", nomePizza);
@@ -236,20 +234,20 @@ public class Carrello extends AppCompatActivity{
                     for (Ingredienti ingrediente : pizza.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                     }
-                    bundle.putStringArrayList(String.valueOf(creata), ingredienti);
                     creata++;
+                    bundle.putStringArrayList(String.valueOf(creata), ingredienti);
                 }
             }
 
             bundle.putInt(CreaPizza.NUOVA_PIZZA, creata);
             if (nomiPizze.size() > 0)
-                bundle.putStringArrayList("classica", nomiPizze);
+                bundle.putStringArrayList(ElencoPizze.CLASSICA, nomiPizze);
             else
-                bundle.putStringArrayList("classica", null);
+                bundle.putStringArrayList(ElencoPizze.CLASSICA, null);
 
 
 
-            if (flag==false){// flag = false pizza modifica
+            if (!flag){// flag = false pizza modifica
                 Intent intent = new Intent(Carrello.this, CreaPizza.class);
                 //bundle.putString("aggiunte", nomePizza);
 
@@ -257,7 +255,7 @@ public class Carrello extends AppCompatActivity{
                     for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
                         ingredienti.add(ingrediente.toString());
                     }
-                    bundle.putStringArrayList("aggiunte", ingredienti);
+                    bundle.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
                 intent.putExtras(bundle);
                 onResume();
                 startActivityForResult(intent, 0);
