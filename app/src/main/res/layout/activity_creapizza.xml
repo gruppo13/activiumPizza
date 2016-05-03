@@ -102,8 +102,8 @@
                 android:layout_height="100dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:id="@+id/becon"
-                android:src="@drawable/icon_becon"
+                android:id="@+id/bacon"
+                android:src="@drawable/icon_bacon"
                 android:contentDescription="@string/image2" />
             <ImageView
                 android:layout_weight="1"

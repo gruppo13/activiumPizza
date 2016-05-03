@@ -3,6 +3,7 @@ package it.unica.ium.pizzalove;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,19 +36,20 @@ import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by perlo on 13/02/16.
  */
 public class CreaPizza extends Activity {
 
 
-    //int countIngredienti;
+    public static final String NUOVA_PIZZA = "it.unica.ium.pizzalove.NuovaPizza";
     Pizza nuovaPizza = new Pizza("creata");
     ImageView imgMain;
     LayerDrawable layerDrawable;
     int[] countPizze = new int[22];
-    BadgeView badge1 = new BadgeView(this, findViewById(R.id.sugo));
-    BadgeView badge2 = new BadgeView(this, findViewById(R.id.mozzarella));
+    BadgeView[] badge;
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -58,61 +60,26 @@ public class CreaPizza extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    /*Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);*/
 
         Bundle bundle = getIntent().getExtras();
         setContentView(R.layout.activity_creapizza);
-        //this.countIngredienti = 0;
 
-        //modifiche pizza
-       /*if(bundle.getString("aggiunte")!= null) {
-            String pizzaModificare = bundle.getString("aggiunte");
-            //modifica pizza carrello
-            if (pizzaModificare.equals("creata")) {
-
-                for(String nome : bundle.getStringArrayList("aggiunteCreata")){
-                    nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
-                    //countIngredienti++;
-                    //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, nome)));
-                    this.setEnableIngrediente(nome, false);
-                }
-            }
-            else{
-                //modifica pizza esistente (elenco / carrello)
-                Pizza modificaPizza = new Pizza(pizzaModificare);
-                for (Ingredienti ingrediente : modificaPizza.getIngredienti()){
-                    nuovaPizza.addIngrediente(ingrediente);
-                    //countIngredienti++;
-                    //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, ingrediente.getStringNome())));
-                    this.setEnableIngrediente(ingrediente.toString(), false);
-
-                }
-            }
-        }*/
         imgMain  = (ImageView) findViewById(R.id.imageMain);
         //pizza da modificare
         if(bundle.getStringArrayList("aggiunte")!=null){
             for(String nome : bundle.getStringArrayList("aggiunte")){//preleva tutti gli ingredienti
                 nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
-                //countIngredienti++;
-                //setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, nome)));
                 this.setEnableIngrediente(nome, false);
             }
         }
 
 
-            /* immagini da trascinare
+            //immagini da trascinare
             findViewById(R.id.sugo).setOnLongClickListener(longListener);
             findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
             findViewById(R.id.funghi).setOnLongClickListener(longListener);
             findViewById(R.id.broccoli).setOnLongClickListener(longListener);
-            findViewById(R.id.becon).setOnLongClickListener(longListener);
+            findViewById(R.id.bacon).setOnLongClickListener(longListener);
             findViewById(R.id.cipolle).setOnLongClickListener(longListener);
             findViewById(R.id.formaggio).setOnLongClickListener(longListener);
             findViewById(R.id.gamberetti).setOnLongClickListener(longListener);
@@ -125,14 +92,14 @@ public class CreaPizza extends Activity {
             findViewById(R.id.salame).setOnLongClickListener(longListener);
             findViewById(R.id.uova).setOnLongClickListener(longListener);
             findViewById(R.id.wurstel).setOnLongClickListener(longListener);
-            findViewById(R.id.salame).setOnLongClickListener(longListener);*/
+            findViewById(R.id.salame).setOnLongClickListener(longListener);
 
 
             //immagini da click
             findViewById(R.id.sugo).setOnClickListener(clickListener);
             findViewById(R.id.mozzarella).setOnClickListener(clickListener);
             findViewById(R.id.funghi).setOnClickListener(clickListener);
-            findViewById(R.id.becon).setOnClickListener(clickListener);
+            findViewById(R.id.bacon).setOnClickListener(clickListener);
             findViewById(R.id.broccoli).setOnClickListener(clickListener);
             findViewById(R.id.cipolle).setOnClickListener(clickListener);
             findViewById(R.id.formaggio).setOnClickListener(clickListener);
@@ -152,9 +119,30 @@ public class CreaPizza extends Activity {
             findViewById(R.id.basilico).setOnClickListener(clickListener);
             findViewById(R.id.cotto).setOnClickListener(clickListener);
 
-
-
-
+        badge = new BadgeView[]{
+                new BadgeView(this, findViewById(R.id.sugo)),
+                new BadgeView(this, findViewById(R.id.mozzarella)),
+                new BadgeView(this, findViewById(R.id.basilico)),
+                new BadgeView(this, findViewById(R.id.funghi)),
+                new BadgeView(this, findViewById(R.id.acciughe)),
+                new BadgeView(this, findViewById(R.id.capperi)),
+                new BadgeView(this, findViewById(R.id.bacon)),
+                new BadgeView(this, findViewById(R.id.broccoli)),
+                new BadgeView(this, findViewById(R.id.cipolle)),
+                new BadgeView(this, findViewById(R.id.formaggio)),
+                new BadgeView(this, findViewById(R.id.gamberetti)),
+                new BadgeView(this, findViewById(R.id.melanzane)),
+                new BadgeView(this, findViewById(R.id.olive)),
+                new BadgeView(this, findViewById(R.id.patatine)),
+                new BadgeView(this, findViewById(R.id.peperoncini)),
+                new BadgeView(this, findViewById(R.id.peperoni)),
+                new BadgeView(this, findViewById(R.id.pomodori)),
+                new BadgeView(this, findViewById(R.id.salame)),
+                new BadgeView(this, findViewById(R.id.uova)),
+                new BadgeView(this, findViewById(R.id.wurstel)),
+                new BadgeView(this, findViewById(R.id.zucchine)),
+                new BadgeView(this, findViewById(R.id.cotto))
+        };
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
 
@@ -170,11 +158,11 @@ public class CreaPizza extends Activity {
                 for (Ingredienti i : ingredientib) {
                     ingredienti.add(i.toString());
                 }
-                if (b.getInt("creata") > 0)
-                    b.putInt("creata", b.getInt("creata") + 1);
+                if (b.getInt(NUOVA_PIZZA) > 0)
+                    b.putInt(NUOVA_PIZZA, b.getInt(NUOVA_PIZZA) + 1);
                 else
-                    b.putInt("creata", 1);
-                b.putStringArrayList(String.valueOf(b.getInt("creata")), ingredienti);
+                    b.putInt(NUOVA_PIZZA, 1);
+                b.putStringArrayList(String.valueOf(b.getInt(NUOVA_PIZZA)), ingredienti);
                 intent.putExtras(b);
 
                 // onResume();
@@ -286,97 +274,6 @@ public class CreaPizza extends Activity {
 }
 
 
-private boolean leastOneCheck(TableLayout table){
-    for (int i = 0; i < table.getChildCount(); i++) {
-        View convertView = table.getChildAt(i);
-        CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
-        if (check.isChecked())
-            return true;
-    }
-
-    return false;
-
-}
-
-
-/*
-       @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuInflater inflater = getMenuInflater();
-            menu.setHeaderTitle("rimuovi ingrediente");
-            menu.add("rimuovi tutti gli ingredienti");
-            menu.add("rimuovi ingredienti selezionati(funzionalita da sviluppare)");
-
-            int i = 2;
-
-            for (ListaIngrediente ingrediente : listIngredienti) {
-                if (ingrediente.getCount() > 0) {
-                    menu.addSubMenu(2, i + 1, menu.NONE, ingrediente.getStringNome());
-                    menu.setGroupCheckable(2, true, false);
-
-                    // menu.add(ingrediente.getStringNome());
-                    //menu.setGroupCheckable(1, true, true);            //rimuovi tutti gli ingredienti
-                    i++;
-                }
-            }
-            if (i > 2) {
-
-                inflater.inflate(R.menu.menu_context_pizza, menu);
-
-                menu.getItem(1).setEnabled(false);
-
-                menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        for (int i = 0; i < listIngredienti.size(); i++) {
-                            listIngredienti.get(i).setIngrediente(0);
-                        }
-                        countIngredienti = 0;
-                        updatePizza();
-                        Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
-                        for (int i = 0; i < listIngredienti.size(); i++) {
-                            setVisibilityIngrediente(listIngredienti.get(i));
-                        }
-
-                        return true;
-                    }
-                });
-//seleziona
-
-
-
-                                //elimina solo gli elementi selezionati
-                menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        return true;
-                    }
-                });
-
-
-                // rimuove solo l-ingrediente selezionato
-/*
-                for (int j = 2; j < menu.size(); j++) {
-                    menu.getItem(j).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            if ((Pizza.trovaIngredientiInseriti(listIngredienti, item.toString()))) {
-                                listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, item.toString())).setIngrediente(0);
-                                countIngredienti--;
-                                updatePizza();
-                                Toast.makeText(CreaPizza.this, "Hai rimosso " + item.toString(), Toast.LENGTH_SHORT).show();
-                                setVisibilityIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, item.toString())));
-                            }
-                            return true;
-                        }
-                    });
-                }
-            }
-        }
-*/
-
-
 
 
     @Override
@@ -398,31 +295,6 @@ private boolean leastOneCheck(TableLayout table){
     }
 
 
-/*
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        for(ListaIngrediente ingrediente: listIngredienti)
-            if (item.getTitle().equals(ingrediente.getStringNome())){
-                item.setChecked(true);
-                Log.d("checked", ingrediente.getStringNome());
-                //Log.d("info", String.valueOf(info.position));
-                //onPrepareOptionsMenu((Menu)item);
-
-                return super.onOptionsItemSelected(item);
-
-
-            }
-
-        Log.d("checked", "false");
-
-        return false;
-    }*/
-
-
-
-
     /* rende visibile gli ingredienti */
     private void setEnableIngrediente(String ingrediente, boolean value){
 
@@ -440,7 +312,7 @@ private boolean leastOneCheck(TableLayout table){
                 findViewById(R.id.funghi).setEnabled(value);
                 break;
             case "Bacon":
-                findViewById(R.id.becon).setEnabled(value);
+                findViewById(R.id.bacon).setEnabled(value);
                 break;
             case "Broccoli":
                 findViewById(R.id.broccoli).setEnabled(value);
@@ -499,18 +371,14 @@ private boolean leastOneCheck(TableLayout table){
 
         }
     }
-/*
+
 
     View.OnLongClickListener longListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(v);
-            ClipData data = ClipData.newPlainText("", "");
-            v.startDrag(data, dragShadow, v, 0);
-
             return false;
         }
-    };*/
+    };
 
 
 
@@ -520,24 +388,25 @@ private boolean leastOneCheck(TableLayout table){
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
             Log.e("errore grana", imageClick);
-            //aggiunge ingrediente nella pizza e lo elimina dalla lista degli ingredienti da inserire
-            nuovaPizza.addIngrediente(Ingredienti.valueOf(imageClick));
-            setBadge(++countPizze[Ingredienti.valueOf(imageClick).getNumber() - 1], imageClick);
+            setBadge(imageClick);
             for(int i : countPizze) Log.e("numeri", Integer.toString(i));
             updatePizza();
         }
     };
 
-    private void setBadge(int count, String id) {
-        switch(id) {
-            case "Sugo":
-                badge1.setText(Integer.toString(count));
-                badge1.show();
-                break;
-            case "Mozzarella":
-                badge2.setText(Integer.toString(count));
-                badge2.show();
-                break;
+    private void setBadge(String img) {
+        int i = Ingredienti.valueOf(img).getNumber() - 1;
+        if(countPizze[i] < 2) {
+            badge[i].setText(String.format("%d", ++countPizze[i]));
+            badge[i].show();
+            nuovaPizza.addIngrediente(Ingredienti.valueOf(img));
+        }
+        else{
+            nuovaPizza.sort();
+            while(nuovaPizza.getIngredienti().contains(Ingredienti.valueOf(img)))
+                nuovaPizza.removeIngrediente(Ingredienti.valueOf(img));
+            badge[i].hide();
+            countPizze[i] = 0;
         }
     }
 
@@ -658,7 +527,6 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
             bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
             break;
         default:
-            //Toast.makeText(CreaPizza.this,"Ci siamo dimenticati un ingrediente", Toast.LENGTH_SHORT).show();
             break;
     }
     return bm;
@@ -697,39 +565,6 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
         imgMain.setImageDrawable(layerDrawable);
     }
 
-
-
-
-    private void doPopup(View v){
-        PopupMenu popupMenu = new PopupMenu(this,v);
-        popupMenu.setOnMenuItemClickListener(
-                new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.popup_one:
-                                Toast.makeText(CreaPizza.this, "Popup item" +
-                                                "one selected",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
-
-                        }
-
-
-                    }
-                }
-
-        );
-
-        MenuInflater inflater = popupMenu.getMenuInflater();
-
-        inflater.inflate(R.menu.menu_popup, popupMenu.getMenu());
-
-        popupMenu.show();
-
-    }
 
 
     @Override

@@ -82,8 +82,12 @@ public class Pizza{
 
 
     public List<Ingredienti> getIngredienti(){
-        Collections.sort(listaIngredienti);
+        sort();
         return this.listaIngredienti;
+    }
+
+    public void sort() {
+        Collections.sort(listaIngredienti);
     }
 
     public int countIngredienti(){

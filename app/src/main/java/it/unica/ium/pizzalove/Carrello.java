@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class Carrello extends AppCompatActivity{
 
+    public static final String MODIFICA_PIZZA = "it.unica.ium.pizzalove.ModificaPizza";
     private int deletePosition = -1;
-
 
     private List<String> listaPizze;
     private List<Ingredienti> listIngredienti;
@@ -60,8 +60,8 @@ public class Carrello extends AppCompatActivity{
                 elenco.get(Pizza.containPizza(elenco, pizza)).addCount();
             }
         }
-            if (bundle.getInt("creata") > 0) {
-                for (int i = 0; i < bundle.getInt("creata"); i++) {
+            if (bundle.getInt(CreaPizza.NUOVA_PIZZA) > 0) {
+                for (int i = 0; i < bundle.getInt(CreaPizza.NUOVA_PIZZA); i++) {
                     listIngredienti = new ArrayList<>();
                     for (String nome : bundle.getStringArrayList(String.valueOf(i + 1))) {
                         listIngredienti.add(Ingredienti.valueOf(nome));
@@ -175,9 +175,6 @@ public class Carrello extends AppCompatActivity{
         }
 
 
-
-
-
     private Float contaTotale() {
         Float tot = 0.0f;
         for(Pizza p : elenco){
@@ -202,9 +199,9 @@ public class Carrello extends AppCompatActivity{
         if (elenco.size() == 0) {
 
             bundle.putStringArrayList("classica", null);
-            bundle.putInt("creata", 0);
+            bundle.putInt(CreaPizza.NUOVA_PIZZA, 0);
             Intent intent;
-            if (flag == true) {//delete one pizza
+            if (flag) {//delete one pizza
                 intent= new Intent(Carrello.this, Scelta.class);
                 Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
             }
@@ -244,7 +241,7 @@ public class Carrello extends AppCompatActivity{
                 }
             }
 
-            bundle.putInt("creata", creata);
+            bundle.putInt(CreaPizza.NUOVA_PIZZA, creata);
             if (nomiPizze.size() > 0)
                 bundle.putStringArrayList("classica", nomiPizze);
             else
