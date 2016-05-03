@@ -1,11 +1,14 @@
 package it.unica.ium.pizzalove;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -91,7 +94,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
    }
 
    @Override
-   public View getGroupView(int groupPosition, boolean isExpanded,
+   public View getGroupView(final int groupPosition, boolean isExpanded,
                             View convertView, ViewGroup parent) {
        Pizza headerTitle = (Pizza) getGroup(groupPosition);
 
@@ -110,6 +113,25 @@ public class ExpandableList extends BaseExpandableListAdapter {
             TextView lblListNome = (TextView) convertView.findViewById(R.id.lblListHCarrelloNome);
             TextView lblListPrezzo = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzo);
             TextView lblListPrezzoTotale = (TextView) convertView.findViewById(R.id.lblListHCarrelloPrezzoTotale);
+            Button btnListModifica = (Button) convertView.findViewById(R.id.lblListHCarrelloModifica);
+            Button btnListRemove = (Button) convertView.findViewById(R.id.lblListHCarrelloRemove);
+
+            btnListModifica.setFocusable(false);
+            btnListRemove.setFocusable(false);
+
+            btnListModifica.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((Carrello) _context).removePizzaCarrello(false, groupPosition);
+                }
+            });
+
+            btnListRemove.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    ((Carrello) _context).removePizzaCarrello(true, groupPosition);
+                }
+            });
 
             lblListNome.setTypeface(null, Typeface.BOLD);
             lblListPrezzoTotale.setTypeface(null, Typeface.BOLD);

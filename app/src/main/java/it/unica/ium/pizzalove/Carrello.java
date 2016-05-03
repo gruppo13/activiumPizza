@@ -142,7 +142,7 @@ public class Carrello extends Activity {
                                             }
             );
 
-            Button btn = (Button) findViewById(R.id.btnCreaPizza);
+            /**Button btn = (Button) findViewById(R.id.btnCreaPizza);
             Button btn2 = (Button) findViewById(R.id.btnCreaElenco);
             //aggiungi una pizza da creare
             btn.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +168,7 @@ public class Carrello extends Activity {
                     onResume();
                     startActivityForResult(intent, 0);
                 }
-            });
+            });*/
 
         }
 
@@ -187,11 +187,11 @@ public class Carrello extends Activity {
     // flag true -> elimina pizza
     // flag false ->modifica pizza
     */
-    private void removePizzaCarrello(boolean flag){
+    public void removePizzaCarrello(boolean flag, int grpPos){
 
        // String nomePizza = elenco.get(deletePosition).getNomePizza();
-        Pizza pizzaModifica = elenco.get(deletePosition);
-        elenco.remove(deletePosition);
+        Pizza pizzaModifica = elenco.get(grpPos);
+        elenco.remove(grpPos);
 
         int creata = 0;
         if (elenco.size() == 0) {
@@ -280,10 +280,10 @@ public class Carrello extends Activity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.popDelete:
-                                removePizzaCarrello(true);
+                                //removePizzaCarrello(true);
                                 return true;
                             case R.id.popModifica:
-                                removePizzaCarrello(false);
+                                //removePizzaCarrello(false);
                                 return true;
                             default:
                                 return false;
