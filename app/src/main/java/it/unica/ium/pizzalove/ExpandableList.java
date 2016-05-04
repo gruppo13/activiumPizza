@@ -122,14 +122,14 @@ public class ExpandableList extends BaseExpandableListAdapter {
             btnListModifica.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Carrello) _context).removePizzaCarrello(false, groupPosition);
+                    ((Carrello) _context).modificaPizzaCarrello(groupPosition);
                 }
             });
 
             btnListRemove.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    ((Carrello) _context).removePizzaCarrello(true, groupPosition);
+                    ((Carrello) _context).removePizzaCarrello(groupPosition);
                 }
             });
 

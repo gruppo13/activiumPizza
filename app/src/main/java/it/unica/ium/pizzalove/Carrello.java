@@ -3,6 +3,7 @@ package it.unica.ium.pizzalove;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class Carrello extends Activity {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
     private List<Pizza> elenco = new ArrayList<>();
-
+    public static final String ELENCO_PIZZE = "it.unica.ium.pizzalove.ELENCO_PIZZE";
     private Bundle bundle;
 
 
@@ -72,13 +74,25 @@ public class Carrello extends Activity {
             }
             listAdapter = new ExpandableList(this, elenco);
             expListView = (ExpandableListView) findViewById(R.id.carrello);
+        FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.btnNewPizza);
+
+        btnNuovaPizza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Carrello.this, CreaPizza.class);
+                bundle.putString(CreaPizza.MODIFICA_PIZZA, null);
+                intent.putExtras(bundle);
+                onResume();
+                startActivityForResult(intent, 0);
+            }
+        });
 
             expListView.setAdapter(listAdapter);
 
-            TextView totale = (TextView) findViewById(R.id.txtTotale);
+            //TextView totale = (TextView) findViewById(R.id.txtTotale);
             tot = contaTotale();
 
-            totale.setText(Pizza.formatoPrezzo(tot));
+            //totale.setText(Pizza.formatoPrezzo(tot));
 
             // expListView.setOnCreateContextMenuListener(optionPizzeCarrello);
             expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -181,50 +195,19 @@ public class Carrello extends Activity {
         return tot;
     }
 
-    /*removePizzaCarrello
-    rimuove o modifica una pizza dal carrello
-
-    // flag true -> elimina pizza
-    // flag false ->modifica pizza
-    */
-    public void removePizzaCarrello(boolean flag, int grpPos){
-
-       // String nomePizza = elenco.get(deletePosition).getNomePizza();
+    public void modificaPizzaCarrello(int grpPos){
         Pizza pizzaModifica = elenco.get(grpPos);
         elenco.remove(grpPos);
-
         int creata = 0;
-        if (elenco.size() == 0) {
-
+        Intent intent;
+        if(elenco.size() == 0){
             bundle.putStringArrayList(ElencoPizze.CLASSICA, null);
             bundle.putInt(CreaPizza.NUOVA_PIZZA, 0);
-            Intent intent;
-            if (flag) {//delete one pizza
-                intent= new Intent(Carrello.this, Scelta.class);
-                Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
-            }
-            else{//modifica pizza
-
-                ArrayList<String> ingredienti = new ArrayList<>();
-                for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
-                        ingredienti.add(ingrediente.toString());
-                }
-                bundle.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
-
-                intent = new Intent(Carrello.this, CreaPizza.class);
-               // bundle.putString("aggiunte", nomePizza);
-            }
-
-
-            intent.putExtras(bundle);
-            onResume();
-            startActivityForResult(intent, 0);
-
-        } else {// le pizze non sono finite
-
-
+            bundle.putSerializable(CreaPizza.MODIFICA_PIZZA, (Serializable) pizzaModifica.getIngredienti());
+            intent = new Intent(Carrello.this, CreaPizza.class);
+        }
+        else{
             ArrayList<String> nomiPizze = new ArrayList<>();
-            //ArrayList<ListaPizza> pizzeCreate = new ArrayList<>();
             for (Pizza pizza : elenco) {
                 if (!pizza.getNomePizza().equals("creata")) {//aggiorna le pizze classiche presenti nel carrello da inserire nel bundle
                     for(int i = 0; i < pizza.getCount(); i++)
@@ -238,38 +221,49 @@ public class Carrello extends Activity {
                     bundle.putStringArrayList(String.valueOf(creata), ingredienti);
                 }
             }
+            //bundle.putSerializable(CreaPizza.MODIFICA_PIZZA, );
 
             bundle.putInt(CreaPizza.NUOVA_PIZZA, creata);
             if (nomiPizze.size() > 0)
                 bundle.putStringArrayList(ElencoPizze.CLASSICA, nomiPizze);
             else
                 bundle.putStringArrayList(ElencoPizze.CLASSICA, null);
+            intent = new Intent(Carrello.this, CreaPizza.class);
 
-
-
-            if (!flag){// flag = false pizza modifica
-                Intent intent = new Intent(Carrello.this, CreaPizza.class);
-                //bundle.putString("aggiunte", nomePizza);
-
-                    ArrayList<String> ingredienti = new ArrayList<>();
-                    for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
-                        ingredienti.add(ingrediente.toString());
-                    }
-                    bundle.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
-                intent.putExtras(bundle);
-                onResume();
-                startActivityForResult(intent, 0);
+            ArrayList<String> ingredienti = new ArrayList<>();
+            for (Ingredienti ingrediente : pizzaModifica.getIngredienti()){
+                ingredienti.add(ingrediente.toString());
             }
-            else{// pizza eliminata
-                ((TextView) findViewById(R.id.txtTotale)).setText(Pizza.formatoPrezzo(contaTotale()));
-                Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+            bundle.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
+        }
+        intent.putExtras(bundle);
+        onResume();
+        startActivityForResult(intent, 0);
+    }
+    /*removePizzaCarrello
+    rimuove o modifica una pizza dal carrello
+
+    // flag true -> elimina pizza
+    // flag false ->modifica pizza
+    */
+    public void removePizzaCarrello(int grpPos){
+
+       // String nomePizza = elenco.get(deletePosition).getNomePizza();
+
+        elenco.remove(grpPos);
+        if (elenco.size() == 0) {
+            bundle.putStringArrayList(ElencoPizze.CLASSICA, null);
+            bundle.putInt(CreaPizza.NUOVA_PIZZA, 0);
+            Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
+            onResume();
+            startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
+
+        } else {// le pizze non sono finite
+            //((TextView) findViewById(R.id.txtTotale)).setText(Pizza.formatoPrezzo(contaTotale()));
+            Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
                 listAdapter = new ExpandableList(Carrello.this, elenco);
                 expListView.setAdapter(listAdapter);
-            }
-
         }
-
-
     }
 
     private void doPopup(View v){

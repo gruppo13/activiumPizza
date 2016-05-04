@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -140,15 +141,23 @@ public class CreaPizza extends Activity {
                 new BadgeView(this, findViewById(R.id.cotto))
         };
 
-        if(bundle.getStringArrayList(MODIFICA_PIZZA)!=null){
-            for(String nome : bundle.getStringArrayList(MODIFICA_PIZZA)){//preleva tutti gli ingredienti
+        if(bundle.getSerializable(MODIFICA_PIZZA)!= null){
+            for(Ingredienti nome : (List<Ingredienti>)bundle.getSerializable(MODIFICA_PIZZA)){//preleva tutti gli ingredienti
                 //nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
-                setBadge(nome);
+                setBadge(nome.toString());
             }
         }
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
+        FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
 
-        btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
+        btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onCreate(getIntent().getExtras());
+            }
+        });
+
+        btnAddPizzaCreate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
