@@ -1,5 +1,6 @@
 package it.unica.ium.pizzalove;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by manuf_000 on 22/02/16.
  */
-public class Pizza{
+public class Pizza implements Serializable{
 
     private int COUNT = 0;
     private String nomePizza;

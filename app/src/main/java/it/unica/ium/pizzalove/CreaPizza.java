@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,6 +35,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.readystatesoftware.viewbadger.BadgeView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,13 +46,11 @@ import java.util.List;
 public class CreaPizza extends Activity {
 
 
-    public static final String NUOVA_PIZZA = "it.unica.ium.pizzalove.NuovaPizza";
-    public static final String MODIFICA_PIZZA = "it.unica.ium.pizzalove.ModificaPizza";
-    Pizza nuovaPizza = new Pizza("creata");
-    ImageView imgMain;
-    LayerDrawable layerDrawable;
-    int[] countPizze = new int[22];
-    BadgeView[] badge;
+    private Pizza nuovaPizza = new Pizza("creata");
+    protected ImageView imgMain;
+    private int[] countPizze = new int[22];
+    private BadgeView[] badge;
+    private Bundle bundle;
 
 
     /**
@@ -63,58 +63,34 @@ public class CreaPizza extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_creapizza);
 
         imgMain  = (ImageView) findViewById(R.id.imageMain);
-        //pizza da modificare
 
-
-
-            //immagini da trascinare
-            findViewById(R.id.sugo).setOnLongClickListener(longListener);
-            findViewById(R.id.mozzarella).setOnLongClickListener(longListener);
-            findViewById(R.id.funghi).setOnLongClickListener(longListener);
-            findViewById(R.id.broccoli).setOnLongClickListener(longListener);
-            findViewById(R.id.bacon).setOnLongClickListener(longListener);
-            findViewById(R.id.cipolle).setOnLongClickListener(longListener);
-            findViewById(R.id.formaggio).setOnLongClickListener(longListener);
-            findViewById(R.id.gamberetti).setOnLongClickListener(longListener);
-            findViewById(R.id.melanzane).setOnLongClickListener(longListener);
-            findViewById(R.id.olive).setOnLongClickListener(longListener);
-            findViewById(R.id.patatine).setOnLongClickListener(longListener);
-            findViewById(R.id.peperoncini).setOnLongClickListener(longListener);
-            findViewById(R.id.peperoni).setOnLongClickListener(longListener);
-            findViewById(R.id.pomodori).setOnLongClickListener(longListener);
-            findViewById(R.id.salame).setOnLongClickListener(longListener);
-            findViewById(R.id.uova).setOnLongClickListener(longListener);
-            findViewById(R.id.wurstel).setOnLongClickListener(longListener);
-            findViewById(R.id.salame).setOnLongClickListener(longListener);
-
-
-            //immagini da click
-            findViewById(R.id.sugo).setOnClickListener(clickListener);
-            findViewById(R.id.mozzarella).setOnClickListener(clickListener);
-            findViewById(R.id.funghi).setOnClickListener(clickListener);
-            findViewById(R.id.bacon).setOnClickListener(clickListener);
-            findViewById(R.id.broccoli).setOnClickListener(clickListener);
-            findViewById(R.id.cipolle).setOnClickListener(clickListener);
-            findViewById(R.id.formaggio).setOnClickListener(clickListener);
-            findViewById(R.id.gamberetti).setOnClickListener(clickListener);
-            findViewById(R.id.melanzane).setOnClickListener(clickListener);
-            findViewById(R.id.olive).setOnClickListener(clickListener);
-            findViewById(R.id.patatine).setOnClickListener(clickListener);
-            findViewById(R.id.peperoncini).setOnClickListener(clickListener);
-            findViewById(R.id.peperoni).setOnClickListener(clickListener);
-            findViewById(R.id.pomodori).setOnClickListener(clickListener);
-            findViewById(R.id.salame).setOnClickListener(clickListener);
-            findViewById(R.id.uova).setOnClickListener(clickListener);
-            findViewById(R.id.wurstel).setOnClickListener(clickListener);
-            findViewById(R.id.zucchine).setOnClickListener(clickListener);
-            findViewById(R.id.capperi).setOnClickListener(clickListener);
-            findViewById(R.id.acciughe).setOnClickListener(clickListener);
-            findViewById(R.id.basilico).setOnClickListener(clickListener);
-            findViewById(R.id.cotto).setOnClickListener(clickListener);
+        //immagini da click
+        findViewById(R.id.sugo).setOnClickListener(clickListener);
+        findViewById(R.id.mozzarella).setOnClickListener(clickListener);
+        findViewById(R.id.funghi).setOnClickListener(clickListener);
+        findViewById(R.id.bacon).setOnClickListener(clickListener);
+        findViewById(R.id.broccoli).setOnClickListener(clickListener);
+        findViewById(R.id.cipolle).setOnClickListener(clickListener);
+        findViewById(R.id.formaggio).setOnClickListener(clickListener);
+        findViewById(R.id.gamberetti).setOnClickListener(clickListener);
+        findViewById(R.id.melanzane).setOnClickListener(clickListener);
+        findViewById(R.id.olive).setOnClickListener(clickListener);
+        findViewById(R.id.patatine).setOnClickListener(clickListener);
+        findViewById(R.id.peperoncini).setOnClickListener(clickListener);
+        findViewById(R.id.peperoni).setOnClickListener(clickListener);
+        findViewById(R.id.pomodori).setOnClickListener(clickListener);
+        findViewById(R.id.salame).setOnClickListener(clickListener);
+        findViewById(R.id.uova).setOnClickListener(clickListener);
+        findViewById(R.id.wurstel).setOnClickListener(clickListener);
+        findViewById(R.id.zucchine).setOnClickListener(clickListener);
+        findViewById(R.id.capperi).setOnClickListener(clickListener);
+        findViewById(R.id.acciughe).setOnClickListener(clickListener);
+        findViewById(R.id.basilico).setOnClickListener(clickListener);
+        findViewById(R.id.cotto).setOnClickListener(clickListener);
 
         badge = new BadgeView[]{
                 new BadgeView(this, findViewById(R.id.sugo)),
@@ -141,69 +117,50 @@ public class CreaPizza extends Activity {
                 new BadgeView(this, findViewById(R.id.cotto))
         };
 
-        if(bundle.getSerializable(MODIFICA_PIZZA)!= null){
-            for(Ingredienti nome : (List<Ingredienti>)bundle.getSerializable(MODIFICA_PIZZA)){//preleva tutti gli ingredienti
-                //nuovaPizza.addIngrediente(Ingredienti.valueOf(nome));
-                setBadge(nome.toString());
-            }
+        if(bundle.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null){
+            //preleva tutti gli ingredienti
+            for (Ingredienti ingredienti : (List<Ingredienti>)bundle.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
+                setBadge(ingredienti.toString());
         }
+
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
 
         btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                onCreate(getIntent().getExtras());
+                bundle = aggiornaBundle(bundle, nuovaPizza);
+                onCreate(bundle);
             }
         });
 
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                //aggiunge la pizza creata al bundle
                 Intent intent = new Intent(CreaPizza.this, Carrello.class);
-                Bundle b = getIntent().getExtras();
-
-                List<Ingredienti> ingredientib = nuovaPizza.getIngredienti();
-                ArrayList<String> ingredienti = new ArrayList<>();
-                for (Ingredienti i : ingredientib) {
-                    ingredienti.add(i.toString());
-                }
-                if (b.getInt(NUOVA_PIZZA) > 0)
-                    b.putInt(NUOVA_PIZZA, b.getInt(NUOVA_PIZZA) + 1);
-                else
-                    b.putInt(NUOVA_PIZZA, 1);
-                b.putStringArrayList(String.valueOf(b.getInt(NUOVA_PIZZA)), ingredienti);
-                intent.putExtras(b);
-
-                // onResume();
+                bundle = aggiornaBundle(bundle, nuovaPizza);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 0);
-
             }
         });
-
 
         updatePizza();
 
-
-
-        //immagini da modificare
-        //findViewById(R.id.imageMain).setOnDragListener(dropListener);
-
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
-        //imageViewcontextMenu.setImageResource(R.drawable.pastapizza);
         imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //  openContextMenu(v);
-                //registerForContextMenu(v);
                 dialogRimuoviIngredienti();
-
                 return true;
             }
         });
-        //imageViewcontextMenu.setOnCreateContextMenuListener(menuPizza);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public static Bundle aggiornaBundle(Bundle b, Pizza nuovaPizza) {
+        ((List<Pizza>)b.get(Bundles.ELENCO_PIZZE.getBundle())).add(nuovaPizza);
+        return b;
     }
 
     private void dialogRimuoviIngredienti(){
@@ -419,52 +376,9 @@ public class CreaPizza extends Activity {
             badge[i].hide();
             countPizze[i] = 0;
         }
+        bundle.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable)nuovaPizza.getIngredienti());
     }
 
-/*
-    View.OnDragListener dropListener; {
-        dropListener = new View.OnDragListener() {
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                int dragEvent = event.getAction();
-                final ImageView dropImage = (ImageView) v;
-
-                switch (dragEvent) {
-                    case DragEvent.ACTION_DRAG_ENTERED:
-                         Log.i("Drag Event", "Entered");
-
-                        break;
-
-                    case DragEvent.ACTION_DRAG_EXITED:
-
-
-                        break;
-
-                    case DragEvent.ACTION_DROP:
-                        //aggiorna immagine pizza
-                       String draggedImageText = (String) ((ImageView) event.getLocalState()).getContentDescription();
-                        if (!(Pizza.trovaIngredientiInseriti(listIngredienti,draggedImageText))) {
-                           listIngredienti.get(Pizza.trovaIngrediente(listIngredienti,draggedImageText)).addIngrediente();
-                           countIngredienti++;
-                           updatePizza();
-                            setGoneIngrediente(listIngredienti.get(Pizza.trovaIngrediente(listIngredienti, draggedImageText)));
-
-                            Toast.makeText(CreaPizza.this,"Hai aggiunto "+ draggedImageText,Toast.LENGTH_SHORT).show();
-
-                        }else{//ingrediente gia inserito nell immagine
-                            listIngredienti.get(Pizza.trovaIngrediente(listIngredienti,draggedImageText)).addIngrediente();
-                                System.out.println("hai inserito troppi ingredienti dello stesso tipo");
-                        }
-
-
-                        break;
-                }
-
-                return true;
-            }
-
-        };
-    }*/
 
 
 
@@ -572,7 +486,7 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
 
         Drawable[] temp = new Drawable[layers.size()];
         temp = layers.toArray(temp);
-        layerDrawable = new LayerDrawable(temp);
+        LayerDrawable layerDrawable = new LayerDrawable(temp);
         imgMain.setImageDrawable(layerDrawable);
     }
 

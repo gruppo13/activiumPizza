@@ -1,10 +1,12 @@
 package it.unica.ium.pizzalove;
 
 
+import java.io.Serializable;
+
 /**
  * Created by manuf_000 on 22/02/2016.
  */
-public enum Ingredienti{
+public enum Ingredienti implements Serializable{
 
     Sugo (0.25f , 1),
     Mozzarella (0.25f, 2),
@@ -36,10 +38,6 @@ public enum Ingredienti{
     Ingredienti(Float price, int number){
         this.price = price;
         this.number = number;
-    }
-
-    void setNumber(int n){
-        this.number = n;
     }
 
     Float getPrice(){

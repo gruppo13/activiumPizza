@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Created by perlo on 14/02/16.
  */
@@ -24,7 +27,7 @@ public class Main extends Activity {
                 //startActivityForResult(intent,0);
                 Intent intent = new Intent(Main.this, Scelta.class);
                 Bundle b = new Bundle();
-                b.putInt(CreaPizza.NUOVA_PIZZA, 0);
+                b.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), new ArrayList<Pizza>());
                 intent.putExtras(b);
 
                 startActivityForResult(intent, 0);

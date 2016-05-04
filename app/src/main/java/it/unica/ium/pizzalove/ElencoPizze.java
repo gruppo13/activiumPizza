@@ -15,6 +15,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +25,6 @@ public class ElencoPizze extends Activity {
     /*list view */
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    public static final String CLASSICA = "it.unica.ium.pizzalove.PIZZA_CLASSICA";
     private GoogleApiClient client;
     /* menu pizze */
     List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
@@ -117,21 +117,12 @@ public class ElencoPizze extends Activity {
                 public void onClick(View v) {
                     if (lastExpandedPosition[0] >= 0) {
                         Intent intent = new Intent(ElencoPizze.this, CreaPizza.class);
-                        Bundle b = getIntent().getExtras();
+                        Bundle bundle = getIntent().getExtras();
 
                         //passa tutti gli ingredienti direttamente senza passare il nome della pizza
-                        ArrayList<String> ingredienti = new ArrayList<>();
-                        for (Ingredienti ingrediente : listaPizzeClassiche.get(lastExpandedPosition[1]).getIngredienti()){
-                            ingredienti.add(ingrediente.toString());
-                        }
-                        b.putStringArrayList(CreaPizza.MODIFICA_PIZZA, ingredienti);
-
-
-
-                        //passa il nome della pizza a CreaPizza
-                       // b.putString("aggiunte", listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
-
-                        intent.putExtras(b);
+                        bundle.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(),
+                                (Serializable) listaPizzeClassiche.get(lastExpandedPosition[1]).getIngredienti());
+                        intent.putExtras(bundle);
                         startActivityForResult(intent, 0);
                     }
                     else {
@@ -149,16 +140,8 @@ public class ElencoPizze extends Activity {
                     if (lastExpandedPosition[0] >= 0) {
                         Intent intent = new Intent(ElencoPizze.this, Carrello.class);
                         Bundle b = getIntent().getExtras();
-                        ArrayList<String> pizzeClassiche;
 
-                        if (b.getStringArrayList(CLASSICA) != null)
-                            pizzeClassiche = b.getStringArrayList(CLASSICA);
-                        else
-                            pizzeClassiche = new ArrayList<>();
-
-                        pizzeClassiche.add(listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
-                        b.putStringArrayList(CLASSICA, pizzeClassiche);
-
+                        b = CreaPizza.aggiornaBundle(b, listaPizzeClassiche.get(lastExpandedPosition[1]));
                         intent.putExtras(b);
                         onResume();
                         startActivityForResult(intent, 0);
