@@ -3,7 +3,6 @@ package it.unica.ium.pizzalove;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -18,7 +17,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +24,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -50,7 +47,8 @@ public class CreaPizza extends Activity {
     protected ImageView imgMain;
     private int[] countPizze = new int[22];
     private BadgeView[] badge;
-    private Bundle bundle;
+    private List<Pizza> elenco = new ArrayList<>();
+    private Pizza pizzaModifica = null;
 
 
     /**
@@ -59,12 +57,18 @@ public class CreaPizza extends Activity {
      */
     private GoogleApiClient client;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        bundle = getIntent().getExtras();
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle()) != null)
+            elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
+        if(savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null)
+            for (Ingredienti ingredienti : (List<Ingredienti>)savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
+                setBadge(ingredienti.toString());
         setContentView(R.layout.activity_creapizza);
+
 
         imgMain  = (ImageView) findViewById(R.id.imageMain);
 
@@ -117,20 +121,16 @@ public class CreaPizza extends Activity {
                 new BadgeView(this, findViewById(R.id.cotto))
         };
 
-        if(bundle.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null){
-            //preleva tutti gli ingredienti
-            for (Ingredienti ingredienti : (List<Ingredienti>)bundle.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
-                setBadge(ingredienti.toString());
-        }
-
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
 
         btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                bundle = aggiornaBundle(bundle, nuovaPizza);
-                onCreate(bundle);
+                elenco.add(nuovaPizza);
+                onSaveInstanceState(new Bundle());
+                finish();
+                startActivityForResult(new Intent(CreaPizza.this, CreaPizza.class), 0);
             }
         });
 
@@ -138,10 +138,8 @@ public class CreaPizza extends Activity {
             @Override
             public void onClick(View v) {
                 //aggiunge la pizza creata al bundle
-                Intent intent = new Intent(CreaPizza.this, Carrello.class);
-                bundle = aggiornaBundle(bundle, nuovaPizza);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 0);
+                elenco.add(nuovaPizza);
+                startActivityForResult(new Intent(CreaPizza.this, Carrello.class), 0);
             }
         });
 
@@ -158,10 +156,6 @@ public class CreaPizza extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public static Bundle aggiornaBundle(Bundle b, Pizza nuovaPizza) {
-        ((List<Pizza>)b.get(Bundles.ELENCO_PIZZE.getBundle())).add(nuovaPizza);
-        return b;
-    }
 
     private void dialogRimuoviIngredienti(){
 
@@ -376,7 +370,6 @@ public class CreaPizza extends Activity {
             badge[i].hide();
             countPizze[i] = 0;
         }
-        bundle.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable)nuovaPizza.getIngredienti());
     }
 
 
@@ -490,6 +483,25 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
         imgMain.setImageDrawable(layerDrawable);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        if(elenco.size() == 0)
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
+        else
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
+        if(pizzaModifica != null)
+            state.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
+        if(savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null)
+            for (Ingredienti ingredienti : (List<Ingredienti>)savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
+                setBadge(ingredienti.toString());
+    }
 
 
     @Override

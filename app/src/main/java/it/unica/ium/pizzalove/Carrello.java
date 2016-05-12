@@ -3,6 +3,7 @@ package it.unica.ium.pizzalove;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -25,31 +26,38 @@ import java.util.List;
  */
 public class Carrello extends Activity {
 
-    private List<String> listaPizze;
-    private List<Ingredienti> listIngredienti;
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private List<Pizza> elenco = new ArrayList<>();
-    private Bundle bundle;
+    private List<Pizza> elenco;
+    private Pizza pizzaModifica = null;
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        if(elenco.size() == 0)
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
+        else
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
+        if(pizzaModifica != null)
+            state.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
+        Log.e("elenco", "caricato");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        if(savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle()) != null)
+            elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
         setContentView(R.layout.activity_carrello);
-        bundle = getIntent().getExtras();
 
-        for(String key : bundle.keySet()){
-            if(bundle.get(key) instanceof ArrayList) {
-                ArrayList temp = (ArrayList) bundle.get(key);
-                assert temp != null;
-                for(Object value : temp)
-                    Log.e(key, value.toString());
-            }
-        }
-
-        elenco = (List<Pizza>)bundle.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
         listAdapter = new ExpandableList(this, elenco);
         expListView = (ExpandableListView) findViewById(R.id.carrello);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.btnNewPizza);
@@ -62,8 +70,7 @@ public class Carrello extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Carrello.this, CreaPizza.class);
-                bundle.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable)elenco);
-                intent.putExtras(bundle);
+                onSaveInstanceState(new Bundle());
                 onResume();
                 startActivityForResult(intent, 0);
             }
@@ -132,15 +139,11 @@ public class Carrello extends Activity {
     }
 
     public void modificaPizzaCarrello(int grpPos){
-        Pizza pizzaModifica = elenco.get(grpPos);
+        pizzaModifica = elenco.get(grpPos);
         elenco.remove(grpPos);
-        if(elenco.size() == 0)
-            bundle.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
-        bundle.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
-        Intent intent = new Intent(Carrello.this, CreaPizza.class);
-        intent.putExtras(bundle);
+        onSaveInstanceState(new Bundle());
         onResume();
-        startActivityForResult(intent, 0);
+        startActivityForResult(new Intent(Carrello.this, CreaPizza.class), 0);
     }
 
 
@@ -148,10 +151,10 @@ public class Carrello extends Activity {
 
         elenco.remove(grpPos);
         if (elenco.size() == 0) {
-            bundle.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
+            onSaveInstanceState(new Bundle());
             Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
             onResume();
-            startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
+            startActivityForResult(new Intent(Carrello.this, Scelta.class), 0);
         }
         Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
         listAdapter = new ExpandableList(Carrello.this, elenco);

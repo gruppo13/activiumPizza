@@ -6,15 +6,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by perlo on 14/02/16.
  */
 public class Scelta extends Activity {
 
+    private List<Pizza> elenco;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        if(elenco.size() == 0)
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
+        else
+            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
+    }
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scelta);
+        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
 
         Button btnElenco = (Button) findViewById(R.id.btnElenco);
         Button btnCrea = (Button) findViewById(R.id.btnCrea);
@@ -25,11 +46,8 @@ public class Scelta extends Activity {
         btnElenco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Scelta.this, ElencoPizze.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
-
-                startActivityForResult(intent, 0);
+                onSaveInstanceState(new Bundle());
+                startActivityForResult(new Intent(Scelta.this, ElencoPizze.class), 0);
 
             }
         });
@@ -37,10 +55,8 @@ public class Scelta extends Activity {
         btnCrea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Scelta.this, CreaPizza.class);
-                Bundle b = getIntent().getExtras();
-                intent.putExtras(b);
-                startActivityForResult(intent, 0);
+                onSaveInstanceState(new Bundle());
+                startActivityForResult(new Intent(Scelta.this, CreaPizza.class), 0);
 
             }
         });
