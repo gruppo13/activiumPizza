@@ -34,6 +34,8 @@ import com.readystatesoftware.viewbadger.BadgeView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -43,58 +45,48 @@ import java.util.List;
 public class CreaPizza extends Activity {
 
 
-    private Pizza nuovaPizza = new Pizza("creata");
     protected ImageView imgMain;
     private int[] countPizze = new int[22];
+    private Bundle bundle;
     private BadgeView[] badge;
     private List<Pizza> elenco = new ArrayList<>();
-    private Pizza pizzaModifica = null;
+    private List<Ingredienti> listIngredienti = new ArrayList<>();
 
+/*
+    @Override
+    protected void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        state.putSerializable(N_ELENCO_PIZZE, (Serializable)elenco);
+    }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState != null)
+            elenco = (List<Pizza>)savedInstanceState.getSerializable(N_ELENCO_PIZZE);
+    }*/
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
+            elenco = (List<Pizza>) bundle.getSerializable(Carrello.ELENCO_PIZZE);
+        if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
+            bundle.getSerializable(Carrello.PIZZA_MODIFICA) != null) {
+            Log.e("hai visto pier", "sisi son tornato qui alla facciaccia vostra");
+            for (Ingredienti i : ((Pizza) bundle.getSerializable(Carrello.PIZZA_MODIFICA)).getIngredienti())
+                setBadge(i.toString());
+            bundle.putSerializable(Carrello.PIZZA_MODIFICA, null);
+        }
+        updatePizza();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        if(savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle()) != null)
-            elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
-        if(savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null)
-            for (Ingredienti ingredienti : (List<Ingredienti>)savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
-                setBadge(ingredienti.toString());
         setContentView(R.layout.activity_creapizza);
-
-
         imgMain  = (ImageView) findViewById(R.id.imageMain);
 
-        //immagini da click
-        findViewById(R.id.sugo).setOnClickListener(clickListener);
-        findViewById(R.id.mozzarella).setOnClickListener(clickListener);
-        findViewById(R.id.funghi).setOnClickListener(clickListener);
-        findViewById(R.id.bacon).setOnClickListener(clickListener);
-        findViewById(R.id.broccoli).setOnClickListener(clickListener);
-        findViewById(R.id.cipolle).setOnClickListener(clickListener);
-        findViewById(R.id.formaggio).setOnClickListener(clickListener);
-        findViewById(R.id.gamberetti).setOnClickListener(clickListener);
-        findViewById(R.id.melanzane).setOnClickListener(clickListener);
-        findViewById(R.id.olive).setOnClickListener(clickListener);
-        findViewById(R.id.patatine).setOnClickListener(clickListener);
-        findViewById(R.id.peperoncini).setOnClickListener(clickListener);
-        findViewById(R.id.peperoni).setOnClickListener(clickListener);
-        findViewById(R.id.pomodori).setOnClickListener(clickListener);
-        findViewById(R.id.salame).setOnClickListener(clickListener);
-        findViewById(R.id.uova).setOnClickListener(clickListener);
-        findViewById(R.id.wurstel).setOnClickListener(clickListener);
-        findViewById(R.id.zucchine).setOnClickListener(clickListener);
-        findViewById(R.id.capperi).setOnClickListener(clickListener);
-        findViewById(R.id.acciughe).setOnClickListener(clickListener);
-        findViewById(R.id.basilico).setOnClickListener(clickListener);
-        findViewById(R.id.cotto).setOnClickListener(clickListener);
 
         badge = new BadgeView[]{
                 new BadgeView(this, findViewById(R.id.sugo)),
@@ -121,42 +113,70 @@ public class CreaPizza extends Activity {
                 new BadgeView(this, findViewById(R.id.cotto))
         };
 
+        bundle = getIntent().getExtras();
+
+
+        //immagini da click
+        findViewById(R.id.sugo).setOnClickListener(clickListener);
+        findViewById(R.id.mozzarella).setOnClickListener(clickListener);
+        findViewById(R.id.funghi).setOnClickListener(clickListener);
+        findViewById(R.id.bacon).setOnClickListener(clickListener);
+        findViewById(R.id.broccoli).setOnClickListener(clickListener);
+        findViewById(R.id.cipolle).setOnClickListener(clickListener);
+        findViewById(R.id.formaggio).setOnClickListener(clickListener);
+        findViewById(R.id.gamberetti).setOnClickListener(clickListener);
+        findViewById(R.id.melanzane).setOnClickListener(clickListener);
+        findViewById(R.id.olive).setOnClickListener(clickListener);
+        findViewById(R.id.patatine).setOnClickListener(clickListener);
+        findViewById(R.id.peperoncini).setOnClickListener(clickListener);
+        findViewById(R.id.peperoni).setOnClickListener(clickListener);
+        findViewById(R.id.pomodori).setOnClickListener(clickListener);
+        findViewById(R.id.salame).setOnClickListener(clickListener);
+        findViewById(R.id.uova).setOnClickListener(clickListener);
+        findViewById(R.id.wurstel).setOnClickListener(clickListener);
+        findViewById(R.id.zucchine).setOnClickListener(clickListener);
+        findViewById(R.id.capperi).setOnClickListener(clickListener);
+        findViewById(R.id.acciughe).setOnClickListener(clickListener);
+        findViewById(R.id.basilico).setOnClickListener(clickListener);
+        findViewById(R.id.cotto).setOnClickListener(clickListener);
+
+
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
 
         btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                elenco.add(nuovaPizza);
-                onSaveInstanceState(new Bundle());
-                finish();
-                startActivityForResult(new Intent(CreaPizza.this, CreaPizza.class), 0);
+                Pizza p = new Pizza(listIngredienti);
+                p.addCount();
+                elenco.add(p);
+                rimuoviTutto();
             }
         });
 
-        btnAddPizzaCreate.setOnClickListener(new View.OnClickListener(){
+        btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //aggiunge la pizza creata al bundle
-                elenco.add(nuovaPizza);
-                startActivityForResult(new Intent(CreaPizza.this, Carrello.class), 0);
+                Pizza p = new Pizza(listIngredienti);
+                p.addCount();
+                elenco.add(p);
+                bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable) elenco);
+                startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
             }
         });
 
-        updatePizza();
 
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
         imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                dialogRimuoviIngredienti();
+                //dialogRimuoviIngredienti();
                 return true;
             }
         });
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-
+/*
     private void dialogRimuoviIngredienti(){
 
     if (!nuovaPizza.getIngredienti().isEmpty()) {
@@ -181,11 +201,7 @@ public class CreaPizza extends Activity {
         dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < nuovaPizza.countIngredienti(); i++) {
-                    setEnableIngrediente(nuovaPizza.getIngrediente(i).toString(), true);
-                    nuovaPizza.removeIngrediente(i);
-                }
-                updatePizza();
+                rimuoviTutto();
                 Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
                 dialog.cancel();
             }
@@ -233,10 +249,16 @@ public class CreaPizza extends Activity {
             }
         });
     }
-}
+}*/
 
-
-
+    private void rimuoviTutto() {
+        listIngredienti.clear();
+        for (int i = 0; i < countPizze.length; i++) {
+            badge[i].hide();
+            countPizze[i] = 0;
+        }
+        updatePizza();
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -361,12 +383,13 @@ public class CreaPizza extends Activity {
         if(countPizze[i] < 2) {
             badge[i].setText(String.format("%d", ++countPizze[i]));
             badge[i].show();
-            nuovaPizza.addIngrediente(Ingredienti.valueOf(img));
+            listIngredienti.add(Ingredienti.valueOf(img));
         }
         else{
-            nuovaPizza.sort();
-            while(nuovaPizza.getIngredienti().contains(Ingredienti.valueOf(img)))
-                nuovaPizza.removeIngrediente(Ingredienti.valueOf(img));
+            //nuovaPizza.sort();
+            Collections.sort(listIngredienti);
+            while(listIngredienti.contains(Ingredienti.valueOf(img)))
+                listIngredienti.remove(Ingredienti.valueOf(img));
             badge[i].hide();
             countPizze[i] = 0;
         }
@@ -452,8 +475,6 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
 
 
 
-
-
     private void updatePizza() {
         List<Drawable> layers = new ArrayList<>();
         Resources resources = getResources();
@@ -464,17 +485,19 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
         bmd.setGravity(Gravity.TOP);
         layers.add(bmd);
 
-        if (!nuovaPizza.getIngredienti().isEmpty()){
-            for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
+        if (!listIngredienti.isEmpty()){
+            for (Ingredienti ingrediente : listIngredienti) {
                 Log.e("i tuoi ingredienti ", ingrediente.toString());
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
                 layers.add(bmd);
             }
             findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
+            findViewById(R.id.addPizza).setEnabled(true);
         }
         else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
             findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
+            findViewById(R.id.addPizza).setEnabled(false);
         }
 
         Drawable[] temp = new Drawable[layers.size()];
@@ -483,64 +506,11 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
         imgMain.setImageDrawable(layerDrawable);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        if(elenco.size() == 0)
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
-        else
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
-        if(pizzaModifica != null)
-            state.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
-        if(savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle())!= null)
-            for (Ingredienti ingredienti : (List<Ingredienti>)savedInstanceState.getSerializable(Bundles.MODIFICA_PIZZA.getBundle()))
-                setBadge(ingredienti.toString());
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "CreaPizza Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.e("dentro", "onStop");
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "CreaPizza Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }

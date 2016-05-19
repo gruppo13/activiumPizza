@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -25,44 +26,30 @@ import java.util.List;
 
 public class ElencoPizze extends Activity {
     /*list view */
-    private ExpandableListAdapter listAdapter;
+    public static final String NUOVA_PIZZA = "it.unica.ium.pizzalove.NUOVA_PIZZA";
+    List<Pizza> elenco = new ArrayList<>();
     private ExpandableListView expListView;
-    private List<Pizza> elenco;
-    private Pizza pizzaModifica = null;
+    Bundle bundle;
     private GoogleApiClient client;
+
     /* menu pizze */
     List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
             new Pizza("Napoli"),new Pizza("Wurstel e Cipolle"),
             new Pizza("Funghi"),new Pizza("Cotto"),
             new Pizza("Prosciutto e Funghi"),new Pizza("Vegetariana"),
             new Pizza("Parmigiana"),new Pizza("Capricciosa"),
-            new Pizza("Carbonara"),new Pizza("All American"));;
+            new Pizza("Carbonara"),new Pizza("All American"));
 
-
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        if(elenco.size() == 0)
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
-        else
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
-        if(pizzaModifica != null)
-            state.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle()) != null)
-            elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
         setContentView(R.layout.activity_elenco_pizze);
+        ExpandableListAdapter listAdapter;
+        bundle = getIntent().getExtras();
 
+        if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
+            elenco = (List<Pizza>)bundle.getSerializable(Carrello.ELENCO_PIZZE);
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
@@ -139,9 +126,8 @@ public class ElencoPizze extends Activity {
                 public void onClick(View v) {
                     if (lastExpandedPosition[0] >= 0) {
                         //salva la pizza nel bundle
-                        pizzaModifica = listaPizzeClassiche.get(lastExpandedPosition[1]);
-                        onSaveInstanceState(new Bundle());
-                        startActivityForResult(new Intent(ElencoPizze.this, CreaPizza.class), 0);
+                        bundle.putSerializable(Carrello.PIZZA_MODIFICA, listaPizzeClassiche.get(lastExpandedPosition[1]));
+                        startActivityForResult(new Intent(ElencoPizze.this, CreaPizza.class).putExtras(bundle), 0);
                     }
                     else {
                         Toast.makeText(ElencoPizze.this,"Non hai selezionato nessuna pizza",Toast.LENGTH_SHORT).show();
@@ -156,11 +142,12 @@ public class ElencoPizze extends Activity {
                 @Override
                 public void onClick(View v) {
                     if (lastExpandedPosition[0] >= 0) {
-                        elenco.add(listaPizzeClassiche.get(lastExpandedPosition[1]));
-                        onSaveInstanceState(new Bundle());
-                        onResume();
-                        startActivityForResult(new Intent(ElencoPizze.this, Carrello.class), 0);
-
+                        if(elenco.contains(listaPizzeClassiche.get(lastExpandedPosition[1])))
+                            elenco.get(elenco.indexOf(listaPizzeClassiche.get(lastExpandedPosition[1]))).addCount();
+                        else
+                            elenco.add(listaPizzeClassiche.get(lastExpandedPosition[1]));
+                        bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable)elenco);
+                        startActivityForResult(new Intent(ElencoPizze.this, Carrello.class).putExtras(bundle), 0);
                     }
                     else
                         Toast.makeText(ElencoPizze.this,"Non hai selezionato nessuna pizza",Toast.LENGTH_SHORT).show();

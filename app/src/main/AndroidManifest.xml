@@ -21,38 +21,38 @@
 
         <activity
             android:name="it.unica.ium.pizzalove.ElencoPizze"
-            android:screenOrientation="landscape"
-            android:parentActivityName="it.unica.ium.pizzalove.Scelta">
+            android:screenOrientation="landscape">
+            <!--android:parentActivityName="it.unica.ium.pizzalove.Scelta">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unica.ium.pizzalove.Main" />
+                android:value="it.unica.ium.pizzalove.Main" />-->
         </activity>
 
         <activity
             android:name="it.unica.ium.pizzalove.CreaPizza"
             android:screenOrientation="landscape"
-            android:parentActivityName="it.unica.ium.pizzalove.Scelta"
-            android:hardwareAccelerated="true"
-            >
-            <meta-data
+            android:hardwareAccelerated="true">
+            <!--android:parentActivityName="it.unica.ium.pizzalove.Scelta"-->
+
+            <!--<meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />-->
         </activity>
 
         <activity
             android:name="it.unica.ium.pizzalove.Scelta"
             android:screenOrientation="landscape">
-            <meta-data
+            <!--<meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />-->
         </activity>
 
         <activity
             android:name="it.unica.ium.pizzalove.Carrello"
             android:screenOrientation="landscape">
-            <meta-data
+            <!--<meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unica.ium.pizzalove.ElencoPizze" />
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />-->
         </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for

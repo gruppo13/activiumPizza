@@ -34,9 +34,9 @@ public class ExpandableList extends BaseExpandableListAdapter {
                 i++;
             }
             else {
-                this._listDataHeader.add(pizza.getNomePizza());
+                if(!this._listDataHeader.contains(pizza.getNomePizza()))
+                    this._listDataHeader.add(pizza.getNomePizza());
             }
-
         }
     }
 

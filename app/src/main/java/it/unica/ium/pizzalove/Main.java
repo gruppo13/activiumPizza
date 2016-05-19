@@ -15,11 +15,6 @@ import java.util.List;
  */
 public class Main extends Activity {
 
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), new ArrayList<>());
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +25,8 @@ public class Main extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(),CreaPizza.class);
-                //startActivityForResult(intent,0);
-                Intent intent = new Intent(Main.this, Scelta.class);
-                onSaveInstanceState(new Bundle());
+                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
                 startActivityForResult(intent, 0);
-                // finish();
-
-
             }
         });
     }

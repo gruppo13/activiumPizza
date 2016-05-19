@@ -26,36 +26,42 @@ import java.util.List;
  */
 public class Carrello extends Activity {
 
+    public static final String PIZZA_MODIFICA = "it.unica.ium.pizzalove.PIZZA_MODIFICA";
+    public static final String ELENCO_PIZZE = "it.unica.ium.pizzalove.ELENCO_PIZZE";
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private List<Pizza> elenco;
-    private Pizza pizzaModifica = null;
+    private List<Pizza> elenco  = new ArrayList<>();
+    Bundle bundle;
 
-
+/*
     @Override
     protected void onSaveInstanceState(Bundle state){
         super.onSaveInstanceState(state);
         if(elenco.size() == 0)
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), null);
+            state.putSerializable(ELENCO_PIZZE, null);
         else
-            state.putSerializable(Bundles.ELENCO_PIZZE.getBundle(), (Serializable) elenco);
-        if(pizzaModifica != null)
-            state.putSerializable(Bundles.MODIFICA_PIZZA.getBundle(), (Serializable) pizzaModifica.getIngredienti());
+            state.putSerializable(ELENCO_PIZZE, (Serializable) elenco);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
-        elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
-        Log.e("elenco", "caricato");
-    }
+        if(savedInstanceState != null) {
+            elenco = (List<Pizza>) savedInstanceState.getSerializable(Carrello.ELENCO_PIZZE);
+            Log.e("elenco", "caricato");
+        }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        if(savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle()) != null)
-            elenco = (List<Pizza>)savedInstanceState.getSerializable(Bundles.ELENCO_PIZZE.getBundle());
+        bundle = getIntent().getExtras();
+        if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)){
+            elenco = (List<Pizza>)bundle.getSerializable(ELENCO_PIZZE);
+            Log.e("SAVEDINSTANCE","------>ELENCO CARICATO");
+        }
+
         setContentView(R.layout.activity_carrello);
 
         listAdapter = new ExpandableList(this, elenco);
@@ -69,10 +75,8 @@ public class Carrello extends Activity {
         btnNuovaPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Carrello.this, CreaPizza.class);
-                onSaveInstanceState(new Bundle());
-                onResume();
-                startActivityForResult(intent, 0);
+                bundle.putSerializable(ELENCO_PIZZE, (Serializable)elenco);
+                startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
             }
         });
 
@@ -139,22 +143,18 @@ public class Carrello extends Activity {
     }
 
     public void modificaPizzaCarrello(int grpPos){
-        pizzaModifica = elenco.get(grpPos);
+        bundle.putSerializable(PIZZA_MODIFICA, elenco.get(grpPos));
         elenco.remove(grpPos);
-        onSaveInstanceState(new Bundle());
-        onResume();
-        startActivityForResult(new Intent(Carrello.this, CreaPizza.class), 0);
+        bundle.putSerializable(ELENCO_PIZZE, (Serializable)elenco);
+        startActivityForResult(new Intent(Carrello.this, CreaPizza.class).putExtras(bundle), 0);
     }
 
 
     public void removePizzaCarrello(int grpPos){
-
         elenco.remove(grpPos);
         if (elenco.size() == 0) {
-            onSaveInstanceState(new Bundle());
             Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
-            onResume();
-            startActivityForResult(new Intent(Carrello.this, Scelta.class), 0);
+            startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(new Bundle()), 0);
         }
         Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
         listAdapter = new ExpandableList(Carrello.this, elenco);

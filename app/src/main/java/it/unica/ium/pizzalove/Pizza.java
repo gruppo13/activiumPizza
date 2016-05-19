@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Pizza implements Serializable{
 
-    private int COUNT = 0;
+    private int COUNT = 1;
     private String nomePizza;
     private List<Ingredienti> listaIngredienti = new ArrayList<>();
 
@@ -61,7 +61,6 @@ public class Pizza implements Serializable{
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Cotto);
                 break;
             default:
-                //this.nomePizza = "creata";
                 break;
         }
     }
@@ -107,12 +106,12 @@ public class Pizza implements Serializable{
         return true;
     }
 
-    public boolean removeIngrediente(int i){
-        try{
-            listaIngredienti.remove(i);
+    public boolean removeIngredienti(){
+        try {
+            listaIngredienti.clear();
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch(Exception r){
+            r.printStackTrace();
             return false;
         }
         return true;
