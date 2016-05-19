@@ -141,15 +141,22 @@ public class ElencoPizze extends Activity {
             btn1.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean flag = false;
+                    Log.e("pizza selezionata",listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
                     if (lastExpandedPosition[0] >= 0) {
-                        if(elenco.contains(listaPizzeClassiche.get(lastExpandedPosition[1]))) {
-                            elenco.get(elenco.indexOf(listaPizzeClassiche.get(lastExpandedPosition[1]))).addCount();
-                            Log.e("count", "+1");
+                        for(Pizza pizza : elenco) {
+                            Log.e("elenco", pizza.getNomePizza());
+                            if (pizza.equals(listaPizzeClassiche.get(lastExpandedPosition[1]))) {
+                                elenco.get(elenco.indexOf(listaPizzeClassiche.get(lastExpandedPosition[1]))).addCount();
+                                flag = true;
+                                Log.e("count", "+1");
+                            }
                         }
-                        else {
+                        if(!flag) {
                             elenco.add(listaPizzeClassiche.get(lastExpandedPosition[1]));
                             Log.e("count", "nuovapizza");
                         }
+
                         bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable)elenco);
                         startActivityForResult(new Intent(ElencoPizze.this, Carrello.class).putExtras(bundle), 0);
                     }

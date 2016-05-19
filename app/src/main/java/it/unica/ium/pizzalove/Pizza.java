@@ -132,6 +132,10 @@ public class Pizza implements Serializable{
         ++COUNT;
     }
 
+    public void lessCount(){
+        --COUNT;
+    }
+
     public int getCount(){
         return COUNT;
     }
@@ -161,18 +165,16 @@ public class Pizza implements Serializable{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null) return false;
+        if(obj.getClass() != this.getClass()) return false;
 
-        Pizza pizza = (Pizza) o;
-
-        if (!(nomePizza != null)){
-            if(pizza.getNomePizza() != null)
-                return false;
-            else if(!nomePizza.equals(pizza.getNomePizza()))
-                return false;
-        }
+        Pizza p = (Pizza)obj;
+        if(p.getNomePizza() == null)
+            return false;
+        else if(!nomePizza.equals(p.getNomePizza()))
+            return false;
         return true;
     }
 

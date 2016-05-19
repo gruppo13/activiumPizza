@@ -144,14 +144,20 @@ public class Carrello extends Activity {
 
     public void modificaPizzaCarrello(int grpPos){
         bundle.putSerializable(PIZZA_MODIFICA, elenco.get(grpPos));
-        elenco.remove(grpPos);
+        if(elenco.get(grpPos).getCount() == 1)
+            elenco.remove(grpPos);
+        else
+            elenco.get(grpPos).lessCount();
         bundle.putSerializable(ELENCO_PIZZE, (Serializable)elenco);
         startActivityForResult(new Intent(Carrello.this, CreaPizza.class).putExtras(bundle), 0);
     }
 
 
     public void removePizzaCarrello(int grpPos){
-        elenco.remove(grpPos);
+        if(elenco.get(grpPos).getCount() == 1)
+            elenco.remove(grpPos);
+        else
+            elenco.get(grpPos).lessCount();
         if (elenco.size() == 0) {
             Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
             startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(new Bundle()), 0);
