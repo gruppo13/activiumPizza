@@ -160,6 +160,21 @@ public class Pizza implements Serializable{
         return form.format(prezzo) + " €";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pizza pizza = (Pizza) o;
+
+        if (!(nomePizza != null)){
+            if(pizza.getNomePizza() != null)
+                return false;
+            else if(!nomePizza.equals(pizza.getNomePizza()))
+                return false;
+        }
+        return true;
+    }
 
 /*
     public static final Parcelable.Creator<Pizza> CREATOR = new

@@ -148,7 +148,6 @@ public class CreaPizza extends Activity {
             @Override
             public void onClick(View v){
                 Pizza p = new Pizza(listIngredienti);
-                p.addCount();
                 elenco.add(p);
                 rimuoviTutto();
             }
@@ -158,7 +157,6 @@ public class CreaPizza extends Activity {
             @Override
             public void onClick(View v) {
                 Pizza p = new Pizza(listIngredienti);
-                p.addCount();
                 elenco.add(p);
                 bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable) elenco);
                 startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);

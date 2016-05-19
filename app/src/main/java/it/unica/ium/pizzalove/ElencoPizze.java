@@ -78,45 +78,45 @@ public class ElencoPizze extends Activity {
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
                                                 @Override
                                                 public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
-                            // cambia attivita
-                            //setContentView(R.layout.activity_creapizza);
-                            expListView.collapseGroup(groupPosition);
-                            //cambia la quantita delle pizze selezionate
-                            if (expListView.isGroupExpanded(groupPosition)) {
-                                //vai al carrello doppio click
-                                if (lastExpandedPosition[1] == groupPosition) {
-                                    System.out.println("group clicked 1");
+                                                    // cambia attivita
+                                                    //setContentView(R.layout.activity_creapizza);
+                                                    expListView.collapseGroup(groupPosition);
+                                                    //cambia la quantita delle pizze selezionate
+                                                    if (expListView.isGroupExpanded(groupPosition)) {
+                                                        //vai al carrello doppio click
+                                                        if (lastExpandedPosition[1] == groupPosition) {
+                                                            System.out.println("group clicked 1");
 
-                                } else {
-                                    System.out.println("group clicked 2");
-                                    expListView.collapseGroup(groupPosition);
-                                }
+                                                        } else {
+                                                            System.out.println("group clicked 2");
+                                                            expListView.collapseGroup(groupPosition);
+                                                        }
 
 
-                            } else {//espandi lista
+                                                    } else {//espandi lista
 /*  */
 
-                                System.out.println("group clicked 3");
+                                                        System.out.println("group clicked 3");
 
 
-                                lastExpandedPosition[1] = groupPosition;
-                                if (lastExpandedPosition[0] == groupPosition) {
-                                    System.out.println("same expanded group");
-                                    lastExpandedPosition[0]=-1;
-                                    lastExpandedPosition[1]=-1;
-                                    expListView.collapseGroup(groupPosition);
-                                } else {
-                                    if (lastExpandedPosition[0] != -1){
-                                        expListView.collapseGroup(lastExpandedPosition[0]);
-                                    }
-                                    lastExpandedPosition[0] = groupPosition;
+                                                        lastExpandedPosition[1] = groupPosition;
+                                                        if (lastExpandedPosition[0] == groupPosition) {
+                                                            System.out.println("same expanded group");
+                                                            lastExpandedPosition[0] = -1;
+                                                            lastExpandedPosition[1] = -1;
+                                                            expListView.collapseGroup(groupPosition);
+                                                        } else {
+                                                            if (lastExpandedPosition[0] != -1) {
+                                                                expListView.collapseGroup(lastExpandedPosition[0]);
+                                                            }
+                                                            lastExpandedPosition[0] = groupPosition;
 
-                                    expListView.expandGroup(groupPosition);
-                                }
-                            }
-                            return true;
-                        }
-                    }
+                                                            expListView.expandGroup(groupPosition);
+                                                        }
+                                                    }
+                                                    return true;
+                                                }
+                                            }
         );
         /**
          * Evento sul pulsante per la modifica di una pizza classica selezionata dall'elenco delle pizze
@@ -142,10 +142,14 @@ public class ElencoPizze extends Activity {
                 @Override
                 public void onClick(View v) {
                     if (lastExpandedPosition[0] >= 0) {
-                        if(elenco.contains(listaPizzeClassiche.get(lastExpandedPosition[1])))
+                        if(elenco.contains(listaPizzeClassiche.get(lastExpandedPosition[1]))) {
                             elenco.get(elenco.indexOf(listaPizzeClassiche.get(lastExpandedPosition[1]))).addCount();
-                        else
+                            Log.e("count", "+1");
+                        }
+                        else {
                             elenco.add(listaPizzeClassiche.get(lastExpandedPosition[1]));
+                            Log.e("count", "nuovapizza");
+                        }
                         bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable)elenco);
                         startActivityForResult(new Intent(ElencoPizze.this, Carrello.class).putExtras(bundle), 0);
                     }
