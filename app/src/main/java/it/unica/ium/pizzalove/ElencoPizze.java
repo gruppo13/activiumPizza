@@ -126,7 +126,7 @@ public class ElencoPizze extends Activity {
                 public void onClick(View v) {
                     if (lastExpandedPosition[0] >= 0) {
                         //salva la pizza nel bundle
-                        bundle.putSerializable(Carrello.PIZZA_MODIFICA, listaPizzeClassiche.get(lastExpandedPosition[1]));
+                        bundle.putParcelable(Carrello.PIZZA_MODIFICA, listaPizzeClassiche.get(lastExpandedPosition[1]));
                         startActivityForResult(new Intent(ElencoPizze.this, CreaPizza.class).putExtras(bundle), 0);
                     }
                     else {
@@ -142,16 +142,13 @@ public class ElencoPizze extends Activity {
                 @Override
                 public void onClick(View v) {
                     boolean flag = false;
-                    Log.e("pizza selezionata",listaPizzeClassiche.get(lastExpandedPosition[1]).getNomePizza());
                     if (lastExpandedPosition[0] >= 0) {
-                        for(Pizza pizza : elenco) {
-                            Log.e("elenco", pizza.getNomePizza());
+                        for(Pizza pizza : elenco)
                             if (pizza.equals(listaPizzeClassiche.get(lastExpandedPosition[1]))) {
                                 elenco.get(elenco.indexOf(listaPizzeClassiche.get(lastExpandedPosition[1]))).addCount();
                                 flag = true;
                                 Log.e("count", "+1");
                             }
-                        }
                         if(!flag) {
                             elenco.add(listaPizzeClassiche.get(lastExpandedPosition[1]));
                             Log.e("count", "nuovapizza");

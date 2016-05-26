@@ -72,10 +72,10 @@ public class CreaPizza extends Activity {
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
             elenco = (List<Pizza>) bundle.getSerializable(Carrello.ELENCO_PIZZE);
         if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
-            bundle.getSerializable(Carrello.PIZZA_MODIFICA) != null) {
-            for (Ingredienti i : ((Pizza) bundle.getSerializable(Carrello.PIZZA_MODIFICA)).getIngredienti())
+            bundle.getParcelable(Carrello.PIZZA_MODIFICA) != null) {
+            for (Ingredienti i : ((Pizza)(bundle.getParcelable(Carrello.PIZZA_MODIFICA))).getIngredienti())
                 setBadge(i.toString());
-            bundle.putSerializable(Carrello.PIZZA_MODIFICA, null);
+            bundle.putParcelable(Carrello.PIZZA_MODIFICA, null);
         }
         updatePizza();
     }

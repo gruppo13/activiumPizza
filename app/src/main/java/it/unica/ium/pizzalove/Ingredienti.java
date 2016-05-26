@@ -1,12 +1,15 @@
 package it.unica.ium.pizzalove;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by manuf_000 on 22/02/2016.
  */
-public enum Ingredienti implements Serializable{
+public enum Ingredienti implements Parcelable {
 
     Sugo (0.25f , 1),
     Mozzarella (0.25f, 2),
@@ -46,5 +49,27 @@ public enum Ingredienti implements Serializable{
 
     int getNumber() {
         return this.number;
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags){
+        dest.writeInt(ordinal());
+    }
+
+    public static final Parcelable.Creator<Ingredienti> CREATOR
+            = new Parcelable.Creator<Ingredienti>(){
+        @Override
+        public Ingredienti createFromParcel(final Parcel in){
+            return Ingredienti.values()[in.readInt()];
+        }
+        @Override
+        public Ingredienti[] newArray(final int size){
+            return new Ingredienti[size];
+        }
+    };
+
+    @Override
+    public int describeContents(){
+        return 0;
     }
 }

@@ -143,7 +143,7 @@ public class Carrello extends Activity {
     }
 
     public void modificaPizzaCarrello(int grpPos){
-        bundle.putSerializable(PIZZA_MODIFICA, elenco.get(grpPos));
+        bundle.putParcelable(PIZZA_MODIFICA, elenco.get(grpPos));
         if(elenco.get(grpPos).getCount() == 1)
             elenco.remove(grpPos);
         else
