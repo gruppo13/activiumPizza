@@ -3,21 +3,12 @@ package it.unica.ium.pizzalove;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,27 +21,8 @@ public class Carrello extends Activity {
     public static final String ELENCO_PIZZE = "it.unica.ium.pizzalove.ELENCO_PIZZE";
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private List<Pizza> elenco  = new ArrayList<>();
+    private ArrayList<Pizza> elenco  = new ArrayList<>();
     Bundle bundle;
-
-/*
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        if(elenco.size() == 0)
-            state.putSerializable(ELENCO_PIZZE, null);
-        else
-            state.putSerializable(ELENCO_PIZZE, (Serializable) elenco);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState != null) {
-            elenco = (List<Pizza>) savedInstanceState.getSerializable(Carrello.ELENCO_PIZZE);
-            Log.e("elenco", "caricato");
-        }
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +30,7 @@ public class Carrello extends Activity {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)){
-            elenco = (List<Pizza>)bundle.getSerializable(ELENCO_PIZZE);
+            elenco = bundle.getParcelableArrayList(ELENCO_PIZZE);
             Log.e("SAVEDINSTANCE","------>ELENCO CARICATO");
         }
 
@@ -75,7 +47,7 @@ public class Carrello extends Activity {
         btnNuovaPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putSerializable(ELENCO_PIZZE, (Serializable)elenco);
+                bundle.putParcelableArrayList(ELENCO_PIZZE, elenco);
                 startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
             }
         });
@@ -148,7 +120,7 @@ public class Carrello extends Activity {
             elenco.remove(grpPos);
         else
             elenco.get(grpPos).lessCount();
-        bundle.putSerializable(ELENCO_PIZZE, (Serializable)elenco);
+        bundle.putParcelableArrayList(ELENCO_PIZZE, elenco);
         startActivityForResult(new Intent(Carrello.this, CreaPizza.class).putExtras(bundle), 0);
     }
 

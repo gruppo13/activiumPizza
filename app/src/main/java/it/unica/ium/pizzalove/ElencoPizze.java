@@ -2,9 +2,7 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +10,6 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.Toast;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,11 +17,9 @@ import java.util.List;
 
 public class ElencoPizze extends Activity {
     /*list view */
-    public static final String NUOVA_PIZZA = "it.unica.ium.pizzalove.NUOVA_PIZZA";
-    List<Pizza> elenco = new ArrayList<>();
+    ArrayList<Pizza> elenco = new ArrayList<>();
     private ExpandableListView expListView;
     Bundle bundle;
-    private GoogleApiClient client;
 
     /* menu pizze */
     List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
@@ -49,7 +38,7 @@ public class ElencoPizze extends Activity {
         bundle = getIntent().getExtras();
 
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
-            elenco = (List<Pizza>)bundle.getSerializable(Carrello.ELENCO_PIZZE);
+            elenco = bundle.getParcelableArrayList(Carrello.ELENCO_PIZZE);
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.expandableList);
 
@@ -154,54 +143,23 @@ public class ElencoPizze extends Activity {
                             Log.e("count", "nuovapizza");
                         }
 
-                        bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable)elenco);
+                        bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
                         startActivityForResult(new Intent(ElencoPizze.this, Carrello.class).putExtras(bundle), 0);
                     }
                     else
                         Toast.makeText(ElencoPizze.this,"Non hai selezionato nessuna pizza",Toast.LENGTH_SHORT).show();
                 }
             });
-        client=new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "ElencoPizze Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "ElencoPizze Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://it.unica.ium.pizzalove/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }

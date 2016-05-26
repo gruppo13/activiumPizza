@@ -1,8 +1,6 @@
 package it.unica.ium.pizzalove;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -10,31 +8,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.Toast;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.readystatesoftware.viewbadger.BadgeView;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,28 +33,14 @@ public class CreaPizza extends Activity {
     private int[] countPizze = new int[22];
     private Bundle bundle;
     private BadgeView[] badge;
-    private List<Pizza> elenco = new ArrayList<>();
-    private List<Ingredienti> listIngredienti = new ArrayList<>();
-
-/*
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        state.putSerializable(N_ELENCO_PIZZE, (Serializable)elenco);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState != null)
-            elenco = (List<Pizza>)savedInstanceState.getSerializable(N_ELENCO_PIZZE);
-    }*/
+    private ArrayList<Pizza> elenco = new ArrayList<>();
+    private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
 
     @Override
     public void onStart() {
         super.onStart();
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
-            elenco = (List<Pizza>) bundle.getSerializable(Carrello.ELENCO_PIZZE);
+            elenco = bundle.getParcelableArrayList(Carrello.ELENCO_PIZZE);
         if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
             bundle.getParcelable(Carrello.PIZZA_MODIFICA) != null) {
             for (Ingredienti i : ((Pizza)(bundle.getParcelable(Carrello.PIZZA_MODIFICA))).getIngredienti())
@@ -157,23 +127,27 @@ public class CreaPizza extends Activity {
             public void onClick(View v) {
                 Pizza p = new Pizza(listIngredienti);
                 elenco.add(p);
-                bundle.putSerializable(Carrello.ELENCO_PIZZE, (Serializable) elenco);
+                bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
                 startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
             }
         });
 
 
         ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
+
+        /**
+         * --------------------------------------LONG CLICK LISTENER--------------------------------
+         */
         imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //dialogRimuoviIngredienti();
                 return true;
             }
         });
     }
 
-/*
+/**
+ * -----------------------------------------RIMUOVI INGREDIENTI-------------------------------------
     private void dialogRimuoviIngredienti(){
 
     if (!nuovaPizza.getIngredienti().isEmpty()) {
@@ -276,7 +250,10 @@ public class CreaPizza extends Activity {
     }
 
 
-    /* rende visibile gli ingredienti */
+    /**
+     * --------------------------------------INUTILIZZATO-------------------------------------------
+     * rende visibile gli ingredienti
+     * */
     private void setEnableIngrediente(String ingrediente, boolean value){
 
         switch (ingrediente) {
@@ -362,19 +339,24 @@ public class CreaPizza extends Activity {
     };
 
 
-
-
+    /**
+     * ------------------------CLICK INGREDIENTE----------------------------------------------------
+     */
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String imageClick = (String) (v.getContentDescription());
             Log.e("errore grana", imageClick);
             setBadge(imageClick);
-            for(int i : countPizze) Log.e("numeri", Integer.toString(i));
+            //for(int i : countPizze) Log.e("numeri", Integer.toString(i));
             updatePizza();
         }
     };
 
+    /**
+     * Modifica i badge
+     * @param img
+     */
     private void setBadge(String img) {
         int i = Ingredienti.valueOf(img).getNumber() - 1;
         if(countPizze[i] < 2) {
@@ -485,6 +467,7 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
 
         int i = 1;
         if (!listIngredienti.isEmpty()){
+            //ordina ingredienti
             Collections.sort(listIngredienti);
             for (Ingredienti ingrediente : listIngredienti) {
                 Log.e("i tuoi ingredienti ", ingrediente.toString());
@@ -508,7 +491,6 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
     @Override
     public void onStop() {
         super.onStop();
-        Log.e("dentro", "onStop");
-
+        //Log.e("dentro", "onStop");
     }
 }
