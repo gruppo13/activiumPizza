@@ -47,8 +47,8 @@ public enum Ingredienti implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags){
-        dest.writeInt(ordinal());
+    public void writeToParcel(final Parcel out, final int flags){
+        out.writeInt(ordinal());
     }
 
     public static final Parcelable.Creator<Ingredienti> CREATOR
