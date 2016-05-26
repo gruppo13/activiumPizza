@@ -73,7 +73,6 @@ public class CreaPizza extends Activity {
             elenco = (List<Pizza>) bundle.getSerializable(Carrello.ELENCO_PIZZE);
         if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
             bundle.getSerializable(Carrello.PIZZA_MODIFICA) != null) {
-            Log.e("hai visto pier", "sisi son tornato qui alla facciaccia vostra");
             for (Ingredienti i : ((Pizza) bundle.getSerializable(Carrello.PIZZA_MODIFICA)).getIngredienti())
                 setBadge(i.toString());
             bundle.putSerializable(Carrello.PIZZA_MODIFICA, null);
@@ -474,21 +473,25 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
 
 
     private void updatePizza() {
-        List<Drawable> layers = new ArrayList<>();
+        Drawable[] layers = new Drawable[listIngredienti.size()+ 1];
         Resources resources = getResources();
         ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
 
+        LayerDrawable layerDrawable;
         Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
         BitmapDrawable bmd = new BitmapDrawable(resources, bm);
         bmd.setGravity(Gravity.TOP);
-        layers.add(bmd);
+        layers[0] = bmd;
 
+        int i = 1;
         if (!listIngredienti.isEmpty()){
+            Collections.sort(listIngredienti);
             for (Ingredienti ingrediente : listIngredienti) {
                 Log.e("i tuoi ingredienti ", ingrediente.toString());
                 bmd = new BitmapDrawable(resources, trovaIngredienteBitmap(ingrediente, resources));
                 bmd.setGravity(Gravity.TOP);
-                layers.add(bmd);
+                layers[i] = bmd;
+                i++;
             }
             findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
             findViewById(R.id.addPizza).setEnabled(true);
@@ -497,10 +500,7 @@ protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resource
             findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
             findViewById(R.id.addPizza).setEnabled(false);
         }
-
-        Drawable[] temp = new Drawable[layers.size()];
-        temp = layers.toArray(temp);
-        LayerDrawable layerDrawable = new LayerDrawable(temp);
+        layerDrawable = new LayerDrawable(layers);
         imgMain.setImageDrawable(layerDrawable);
     }
 
