@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 
 /**

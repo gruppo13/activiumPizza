@@ -2,17 +2,12 @@ package it.unica.ium.pizzalove;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by manuf_000 on 22/02/16.
- */
 public class Pizza implements Parcelable{
 
     private int COUNT = 1;

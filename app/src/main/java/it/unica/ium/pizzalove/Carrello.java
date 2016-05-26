@@ -10,11 +10,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by perlo on 14/02/16.
- */
 public class Carrello extends Activity {
 
     public static final String PIZZA_MODIFICA = "it.unica.ium.pizzalove.PIZZA_MODIFICA";
@@ -104,15 +100,6 @@ public class Carrello extends Activity {
             );
 
         }
-
-
-    private Float contaTotale() {
-        Float tot = 0.0f;
-        for(Pizza p : elenco){
-            tot += p.getPrezzo()*p.getCount();
-        }
-        return tot;
-    }
 
     public void modificaPizzaCarrello(int grpPos){
         bundle.putParcelable(PIZZA_MODIFICA, elenco.get(grpPos));

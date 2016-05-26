@@ -4,11 +4,6 @@ package it.unica.ium.pizzalove;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-/**
- * Created by manuf_000 on 22/02/2016.
- */
 public enum Ingredienti implements Parcelable {
 
     Sugo (0.25f , 1),
