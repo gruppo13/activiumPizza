@@ -70,6 +70,11 @@ public class Pizza implements Parcelable{
         }
     }
 
+
+
+
+
+
     public String getNomePizza(){
         return this.nomePizza;
     }

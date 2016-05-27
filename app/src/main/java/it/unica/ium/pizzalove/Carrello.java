@@ -98,7 +98,6 @@ public class Carrello extends Activity {
                                                 }
                                             }
             );
-
         }
 
     public void modificaPizzaCarrello(int grpPos){

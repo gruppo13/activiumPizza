@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
    @Override
    public Object getChild(int groupPosition, int childPosititon) {
-       return this._listDataChild.get(groupPosition).getIngredienti().get(childPosititon);
+       return this._listDataChild.get(groupPosition).getIngredienti();
    }
 
    @Override
@@ -55,27 +56,36 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public View getChildView(int groupPosition, int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-       final Ingredienti childText;
-       while(((Ingredienti) getChild(groupPosition, childPosition)).getNumber()==0)
-             childPosition++;
 
-       childText = (Ingredienti) getChild(groupPosition, childPosition);
+        String childrenText = new String();
+
+        LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = infalInflater.inflate(R.layout.list_item, null);
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+        String oldIngrediente = new String();
+        for (Ingredienti ingrediente: (_listDataChild.get(groupPosition).getIngredienti())) {
+                if (oldIngrediente.equals(ingrediente.toString())){
+                    childrenText += " x2 ";
+                }
+            else{
+                    if ( !oldIngrediente.isEmpty())
+                        childrenText += " ,   ";
+                    childrenText += ingrediente.toString();
+                }
 
 
-       //if (convertView == null) {
-           LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           convertView = infalInflater.inflate(R.layout.list_item, null);
-      // }
+                oldIngrediente = ingrediente.toString();
+        }
 
-       TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+        txtListChild.setText(childrenText);
+        return convertView;
 
-       txtListChild.setText(childText.toString());
-       return convertView;
+
    }
 
    @Override
    public int getChildrenCount(int groupPosition) {
-       return this._listDataChild.get(groupPosition).countIngredienti();
+       return 1;
    }
 
    @Override

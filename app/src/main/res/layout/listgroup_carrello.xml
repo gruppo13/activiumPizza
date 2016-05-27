@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:layout_weight="1.5"
-        android:id="@+id/lblListHCarrelloModifica" />
+        android:id="@+id/lblListHCarrelloRemove" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
         android:layout_weight="1.5"
-        android:id="@+id/lblListHCarrelloRemove" />
+        android:id="@+id/lblListHCarrelloModifica" />
 
     <TextView
         android:id="@+id/lblListHCarrelloNum"
