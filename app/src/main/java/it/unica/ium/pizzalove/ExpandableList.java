@@ -65,11 +65,11 @@ public class ExpandableList extends BaseExpandableListAdapter {
         String oldIngrediente = new String();
         for (Ingredienti ingrediente: (_listDataChild.get(groupPosition).getIngredienti())) {
                 if (oldIngrediente.equals(ingrediente.toString())){
-                    childrenText += " x2 ";
+                    childrenText += " x2";
                 }
             else{
                     if ( !oldIngrediente.isEmpty())
-                        childrenText += " ,   ";
+                        childrenText += ",  ";
                     childrenText += ingrediente.toString();
                 }
 

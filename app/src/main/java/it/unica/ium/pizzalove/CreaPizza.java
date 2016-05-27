@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -18,13 +19,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.readystatesoftware.viewbadger.BadgeView;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-/**
- * Created by perlo on 13/02/16.
- */
 public class CreaPizza extends Activity {
 
 
@@ -128,19 +127,6 @@ public class CreaPizza extends Activity {
                 elenco.add(p);
                 bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
                 startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
-            }
-        });
-
-
-        ImageView imageViewcontextMenu = (ImageView) findViewById(R.id.imageMain);
-
-        /**
-         * --------------------------------------LONG CLICK LISTENER--------------------------------
-         */
-        imageViewcontextMenu.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
             }
         });
     }
@@ -347,7 +333,6 @@ public class CreaPizza extends Activity {
             String imageClick = (String) (v.getContentDescription());
             Log.e("errore grana", imageClick);
             setBadge(imageClick);
-            //for(int i : countPizze) Log.e("numeri", Integer.toString(i));
             updatePizza();
         }
     };
@@ -373,92 +358,89 @@ public class CreaPizza extends Activity {
         }
     }
 
-
-
-
-protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
-    Bitmap bm = null;
-    switch (ingrediente) {
-        case Sugo:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.sugo);
-            break;
-        case Mozzarella:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
-            break;
-        case Basilico:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
-            break;
-        case Funghi:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
-            break;
-        case Bacon:
-           bm = BitmapFactory.decodeResource(resources, R.drawable.bacon);
-            break;
-        case Broccoli:
-           bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
-            break;
-        case Cipolle:
-          bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
-            break;
-        case Grana:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
-            break;
-        case Gamberetti:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
-            break;
-        case Melanzane:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
-            break;
-        case Olive:
-           bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
-            break;
-        case Patatine:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
-            break;
-        case Peperoni:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
-            break;
-        case Peperoncino:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
-            break;
-        case Pomodoro:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
-            break;
-        case Salame:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
-            break;
-        case Uova:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
-            break;
-        case Wurstel:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
-            break;
-        case Zucchine:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
-            break;
-        case Capperi:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
-            break;
-        case Acciughe:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
-            break;
-        case Cotto:
-            bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
-            break;
-        default:
-            break;
+    protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
+        Bitmap bm = null;
+        switch (ingrediente) {
+            case Sugo:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.sugo);
+                break;
+            case Mozzarella:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.mozzarella);
+                break;
+            case Basilico:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.basilico);
+                break;
+            case Funghi:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.funghi);
+                break;
+            case Bacon:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.bacon);
+                break;
+            case Broccoli:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.broccoli);
+                break;
+            case Cipolle:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.cipolle);
+                break;
+            case Grana:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.formaggio);
+                break;
+            case Gamberetti:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.gamberetti);
+                break;
+            case Melanzane:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.melanzane);
+                break;
+            case Olive:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.olive);
+                break;
+            case Patatine:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.patatine);
+                break;
+            case Peperoni:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.peperoni);
+                break;
+            case Peperoncino:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.peperoncini);
+                break;
+            case Pomodoro:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.pomodori);
+                break;
+            case Salame:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.salame);
+                break;
+            case Uova:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.uova);
+                break;
+            case Wurstel:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.wurstel);
+                break;
+            case Zucchine:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.zucchine);
+                break;
+            case Capperi:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.capperi);
+                break;
+            case Acciughe:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.acciughe);
+                break;
+            case Cotto:
+                bm = BitmapFactory.decodeResource(resources, R.drawable.cotto);
+                break;
+            default:
+                break;
+        }
+        return bm;
     }
-    return bm;
-}
-
 
 
     private void updatePizza() {
         Drawable[] layers = new Drawable[listIngredienti.size()+ 1];
         Resources resources = getResources();
         ImageView imgMain = (ImageView) findViewById(R.id.imageMain);
-
         LayerDrawable layerDrawable;
+        BitmapFactory.Options option = new BitmapFactory.Options();
+        option.inMutable = true;
         Bitmap bm = BitmapFactory.decodeResource(resources, R.drawable.pastapizza);
         BitmapDrawable bmd = new BitmapDrawable(resources, bm);
         bmd.setGravity(Gravity.TOP);
