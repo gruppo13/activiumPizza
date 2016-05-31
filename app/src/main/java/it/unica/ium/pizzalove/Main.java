@@ -1,13 +1,18 @@
 package it.unica.ium.pizzalove;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +36,7 @@ public class Main extends Activity {
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
+    ViewGroup viewGroup;
 
     /** Called when the activity is first created. */
     @Override
@@ -38,8 +44,9 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
+        viewGroup = (ViewGroup)findViewById(R.id.container);
 
+        geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
         geo_autocomplete.setThreshold(THRESHOLD);
         geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
@@ -49,6 +56,10 @@ public class Main extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
                 geo_autocomplete.setText(result.getAddress());
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+                addPizzerie();
+
             }
         });
 
@@ -61,6 +72,7 @@ public class Main extends Activity {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
@@ -76,10 +88,14 @@ public class Main extends Activity {
         geo_autocomplete_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 geo_autocomplete.setText("");
             }
         });
 
+    }
+
+    private void addPizzerie() {
+        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_pizzerie, viewGroup, false);
+        viewGroup.addView(newView, 0);
     }
 }
