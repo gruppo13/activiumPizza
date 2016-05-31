@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.unica.ium.pizzalove">
+    package="it.unica.ium.pizzalove"
+    android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY"
+>
 <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
     <application
+
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Pizza and Love"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/prova">
+        android:theme="@style/prova"
+        >
 
         <activity
             android:name="it.unica.ium.pizzalove.Main"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,9 +61,6 @@
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        --><!--android:name="com.google.android.geo.AIzaSyDKW-5HgXo-ZHCVKpNeXdWWd72nWKw4yYY"
-            <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />-->
+        -->
     </application>
 </manifest>

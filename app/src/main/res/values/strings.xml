@@ -23,11 +23,11 @@
     <string name="image19">Acciughe</string>
     <string name="image20">Cotto</string>
     <string name="image21">Basilico</string>
-
+    <string name="map_geo_search_input_hint">Cerca</string>
     <string name="imageMain">imageMain</string>
     <string name="listPizza">listPizza</string>
     <string name="ingrediente">ingrediente</string>
-
+    <string name="map_list_header_txt">lista indirizzi</string>
     <string name="btnCrea">Crea la tua Pizza</string>
     <string name="btnPizzaGiorno">Pizza del Giorno</string>
     <string name="btnElenco">Le classiche</string>
@@ -39,4 +39,5 @@
     <string name="lblListHCarrelloTotale">12</string>
     <string name="expandableList">expandableList</string>
     <string name="btnCreaPizza">CreaPizza</string>
+    <string name="google_app_id">986106066246</string>
 </resources>
