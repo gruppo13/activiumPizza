@@ -36,7 +36,8 @@ public class Main extends Activity {
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
-    ViewGroup viewGroup;
+    //ViewGroup viewGroup;
+    Button btn1;
 
     /** Called when the activity is first created. */
     @Override
@@ -44,8 +45,8 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewGroup = (ViewGroup)findViewById(R.id.container);
-
+        //viewGroup = (ViewGroup)findViewById(R.id.container);
+        btn1 = (Button)findViewById(R.id.bottonePizzeria1);
         geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
         geo_autocomplete.setThreshold(THRESHOLD);
@@ -92,10 +93,19 @@ public class Main extends Activity {
             }
         });
 
+        btn1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                startActivityForResult(intent, 0);
+            }
+        });
+
     }
 
     private void addPizzerie() {
-        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_pizzerie, viewGroup, false);
-        viewGroup.addView(newView, 0);
+        //final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_pizzerie, viewGroup, false);
+        //viewGroup.addView(newView, 0);
+        btn1.setVisibility(View.VISIBLE);
     }
 }
