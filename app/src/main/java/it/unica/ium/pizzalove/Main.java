@@ -4,28 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by perlo on 14/02/16.
@@ -36,8 +21,8 @@ public class Main extends Activity {
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
-    //ViewGroup viewGroup;
-    Button btn1;
+
+    Button btn1, btn2, btn3;
 
     /** Called when the activity is first created. */
     @Override
@@ -45,8 +30,11 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //viewGroup = (ViewGroup)findViewById(R.id.container);
+        //bottoni pizzeria
         btn1 = (Button)findViewById(R.id.bottonePizzeria1);
+        btn2 = (Button)findViewById(R.id.bottonePizzeria2);
+        btn3 = (Button)findViewById(R.id.bottonePizzeria3);
+
         geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
         geo_autocomplete.setThreshold(THRESHOLD);
@@ -101,11 +89,27 @@ public class Main extends Activity {
             }
         });
 
+        btn2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                startActivityForResult(intent, 0);
+            }
+        });
+
     }
 
     private void addPizzerie() {
-        //final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_pizzerie, viewGroup, false);
-        //viewGroup.addView(newView, 0);
         btn1.setVisibility(View.VISIBLE);
+        btn2.setVisibility(View.VISIBLE);
+        btn3.setVisibility(View.VISIBLE);
     }
 }

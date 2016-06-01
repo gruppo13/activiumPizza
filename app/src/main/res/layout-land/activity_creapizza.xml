@@ -1,57 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/activity_creapizza"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tiallap"
+    android:background="@drawable/tialla"
     tools:context="it.unica.ium.pizzalove.CreaPizza"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp"
     android:padding="10dp">
 
-    <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/btnAddPizzaCreate"
-        android:text="@string/btnAddPizzaCreate" />
-    <android.support.design.widget.FloatingActionButton
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal"
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        app:layout_anchorGravity="bottom|right"
-        android:id="@+id/addPizza" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
-
-        <ImageView
-            android:id="@+id/imageMain"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:src="@drawable/layers"
-            android:contentDescription="imageMain" />
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:scrollbars="none"
         android:visibility="visible">
 
 
         <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
 
@@ -59,10 +31,9 @@
 
                 android:layout_weight="1"
                 android:layout_width="100dp"
-
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/sugo"
                 android:src="@drawable/icon_sugo"
                 android:contentDescription="@string/image0" />
@@ -70,9 +41,9 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/mozzarella"
                 android:src="@drawable/icon_mozzarella"
                 android:contentDescription="@string/image1" />
@@ -80,9 +51,9 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/capperi"
                 android:src="@drawable/icon_capperi"
                 android:contentDescription="@string/image18" />
@@ -90,9 +61,9 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/acciughe"
                 android:src="@drawable/icon_acciughe"
                 android:contentDescription="@string/image19" />
@@ -100,9 +71,9 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/basilico"
                 android:src="@drawable/icon_basilico"
                 android:contentDescription="@string/image21" />
@@ -110,18 +81,18 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/wurstel"
                 android:src="@drawable/icon_wurstel"
                 android:contentDescription="@string/image16" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/cipolle"
                 android:src="@drawable/icon_cipolle"
                 android:contentDescription="@string/image4" />
@@ -129,27 +100,24 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/bacon"
                 android:src="@drawable/icon_bacon"
                 android:contentDescription="@string/image2" />
-
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/uova"
                 android:src="@drawable/icon_uova"
                 android:contentDescription="@string/image15" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
                 android:id="@+id/zucchine"
                 android:src="@drawable/icon_zucchine"
@@ -157,18 +125,18 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/melanzane"
                 android:src="@drawable/icon_melanzane"
                 android:contentDescription="@string/image8" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/pomodori"
                 android:src="@drawable/icon_pomodori"
                 android:contentDescription="@string/image13" />
@@ -176,9 +144,9 @@
 
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/olive"
                 android:src="@drawable/icon_olive"
                 android:contentDescription="@string/image9" />
@@ -186,18 +154,18 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/funghi"
                 android:src="@drawable/icon_funghi"
                 android:contentDescription="@string/image6" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/cotto"
                 android:src="@drawable/icon_cotto"
                 android:contentDescription="@string/image20" />
@@ -205,27 +173,27 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/patatine"
                 android:src="@drawable/icon_patatine"
                 android:contentDescription="@string/image10" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/salame"
                 android:src="@drawable/icon_salame"
                 android:contentDescription="@string/image14" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/peperoni"
                 android:src="@drawable/icon_peperoni"
                 android:contentDescription="@string/image12" />
@@ -233,18 +201,18 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/broccoli"
                 android:src="@drawable/icon_broccoli"
                 android:contentDescription="@string/image3" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/gamberetti"
                 android:src="@drawable/icon_gamberetti"
                 android:contentDescription="@string/image7" />
@@ -252,9 +220,9 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/formaggio"
                 android:src="@drawable/icon_formaggio"
                 android:contentDescription="@string/image5" />
@@ -262,13 +230,44 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="100dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:id="@+id/peperoncini"
                 android:src="@drawable/icon_peperoncini"
                 android:contentDescription="@string/image11" />
-        </LinearLayout>
-    </HorizontalScrollView>
 
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <ImageView
+            android:id="@+id/imageMain"
+            android:layout_height="fill_parent"
+            android:layout_width="240dp"
+            android:src="@drawable/pastapizza"
+            android:contentDescription="@string/imageMain" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="10dp"
+        android:layout_height="100dp"
+        android:id="@+id/btnAddPizzaCreate"
+        android:text="@string/btnAddPizzaCreate" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_add_white_24dp"
+        app:fabSize="normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        app:layout_anchorGravity="bottom|right|end"
+        android:id="@+id/addPizza" />
 </LinearLayout>
