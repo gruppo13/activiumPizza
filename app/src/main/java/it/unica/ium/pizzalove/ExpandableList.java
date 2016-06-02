@@ -3,6 +3,7 @@ package it.unica.ium.pizzalove;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -53,34 +55,49 @@ public class ExpandableList extends BaseExpandableListAdapter {
    }
 
    @Override
-   public View getChildView(int groupPosition, int childPosition,
+   public View getChildView(final int groupPosition, int childPosition,
                             boolean isLastChild, View convertView, ViewGroup parent) {
 
+       LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+       if(_context instanceof CreaPizza){
+           convertView = infalInflater.inflate(R.layout.list_item_creapizza, null);
+           TextView numeroIngrediente = (TextView)convertView.findViewById(R.id.txtNIngredienti);
+           final TextView nomeIngrediente = (TextView)convertView.findViewById(R.id.txtNomeIngrediente);
+           TextView prezzoIngrediente = (TextView)convertView.findViewById(R.id.txtPrezzo);
+           ImageButton btnRemoveIngrediente = (ImageButton)convertView.findViewById(R.id.btnRemoveIngrediente);
+           btnRemoveIngrediente.setFocusable(false);
 
-        String childrenText = new String();
+           for (Ingredienti ingrediente : (_listDataChild.get(groupPosition).getIngredienti())) {
+               nomeIngrediente.setText(ingrediente.toString());
+           }
 
-        LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = infalInflater.inflate(R.layout.list_item, null);
-        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
-        String oldIngrediente = new String();
-        for (Ingredienti ingrediente: (_listDataChild.get(groupPosition).getIngredienti())) {
-                if (oldIngrediente.equals(ingrediente.toString())){
-                    childrenText += " x2";
+           btnRemoveIngrediente.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                   // _listDataChild.get(groupPosition).removeIngrediente();
                 }
-            else{
-                    if ( !oldIngrediente.isEmpty())
-                        childrenText += ",  ";
-                    childrenText += ingrediente.toString();
-                }
+           });
+       }
+       else {
+           String childrenText = "";
+           convertView = infalInflater.inflate(R.layout.list_item, null);
+           TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+           String oldIngrediente = "";
+           for (Ingredienti ingrediente : (_listDataChild.get(groupPosition).getIngredienti())) {
+               if (oldIngrediente.equals(ingrediente.toString())) {
+                   childrenText += " x2";
+               } else {
+                   if (!oldIngrediente.isEmpty())
+                       childrenText += ",  ";
+                   childrenText += ingrediente.toString();
+               }
 
 
-                oldIngrediente = ingrediente.toString();
-        }
-
-        txtListChild.setText(childrenText);
-        return convertView;
-
-
+               oldIngrediente = ingrediente.toString();
+           }
+           txtListChild.setText(childrenText);
+       }
+       return convertView;
    }
 
    @Override
@@ -112,11 +129,15 @@ public class ExpandableList extends BaseExpandableListAdapter {
 
        if (convertView == null) {
            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           if (!(_context instanceof Carrello)){
-               convertView = infalInflater.inflate(R.layout.listgroup, null);}
-           else
-           {
-               convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);}
+           if ((_context instanceof Carrello) ){
+               convertView = infalInflater.inflate(R.layout.listgroup_carrello, null);
+           }
+           else if ((_context instanceof CreaPizza)){
+               convertView = infalInflater.inflate(R.layout.list_item, null);
+           }
+           else{
+               convertView = infalInflater.inflate(R.layout.listgroup, null);
+           }
        }
         if (_context instanceof Carrello) {//scontrino
             TextView lblListNum = (TextView) convertView.findViewById(R.id.lblListHCarrelloNum);
@@ -161,17 +182,19 @@ public class ExpandableList extends BaseExpandableListAdapter {
             lblListPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
 
         }
-       else {// si tratta delle pizze classiche
+        else if(_context instanceof CreaPizza){
+            TextView lblnuovaPizza = (TextView) convertView.findViewById(R.id.lblListItem);
+            lblnuovaPizza.setTypeface(null, Typeface.BOLD);
+            lblnuovaPizza.setText("Nuova Pizza");
+        }
+        else {// si tratta delle pizze classiche
             TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
             TextView lblListHeaderPrezzo = (TextView) convertView.findViewById(R.id.lblListHeaderPrezzo);
-
             lblListHeader.setTypeface(null, Typeface.BOLD);
             lblListHeaderPrezzo.setTypeface(null, Typeface.BOLD);
-
             lblListHeader.setText(headerTitle.getNomePizza());
-
             lblListHeaderPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
-        }
+            }
        return convertView;
    }
 
