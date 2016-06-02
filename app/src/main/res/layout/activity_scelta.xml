@@ -32,9 +32,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnCrea"
-            android:text="@string/btnCrea"
+            android:text="crea la tua pizza"
             android:layout_gravity="center_horizontal"
-            android:allowUndo="false" />
+
+
+            android:allowUndo="false"
+            android:background="@drawable/button_shape"
+            android:textSize="30sp"
+
+
+            />
 
 
 
@@ -43,9 +50,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnElenco"
-        android:contentDescription="Il nostro menu"
-        android:text="Il nostro menu"
-            android:layout_gravity="center_horizontal" />
+            android:contentDescription="il nostro menu"
+            android:text="il nostro menu"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_shape"
+            android:textSize="30sp"/>
 
 
 </LinearLayout>
