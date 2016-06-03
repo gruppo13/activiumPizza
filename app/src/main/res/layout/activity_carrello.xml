@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_scelta"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tiallap"
+    tools:context="it.unica.ium.pizzalove.Scelta"
+    android:padding="10dp"
+    android:baselineAligned="false">
 
 <android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_carrello"
+    android:id="@+id/tool_carrelo"
     android:background="@drawable/tiallap"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -36,3 +43,4 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>

@@ -2,6 +2,7 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,15 @@ public class Scelta extends Activity {
 
         Button btnElenco = (Button) findViewById(R.id.btnElenco);
         Button btnCrea = (Button) findViewById(R.id.btnCrea);
+
+
+
+
+
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Art Brewery.ttf");
+        btnElenco.setTypeface(font);
+        btnCrea.setTypeface(font);
 
         final Bundle bundle = getIntent().getExtras();
 
