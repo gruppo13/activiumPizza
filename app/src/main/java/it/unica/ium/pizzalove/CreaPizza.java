@@ -1,7 +1,6 @@
 package it.unica.ium.pizzalove;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import it.unica.ium.pizzalove.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -21,11 +19,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class CreaPizza extends Activity {
 
@@ -36,8 +32,7 @@ public class CreaPizza extends Activity {
     private BadgeView[] badge;
     private ArrayList<Pizza> elenco = new ArrayList<>();
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
-    private AnimatedExpandableListView listView;
-    private ExampleAdapter adapter;
+    private ViewGroup mViewGroup;
 
     @Override
     public void onStart() {
@@ -57,7 +52,11 @@ public class CreaPizza extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creapizza);
+
         imgMain  = (ImageView) findViewById(R.id.imageMain);
+        mViewGroup = (ViewGroup)findViewById(R.id.container);
+        if(getResources().getBoolean(R.bool.is_landscape))
+            addPizza();
 
 
         badge = new BadgeView[]{
@@ -121,6 +120,8 @@ public class CreaPizza extends Activity {
             public void onClick(View v){
                 Pizza p = new Pizza(listIngredienti);
                 elenco.add(p);
+                if(getResources().getBoolean(R.bool.is_landscape))
+                    addPizza();
                 rimuoviTutto();
             }
         });
@@ -136,7 +137,19 @@ public class CreaPizza extends Activity {
         });
     }
 
-/**
+    private void addPizza() {
+        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_creapizza, mViewGroup, false);
+
+        newView.findViewById(R.id.btnReloadPizza).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        mViewGroup.addView(newView);
+    }
+
+    /**
  * -----------------------------------------RIMUOVI INGREDIENTI-------------------------------------
     private void dialogRimuoviIngredienti(){
 
@@ -223,16 +236,12 @@ public class CreaPizza extends Activity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getTitle().toString()) {
             case "true":
                 Log.d("check ", "first case");
-                //editNote(info.id);
                 return true;
             case "bo":
                 Log.d("check ", "second case");
-
-
                 return super.onContextItemSelected(item);
             default:
                 return false;
@@ -479,121 +488,4 @@ public class CreaPizza extends Activity {
         super.onStop();
         //Log.e("dentro", "onStop");
     }
-
-    private static class GroupItem {
-        String title;
-        List<ChildItem> items = new ArrayList<ChildItem>();
-    }
-
-    private static class ChildItem {
-        String title;
-        String hint;
-    }
-
-    private static class ChildHolder {
-        TextView title;
-        TextView hint;
-    }
-
-    private static class GroupHolder {
-        TextView title;
-    }
-
-    /**
-     * Adapter for our list of {@link GroupItem}s.
-     */
-    private class ExampleAdapter extends AnimatedExpandableListAdapter {
-        private LayoutInflater inflater;
-
-        private List<GroupItem> items;
-
-        public ExampleAdapter(Context context) {
-            inflater = LayoutInflater.from(context);
-        }
-
-        public void setData(List<GroupItem> items) {
-            this.items = items;
-        }
-
-        @Override
-        public ChildItem getChild(int groupPosition, int childPosition) {
-            return items.get(groupPosition).items.get(childPosition);
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            ChildHolder holder;
-            ChildItem item = getChild(groupPosition, childPosition);
-            if (convertView == null) {
-                holder = new ChildHolder();
-                convertView = inflater.inflate(R.layout.list_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.txtNIngredienti);
-                holder.hint = (TextView) convertView.findViewById(R.id.txtNomeIngrediente);
-                convertView.setTag(holder);
-            } else {
-                holder = (ChildHolder) convertView.getTag();
-            }
-
-            holder.title.setText(item.title);
-            holder.hint.setText(item.hint);
-
-            return convertView;
-        }
-
-        @Override
-        public int getRealChildrenCount(int groupPosition) {
-            return items.get(groupPosition).items.size();
-        }
-
-        @Override
-        public GroupItem getGroup(int groupPosition) {
-            return items.get(groupPosition);
-        }
-
-        @Override
-        public int getGroupCount() {
-            return items.size();
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            GroupHolder holder;
-            GroupItem item = getGroup(groupPosition);
-            if (convertView == null) {
-                holder = new GroupHolder();
-                convertView = inflater.inflate(R.layout.listgroup_creapizza, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textTitle);
-                convertView.setTag(holder);
-            } else {
-                holder = (GroupHolder) convertView.getTag();
-            }
-
-            holder.title.setText(item.title);
-
-            return convertView;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        @Override
-        public boolean isChildSelectable(int arg0, int arg1) {
-            return true;
-        }
-
-    }
 }
-
-

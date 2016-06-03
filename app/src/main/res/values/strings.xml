@@ -40,9 +40,5 @@
     <string name="expandableList">expandableList</string>
     <string name="btnCreaPizza">CreaPizza</string>
     <string name="google_app_id">986106066246</string>
-    <string name="rmvIngrediente">rimuove un ingrediente</string>
-    <string name="txtPrezzo">2,30 $</string>
-    <string name="txtNomeIngrediente">mozzarella</string>
-    <string name="txtNIngredienti">1</string>
-    <string name="listgroupPizzaDad">Nuova Pizza</string>
+    <string name="thumbnailpizze">thumbnail pizze</string>
 </resources>
