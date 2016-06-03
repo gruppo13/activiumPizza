@@ -8,19 +8,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import com.readystatesoftware.viewbadger.BadgeView;
+import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
+import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -33,6 +34,8 @@ public class CreaPizza extends Activity {
     private BadgeView[] badge;
     private ArrayList<Pizza> elenco = new ArrayList<>();
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
+    private ViewGroup mViewGroup;
+    private ViewGroup mIViewGroup;
 
     @Override
     public void onStart() {
@@ -52,7 +55,12 @@ public class CreaPizza extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creapizza);
+
         imgMain  = (ImageView) findViewById(R.id.imageMain);
+        mViewGroup = (ViewGroup)findViewById(R.id.container);
+        mIViewGroup = (ViewGroup)findViewById(R.id.container_ingredienti);
+        if(getResources().getBoolean(R.bool.is_landscape))
+            addPizza();
 
 
         badge = new BadgeView[]{
@@ -116,6 +124,8 @@ public class CreaPizza extends Activity {
             public void onClick(View v){
                 Pizza p = new Pizza(listIngredienti);
                 elenco.add(p);
+                if(getResources().getBoolean(R.bool.is_landscape))
+                    addPizza();
                 rimuoviTutto();
             }
         });
@@ -131,7 +141,29 @@ public class CreaPizza extends Activity {
         });
     }
 
-/**
+    private void addIngrediente(Ingredienti ingrediente, int nIngrediente) {
+        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mIViewGroup, false);
+
+        ((TextView) newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(nIngrediente));
+        ((TextView) newView.findViewById(R.id.txtNomeIngrediente)).setText(ingrediente.toString());
+        ((TextView) newView.findViewById(R.id.txtPrezzo)).setText(ingrediente.getPrice().toString());
+
+        mIViewGroup.addView(newView);
+    }
+
+    private void addPizza() {
+        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_creapizza, mViewGroup, false);
+
+        newView.findViewById(R.id.btnReloadPizza).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        mViewGroup.addView(newView);
+    }
+
+    /**
  * -----------------------------------------RIMUOVI INGREDIENTI-------------------------------------
     private void dialogRimuoviIngredienti(){
 
@@ -218,16 +250,12 @@ public class CreaPizza extends Activity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getTitle().toString()) {
             case "true":
                 Log.d("check ", "first case");
-                //editNote(info.id);
                 return true;
             case "bo":
                 Log.d("check ", "second case");
-
-
                 return super.onContextItemSelected(item);
             default:
                 return false;
@@ -347,6 +375,8 @@ public class CreaPizza extends Activity {
             badge[i].setText(String.format("%d", ++countPizze[i]));
             badge[i].show();
             listIngredienti.add(Ingredienti.valueOf(img));
+            if(getResources().getBoolean(R.bool.is_landscape))
+                addIngrediente(Ingredienti.valueOf(img), countPizze[i]);
         }
         else{
             //nuovaPizza.sort();
