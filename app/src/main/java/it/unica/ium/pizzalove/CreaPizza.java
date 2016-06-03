@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.readystatesoftware.viewbadger.BadgeView;
+import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,6 +37,7 @@ public class CreaPizza extends Activity {
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
     private ViewGroup mViewGroup;
     private ViewGroup mIViewGroup;
+    private ViewGroup mViewGroup;
 
     @Override
     public void onStart() {
@@ -59,6 +61,9 @@ public class CreaPizza extends Activity {
         imgMain  = (ImageView) findViewById(R.id.imageMain);
         mViewGroup = (ViewGroup)findViewById(R.id.container);
         mIViewGroup = (ViewGroup)findViewById(R.id.container_ingredienti);
+        if(getResources().getBoolean(R.bool.is_landscape))
+            addPizza();
+        mViewGroup = (ViewGroup)findViewById(R.id.container);
         if(getResources().getBoolean(R.bool.is_landscape))
             addPizza();
 
@@ -141,6 +146,19 @@ public class CreaPizza extends Activity {
         });
     }
 
+    private void addPizza() {
+        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_creapizza, mViewGroup, false);
+
+        newView.findViewById(R.id.btnReloadPizza).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        mViewGroup.addView(newView);
+    }
+
+    /**
     private void addIngrediente(Ingredienti ingrediente, int nIngrediente) {
         final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mIViewGroup, false);
 

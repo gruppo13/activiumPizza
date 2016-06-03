@@ -33,10 +33,11 @@
 
 
     <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:id="@+id/btnRemoveIngrediente"
-        android:src="@drawable/places_ic_clear"
-        android:contentDescription="@string/rmvIngredientethumb" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:src="@drawable/pastapizza_thumb"
+        android:id="@+id/btnReloadPizza"
+        android:contentDescription="@string/thumbnailpizze"
+        android:layout_marginRight="2dp" />
 </LinearLayout>
