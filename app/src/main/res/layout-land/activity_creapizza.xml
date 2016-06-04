@@ -272,22 +272,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:animateLayoutChanges="true" />
-        </HorizontalScrollView>
-            <LinearLayout android:id="@+id/container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:animateLayoutChanges="true" />
 
         </HorizontalScrollView>
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnAddPizzaCreate"
-            android:text="@string/btnAddPizzaCreate"
-            android:layout_gravity="bottom|left"
-            app:layout_anchorGravity="bottom|left|end"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -310,5 +297,16 @@
             android:layout_gravity="bottom|left"
             app:layout_anchorGravity="bottom|left|end"/>
 
+
+        <android.support.design.widget.FloatingActionButton
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            app:layout_anchorGravity="bottom|right"
+            android:id="@+id/btnNewPizza" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

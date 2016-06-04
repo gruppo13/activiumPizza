@@ -35,7 +35,6 @@ public class CreaPizza extends Activity {
     private BadgeView[] badge;
     private ArrayList<Pizza> elenco = new ArrayList<>();
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
-    private ViewGroup mViewGroup;
     private ViewGroup mIViewGroup;
     private ViewGroup mViewGroup;
 
@@ -404,6 +403,10 @@ public class CreaPizza extends Activity {
             badge[i].hide();
             countPizze[i] = 0;
         }
+    }
+
+    private void addIngrediente(Ingredienti ingredienti, int i) {
+
     }
 
     protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
