@@ -4,7 +4,7 @@ package it.unica.ium.pizzalove;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public enum Ingredienti implements Parcelable {
+public enum Ingredienti implements Parcelable  {
 
     Sugo (0.25f , 1),
     Mozzarella (0.25f, 2),

@@ -10,23 +10,22 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.readystatesoftware.viewbadger.BadgeView;
-import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CreaPizza extends Activity {
+public class CreaPizza extends FragmentActivity {
 
 
     protected ImageView imgMain;
@@ -35,7 +34,6 @@ public class CreaPizza extends Activity {
     private BadgeView[] badge;
     private ArrayList<Pizza> elenco = new ArrayList<>();
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
-    private ViewGroup mIViewGroup;
     private ViewGroup mViewGroup;
 
     @Override
@@ -58,10 +56,6 @@ public class CreaPizza extends Activity {
         setContentView(R.layout.activity_creapizza);
 
         imgMain  = (ImageView) findViewById(R.id.imageMain);
-        mViewGroup = (ViewGroup)findViewById(R.id.container);
-        mIViewGroup = (ViewGroup)findViewById(R.id.container_ingredienti);
-        if(getResources().getBoolean(R.bool.is_landscape))
-            addPizza();
         mViewGroup = (ViewGroup)findViewById(R.id.container);
         if(getResources().getBoolean(R.bool.is_landscape))
             addPizza();
@@ -146,15 +140,6 @@ public class CreaPizza extends Activity {
     }
 
     private void addPizza() {
-        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_creapizza, mViewGroup, false);
-
-        newView.findViewById(R.id.btnReloadPizza).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-        mViewGroup.addView(newView);
     }
 
     /**
@@ -406,7 +391,19 @@ public class CreaPizza extends Activity {
     }
 
     private void addIngrediente(Ingredienti ingredienti, int i) {
+        final ViewGroup newView = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mViewGroup, false);
+        ((TextView)newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(i));
+        ((TextView)newView.findViewById(R.id.txtNomeIngrediente)).setText(ingredienti.toString());
+        ((TextView)newView.findViewById(R.id.txtPrezzo)).setText(String.valueOf(ingredienti.getPrice()));
 
+        newView.findViewById(R.id.rmvIngrediente).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mViewGroup.addView(newView);
     }
 
     protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
@@ -523,6 +520,5 @@ public class CreaPizza extends Activity {
     @Override
     public void onStop() {
         super.onStop();
-        //Log.e("dentro", "onStop");
     }
 }
