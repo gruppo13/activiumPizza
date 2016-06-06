@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="180dp"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/txtNIngredienti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:textSize="20sp"
+        android:layout_weight="1.6"
+        android:textSize="15sp"
         android:text="@string/nmbIngredientethumb"
+        android:layout_gravity="center_vertical"
+        android:textStyle="bold"
         android:textAlignment="center" />
 
     <TextView
@@ -18,25 +20,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="20sp"
-        android:text="@string/nameIngredientethumb"
-        />
+        android:textSize="15sp"
+        android:text="mozzarella"
+        android:layout_gravity="center_vertical"
+        android:textStyle="bold" />
 
 
     <TextView
         android:id="@+id/txtPrezzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/priceIngrediente"
-        android:layout_weight="1.3"/>
+        android:textSize="15sp"
+        android:text="3.14 $"
+        android:layout_weight="1.4"
+        android:layout_gravity="center_vertical"
+        android:textStyle="bold" />
 
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/places_ic_clear"
         android:id="@+id/rmvIngrediente"
-        android:contentDescription="@string/rmvIngredientethumb"
-        android:layout_marginRight="2dp" />
+        android:contentDescription="remove Ingrediente"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1.4"
+        android:layout_gravity="center_vertical" />
 </LinearLayout>
