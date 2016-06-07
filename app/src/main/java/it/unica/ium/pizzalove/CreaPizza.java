@@ -123,8 +123,10 @@ public class CreaPizza extends FragmentActivity {
             public void onClick(View v){
                 Pizza p = new Pizza(listIngredienti);
                 elenco.add(p);
-                if(getResources().getBoolean(R.bool.is_landscape))
+                if(getResources().getBoolean(R.bool.is_landscape)) {
                     addPizza();
+                    mViewGroup.removeAllViews();
+                }
                 rimuoviTutto();
             }
         });
