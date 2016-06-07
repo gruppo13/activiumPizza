@@ -250,7 +250,7 @@
         <ImageView
             android:id="@+id/imageMain"
             android:layout_height="fill_parent"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:src="@drawable/pastapizza"
             android:contentDescription="@string/imageMain" />
 
@@ -295,12 +295,5 @@
         android:id="@+id/addPizza" />
     </android.support.design.widget.CoordinatorLayout>
 
-
-
-    <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/btnAddPizzaCreate"
-        android:text="@string/btnAddPizzaCreate" />
 
 </LinearLayout>

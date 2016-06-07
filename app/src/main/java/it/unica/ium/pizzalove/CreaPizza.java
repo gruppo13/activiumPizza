@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
@@ -369,6 +370,7 @@ public class CreaPizza extends FragmentActivity {
 
     /**
      * Modifica i badge
+     * aggiunge gli ingredienti ai badge
      * @param img
      */
     private void setBadge(String img) {
@@ -376,35 +378,71 @@ public class CreaPizza extends FragmentActivity {
         if(countPizze[i] < 2) {
             badge[i].setText(String.format("%d", ++countPizze[i]));
             badge[i].show();
-            listIngredienti.add(Ingredienti.valueOf(img));
             if(getResources().getBoolean(R.bool.is_landscape))
                 addIngrediente(Ingredienti.valueOf(img), countPizze[i]);
+            listIngredienti.add(Ingredienti.valueOf(img));
+
         }
-        else{
-            //nuovaPizza.sort();
-            Collections.sort(listIngredienti);
-            while(listIngredienti.contains(Ingredienti.valueOf(img)))
-                listIngredienti.remove(Ingredienti.valueOf(img));
+        else
+            Toast.makeText(CreaPizza.this, "Non puoi! Doppie si triple no! budellu!", Toast.LENGTH_SHORT).show();
+        }
+
+
+    /**
+     * Modifica i badge
+     * elimina gli ingredienti dai badge
+     * @param ingrediente
+     */
+    private Ingredienti eliminaIngrediente(String ingrediente) {
+        int i = Ingredienti.valueOf(ingrediente).getNumber() - 1;
+        countPizze[i]--;
+        if(countPizze[i] == 1){
+            badge[i].setText(String.format("%d", 1));
+            badge[i].show();
+        }
+        else
             badge[i].hide();
-            countPizze[i] = 0;
-        }
+        if(listIngredienti.contains(Ingredienti.valueOf(ingrediente)))
+            listIngredienti.remove(Ingredienti.valueOf(ingrediente));
+        updatePizza();
+        return(Ingredienti.valueOf(ingrediente));
     }
 
     private void addIngrediente(Ingredienti ingredienti, int i) {
-        final ViewGroup newView = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mViewGroup, false);
-        ((TextView)newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(i));
-        ((TextView)newView.findViewById(R.id.txtNomeIngrediente)).setText(ingredienti.toString());
-        ((TextView)newView.findViewById(R.id.txtPrezzo)).setText(String.valueOf(ingredienti.getPrice()));
+        ViewGroup newView = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mViewGroup, false);
+        if(listIngredienti.contains(ingredienti)) {
+            for(int j = 0; j < mViewGroup.getChildCount(); j++){
+                newView = (ViewGroup) mViewGroup.getChildAt(j);
+                if(((TextView)newView.findViewById(R.id.txtNomeIngrediente)).getText().equals(ingredienti.toString())){
+                    ((TextView) newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(i));
+                    ((TextView) newView.findViewById(R.id.txtPrezzo)).setText(String.valueOf(Pizza.formatoPrezzo(ingredienti.getPrice()*2)));
+                    mViewGroup.removeViewAt(j);
+                    mViewGroup.addView(newView);
+                }
+            }
+        }
+        else{
+            ((TextView) newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(i));
+            ((TextView) newView.findViewById(R.id.txtNomeIngrediente)).setText(ingredienti.toString());
+            ((TextView) newView.findViewById(R.id.txtPrezzo)).setText(String.valueOf(Pizza.formatoPrezzo(ingredienti.getPrice())));
+            mViewGroup.addView(newView);
+        }
 
         newView.findViewById(R.id.rmvIngrediente).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String temp = ((TextView) ((View) v.getParent()).findViewById(R.id.txtNomeIngrediente)).getText().toString();
+                Ingredienti i = eliminaIngrediente(temp);
+                if(((TextView)((View)v.getParent()).findViewById(R.id.txtNIngredienti)).getText().toString().equals("2")) {
+                    ((TextView) ((View) v.getParent()).findViewById(R.id.txtNIngredienti)).setText("1");
+                    ((TextView) ((View) v.getParent()).findViewById(R.id.txtPrezzo)).setText(String.valueOf(Pizza.formatoPrezzo(i.getPrice())));
+                }
+                else
+                    mViewGroup.removeViewAt(mViewGroup.indexOfChild((View) v.getParent()));
             }
         });
-
-        mViewGroup.addView(newView);
     }
+
 
     protected static Bitmap trovaIngredienteBitmap(Ingredienti ingrediente, Resources resources){
         Bitmap bm = null;
