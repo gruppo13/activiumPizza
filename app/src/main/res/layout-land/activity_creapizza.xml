@@ -23,15 +23,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:focusableInTouchMode="false">
+            android:focusableInTouchMode="false"
+            android:paddingTop="5dp">
 
 
             <ImageView
 
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/sugo"
                 android:src="@drawable/icon_sugo"
@@ -40,8 +40,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/mozzarella"
                 android:src="@drawable/icon_mozzarella"
@@ -50,8 +49,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/capperi"
                 android:src="@drawable/icon_capperi"
@@ -60,9 +58,8 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:layout_height="65dp"
+
                 android:id="@+id/acciughe"
                 android:src="@drawable/icon_acciughe"
                 android:contentDescription="@string/image19" />
@@ -70,8 +67,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/basilico"
                 android:src="@drawable/icon_basilico"
@@ -80,8 +76,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/wurstel"
                 android:src="@drawable/icon_wurstel"
@@ -89,8 +84,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/cipolle"
                 android:src="@drawable/icon_cipolle"
@@ -99,8 +93,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/bacon"
                 android:src="@drawable/icon_bacon"
@@ -108,8 +101,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/uova"
                 android:src="@drawable/icon_uova"
@@ -117,24 +109,22 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
+                android:layout_height="65dp"
                 android:id="@+id/zucchine"
                 android:src="@drawable/icon_zucchine"
                 android:contentDescription="@string/image17" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
+                android:layout_height="65dp"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:id="@+id/melanzane"
                 android:src="@drawable/icon_melanzane"
                 android:contentDescription="@string/image8" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/pomodori"
                 android:src="@drawable/icon_pomodori"
@@ -143,8 +133,7 @@
 
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/olive"
                 android:src="@drawable/icon_olive"
@@ -153,8 +142,8 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
+
                 android:paddingBottom="5dp"
                 android:id="@+id/funghi"
                 android:src="@drawable/icon_funghi"
@@ -162,8 +151,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/cotto"
                 android:src="@drawable/icon_cotto"
@@ -172,8 +160,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/patatine"
                 android:src="@drawable/icon_patatine"
@@ -181,8 +168,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/salame"
                 android:src="@drawable/icon_salame"
@@ -190,8 +176,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/peperoni"
                 android:src="@drawable/icon_peperoni"
@@ -200,8 +185,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/broccoli"
                 android:src="@drawable/icon_broccoli"
@@ -209,8 +193,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/gamberetti"
                 android:src="@drawable/icon_gamberetti"
@@ -219,8 +202,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/formaggio"
                 android:src="@drawable/icon_formaggio"
@@ -229,8 +211,7 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:paddingTop="5dp"
+                android:layout_height="65dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/peperoncini"
                 android:src="@drawable/icon_peperoncini"
@@ -285,6 +266,26 @@
                 android:orientation="vertical">
             </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:id="@+id/tot0"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="Tot."
+            android:layout_gravity="bottom|left"
+            android:textStyle="bold"
+            android:paddingBottom="23dp"
+            android:paddingLeft="23dp" />
+        <TextView
+            android:id="@+id/tot"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="3.14 $"
+            android:layout_gravity="bottom|center"
+            android:textStyle="bold"
+            android:paddingBottom="20dp" />
 
         <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_add_white_24dp"
