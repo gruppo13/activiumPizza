@@ -48,7 +48,6 @@ public class Main extends Activity {
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
                 addPizzerie();
-
             }
         });
 

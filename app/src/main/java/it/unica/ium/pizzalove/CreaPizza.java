@@ -9,8 +9,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,9 +26,10 @@ import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CreaPizza extends FragmentActivity {
+public class CreaPizza extends Activity {
 
 
+    private final static String PIZZA_STATE = "it.unica.ium.pizzalove.PIZZA_STATE";
     protected ImageView imgMain;
     private int[] countPizze = new int[22];
     private Bundle bundle;
@@ -48,13 +49,30 @@ public class CreaPizza extends FragmentActivity {
                 setBadge(i.toString());
             bundle.putParcelable(Carrello.PIZZA_MODIFICA, null);
         }
+        if(bundle.keySet().contains(PIZZA_STATE) &&
+           bundle.getParcelableArrayList(PIZZA_STATE) != null){
+            for(Parcelable i : bundle.getParcelableArrayList(PIZZA_STATE))
+                setBadge(i.toString());
+        }
         updatePizza();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle onSaveInstanceState){
+        super.onSaveInstanceState(onSaveInstanceState);
+        onSaveInstanceState.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
+        onSaveInstanceState.putParcelableArrayList(PIZZA_STATE, listIngredienti);
+        Log.e(PIZZA_STATE, "1");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creapizza);
+
+        bundle = getIntent().getExtras();
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
 
         imgMain  = (ImageView) findViewById(R.id.imageMain);
         mViewGroup = (ViewGroup)findViewById(R.id.container);
@@ -86,8 +104,6 @@ public class CreaPizza extends FragmentActivity {
                 new BadgeView(this, findViewById(R.id.zucchine)),
                 new BadgeView(this, findViewById(R.id.cotto))
         };
-
-        bundle = getIntent().getExtras();
 
 
         //immagini da click
@@ -143,6 +159,7 @@ public class CreaPizza extends FragmentActivity {
     }
 
     private void addPizza() {
+
     }
 
     /**
