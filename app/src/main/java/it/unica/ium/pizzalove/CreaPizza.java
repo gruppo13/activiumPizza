@@ -62,7 +62,6 @@ public class CreaPizza extends Activity {
         super.onSaveInstanceState(onSaveInstanceState);
         onSaveInstanceState.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
         onSaveInstanceState.putParcelableArrayList(PIZZA_STATE, listIngredienti);
-        Log.e(PIZZA_STATE, "1");
     }
 
     @Override

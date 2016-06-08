@@ -18,11 +18,17 @@ import android.widget.ImageView;
 public class Main extends Activity {
 
 
+    public static final String ORIENTATION_CHANGED = "it.unica.ium.pizzalove.oriantationChanged";
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
 
     Button btn1, btn2, btn3;
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putBoolean(ORIENTATION_CHANGED, true);
+    }
 
     /** Called when the activity is first created. */
     @Override
@@ -39,6 +45,15 @@ public class Main extends Activity {
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
         geo_autocomplete.setThreshold(THRESHOLD);
         geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
+
+
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean(ORIENTATION_CHANGED) == true){
+                btn1.setVisibility(View.VISIBLE);
+                btn2.setVisibility(View.VISIBLE);
+                btn3.setVisibility(View.VISIBLE);
+            }
+        }
 
         geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
