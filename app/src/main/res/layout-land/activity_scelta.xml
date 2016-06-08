@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnCrea"
             android:text="@string/btnCrea"
+            android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
             android:allowUndo="false" />
 
@@ -43,8 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnElenco"
-        android:contentDescription="Il nostro menu"
-        android:text="Il nostro menu"
+            android:contentDescription="Il nostro menu"
+            android:text="Il nostro menu"
+            android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal" />
 
 
