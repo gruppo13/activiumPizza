@@ -60,8 +60,8 @@ public class CreaPizza extends Activity {
     @Override
     public void onSaveInstanceState(Bundle onSaveInstanceState){
         super.onSaveInstanceState(onSaveInstanceState);
-        onSaveInstanceState.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
         onSaveInstanceState.putParcelableArrayList(PIZZA_STATE, listIngredienti);
+        onSaveInstanceState.putAll(bundle);
     }
 
     @Override
@@ -161,104 +161,6 @@ public class CreaPizza extends Activity {
 
     }
 
-    /**
-    private void addIngrediente(Ingredienti ingrediente, int nIngrediente) {
-        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_ingredientipizza, mIViewGroup, false);
-
-        ((TextView) newView.findViewById(R.id.txtNIngredienti)).setText(String.valueOf(nIngrediente));
-        ((TextView) newView.findViewById(R.id.txtNomeIngrediente)).setText(ingrediente.toString());
-        ((TextView) newView.findViewById(R.id.txtPrezzo)).setText(ingrediente.getPrice().toString());
-
-        mIViewGroup.addView(newView);
-    }
-
-    private void addPizza() {
-        final ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.list_item_creapizza, mViewGroup, false);
-
-        newView.findViewById(R.id.btnReloadPizza).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-        mViewGroup.addView(newView);
-    }
-
-    /**
- * -----------------------------------------RIMUOVI INGREDIENTI-------------------------------------
-    private void dialogRimuoviIngredienti(){
-
-    if (!nuovaPizza.getIngredienti().isEmpty()) {
-
-        final Dialog dialog = new Dialog(CreaPizza.this);
-        dialog.setTitle("rimuovi ingredienti");
-        dialog.setContentView(R.layout.dialog_ingredienti);
-
-        final TableLayout table = (TableLayout) dialog.findViewById(R.id.table);
-        LayoutInflater infalInflater;
-        View convertView;
-
-        for (Ingredienti ingrediente : nuovaPizza.getIngredienti()) {
-            infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_check, null);
-            CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
-            check.setText(ingrediente.toString());
-            table.addView(convertView);
-        }
-        dialog.show();
-
-        dialog.findViewById(R.id.txtRimuoviTutto).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rimuoviTutto();
-                Toast.makeText(CreaPizza.this, "Hai rimosso tutti gli ingredienti", Toast.LENGTH_SHORT).show();
-                dialog.cancel();
-            }
-        });
-
-
-
-        final int[] flagcheck = {0};
-        for(int i=0; i < table.getChildCount();i++) {
-            convertView = table.getChildAt(i);
-            CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
-
-            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    flagcheck[0]++;
-                else
-                    flagcheck[0]--;
-
-                if (flagcheck[0]>0)
-                    dialog.findViewById(R.id.txtRimuoviSelezionati).setEnabled(true);
-                else
-                    dialog.findViewById(R.id.txtRimuoviSelezionati).setEnabled(false);
-                Log.i("Rimuovi Selezionati","abilitato");
-
-            }
-        });}
-
-
-        dialog.findViewById(R.id.txtRimuoviSelezionati).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < table.getChildCount(); i++) {
-                    //LayoutInflater infalInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View convertView = table.getChildAt(i);
-                    CheckBox check = (CheckBox) convertView.findViewById(R.id.checkBox1);
-                    if (check.isChecked()) {
-                        nuovaPizza.removeIngrediente(Ingredienti.valueOf(check.getText().toString()));
-                        updatePizza();
-                        setEnableIngrediente(check.getText().toString(), true);
-                    }
-                }
-                dialog.cancel();
-            }
-        });
-    }
-}*/
 
     private void rimuoviTutto() {
         listIngredienti.clear();
@@ -283,96 +185,6 @@ public class CreaPizza extends Activity {
         }
     }
 
-
-    /**
-     * --------------------------------------INUTILIZZATO-------------------------------------------
-     * rende visibile gli ingredienti
-     * */
-    private void setEnableIngrediente(String ingrediente, boolean value){
-
-        switch (ingrediente) {
-            case "Sugo":
-                findViewById(R.id.sugo).setEnabled(value);
-                break;
-            case "Mozzarella":
-                findViewById(R.id.mozzarella).setEnabled(value);
-                break;
-            case "Basilico":
-               findViewById(R.id.basilico).setEnabled(value);
-                break;
-            case "Funghi":
-                findViewById(R.id.funghi).setEnabled(value);
-                break;
-            case "Bacon":
-                findViewById(R.id.bacon).setEnabled(value);
-                break;
-            case "Broccoli":
-                findViewById(R.id.broccoli).setEnabled(value);
-                break;
-            case "Cipolle":
-                findViewById(R.id.cipolle).setEnabled(value);
-                break;
-            case "Grana":
-                findViewById(R.id.formaggio).setEnabled(value);
-                break;
-            case "Gamberetti":
-                findViewById(R.id.gamberetti).setEnabled(value);
-                break;
-            case "Melanzane":
-                findViewById(R.id.melanzane).setEnabled(value);
-                break;
-            case "Olive":
-                findViewById(R.id.olive).setEnabled(value);
-                break;
-            case "Patatine":
-                findViewById(R.id.patatine).setEnabled(value);
-                break;
-            case "Peperoni":
-                findViewById(R.id.peperoni).setEnabled(value);
-                break;
-            case "Peperoncino":
-                findViewById(R.id.peperoncini).setEnabled(value);
-                break;
-            case "Pomodori":
-                findViewById(R.id.pomodori).setEnabled(value);
-                break;
-            case "Salame":
-                findViewById(R.id.salame).setEnabled(value);
-                break;
-            case "Uova":
-                findViewById(R.id.uova).setEnabled(value);
-                break;
-            case "Wurstel":
-                findViewById(R.id.wurstel).setEnabled(value);
-                break;
-            case "Zucchine":
-                findViewById(R.id.zucchine).setEnabled(value);
-                break;
-            case "Cotto":
-                findViewById(R.id.cotto).setEnabled(value);
-                break;
-            case "Acciughe":
-                findViewById(R.id.acciughe).setEnabled(value);
-                break;
-            case "Capperi":
-                findViewById(R.id.capperi).setEnabled(value);
-                break;
-            default:
-                Log.d("Not Found", "ingrediente non ancora disponibile");
-                break;
-
-        }
-    }
-
-
-    View.OnLongClickListener longListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            return false;
-        }
-    };
-
-
     /**
      * ------------------------CLICK INGREDIENTE----------------------------------------------------
      */
@@ -383,8 +195,14 @@ public class CreaPizza extends Activity {
             Log.e("errore grana", imageClick);
             setBadge(imageClick);
             updatePizza();
+            updatePrezzo();
         }
     };
+
+    private void updatePrezzo() {
+
+    }
+
 
     /**
      * Modifica i badge

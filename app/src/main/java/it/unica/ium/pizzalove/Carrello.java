@@ -21,16 +21,23 @@ public class Carrello extends Activity {
     Bundle bundle;
 
     @Override
+    public void onSaveInstanceState(Bundle saveInstanceState){
+        saveInstanceState.putAll(bundle);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_carrello);
         bundle = getIntent().getExtras();
+
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)){
             elenco = bundle.getParcelableArrayList(ELENCO_PIZZE);
-            Log.e("SAVEDINSTANCE","------>ELENCO CARICATO");
         }
 
-        setContentView(R.layout.activity_carrello);
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
 
         listAdapter = new ExpandableList(this, elenco);
         expListView = (ExpandableListView) findViewById(R.id.carrello);

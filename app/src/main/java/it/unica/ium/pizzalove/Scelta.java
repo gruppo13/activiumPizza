@@ -12,6 +12,14 @@ import android.widget.Button;
  */
 public class Scelta extends Activity {
 
+    Bundle bundle = new Bundle();
+
+    @Override
+    public void onSaveInstanceState(Bundle onSaveInstanceState){
+        super.onSaveInstanceState(onSaveInstanceState);
+        onSaveInstanceState.putAll(bundle);
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +32,17 @@ public class Scelta extends Activity {
         btnElenco.setTypeface(font);
         btnCrea.setTypeface(font);
 
-        final Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
+
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
 
         /**
          **********************MODIFICARE IMMAGINE CON L'EXTRA Main.PIZZERIA************************
+         *
          */
+
+        findViewById(R.id.imgPizzeria).setBackgroundResource(bundle.getInt(Main.PIZZERIA));
 
         btnElenco.setOnClickListener(new View.OnClickListener() {
             @Override

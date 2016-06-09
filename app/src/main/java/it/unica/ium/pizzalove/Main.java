@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -18,16 +19,19 @@ import android.widget.ImageView;
 public class Main extends Activity {
 
 
-    public static final String ORIENTATION_CHANGED = "it.unica.ium.pizzalove.oriantationChanged";
+    private static final String ORIENTATION_CHANGED = "it.unica.ium.pizzalove.oriantationChanged";
     public static final String PIZZERIA = "it.unica.ium.pizzalove.PIZZERIA";
+    public static final String TEXT_INDIRIZZO = "it.unica.ium.pizzalove.TEXT_INDIRIZZO";
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
-
-    Button btn1, btn2, btn3;
+    private boolean flag = false;
+    private Button btn1, btn2, btn3;
+    private Bundle bundle = new Bundle();
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putBoolean(ORIENTATION_CHANGED, true);
+        savedInstanceState.putString(TEXT_INDIRIZZO, geo_autocomplete.getText().toString());
+        savedInstanceState.putBoolean(ORIENTATION_CHANGED, flag);
     }
 
     /** Called when the activity is first created. */
@@ -45,15 +49,16 @@ public class Main extends Activity {
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
         Integer THRESHOLD = 2;
         geo_autocomplete.setThreshold(THRESHOLD);
-        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
+        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this));
 
 
         if(savedInstanceState != null){
-            if(savedInstanceState.getBoolean(ORIENTATION_CHANGED) && btn1.getVisibility() == View.GONE){
+            if(savedInstanceState.getBoolean(ORIENTATION_CHANGED)){
                 btn1.setVisibility(View.VISIBLE);
                 btn2.setVisibility(View.VISIBLE);
                 btn3.setVisibility(View.VISIBLE);
             }
+            geo_autocomplete.setText(savedInstanceState.getString(TEXT_INDIRIZZO));
         }
 
         geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,6 +69,7 @@ public class Main extends Activity {
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
                 addPizzerie();
+                flag = true;
             }
         });
 
@@ -99,30 +105,33 @@ public class Main extends Activity {
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
-                intent.putExtra(PIZZERIA, v.getId());
-                startActivityForResult(intent, 0);
+                bundle.putInt(PIZZERIA, R.drawable.pizzeria1);
+                startActivity();
             }
         });
 
         btn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
-                intent.putExtra(PIZZERIA, v.getId());
-                startActivityForResult(intent, 0);
+                bundle.putInt(PIZZERIA, R.drawable.pizzeria2);
+                startActivity();
             }
         });
 
         btn3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
-                intent.putExtra(PIZZERIA, v.getId());
-                startActivityForResult(intent, 0);
+                bundle.putInt(PIZZERIA, R.drawable.pizzeria3);
+                startActivity();
             }
         });
 
+    }
+
+    private void startActivity(){
+        bundle.putString(TEXT_INDIRIZZO, geo_autocomplete.getText().toString());
+        Intent intent = new Intent(Main.this, Scelta.class).putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
     private void addPizzerie() {

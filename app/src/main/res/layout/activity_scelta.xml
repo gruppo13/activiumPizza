@@ -18,10 +18,9 @@
         >
 
         <ImageView
-            android:id="@+id/imageMain"
+            android:id="@+id/imgPizzeria"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:src="@drawable/pizzeria1"
             android:layout_margin="10dp"
            />
 
