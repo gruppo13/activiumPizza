@@ -19,7 +19,7 @@ public class Main extends Activity {
 
 
     public static final String ORIENTATION_CHANGED = "it.unica.ium.pizzalove.oriantationChanged";
-    private Integer THRESHOLD = 2;
+    public static final String PIZZERIA = "it.unica.ium.pizzalove.PIZZERIA";
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
 
@@ -43,12 +43,13 @@ public class Main extends Activity {
 
         geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
+        Integer THRESHOLD = 2;
         geo_autocomplete.setThreshold(THRESHOLD);
         geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
 
 
         if(savedInstanceState != null){
-            if(savedInstanceState.getBoolean(ORIENTATION_CHANGED) == true){
+            if(savedInstanceState.getBoolean(ORIENTATION_CHANGED) && btn1.getVisibility() == View.GONE){
                 btn1.setVisibility(View.VISIBLE);
                 btn2.setVisibility(View.VISIBLE);
                 btn3.setVisibility(View.VISIBLE);
@@ -99,6 +100,7 @@ public class Main extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                intent.putExtra(PIZZERIA, v.getId());
                 startActivityForResult(intent, 0);
             }
         });
@@ -107,6 +109,7 @@ public class Main extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                intent.putExtra(PIZZERIA, v.getId());
                 startActivityForResult(intent, 0);
             }
         });
@@ -115,6 +118,7 @@ public class Main extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(Main.this, Scelta.class).putExtras(new Bundle());
+                intent.putExtra(PIZZERIA, v.getId());
                 startActivityForResult(intent, 0);
             }
         });

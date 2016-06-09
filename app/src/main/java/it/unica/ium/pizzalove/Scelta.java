@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by perlo on 14/02/16.
@@ -25,16 +20,15 @@ public class Scelta extends Activity {
         Button btnElenco = (Button) findViewById(R.id.btnElenco);
         Button btnCrea = (Button) findViewById(R.id.btnCrea);
 
-
-
-
-
-
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Art Brewery.ttf");
         btnElenco.setTypeface(font);
         btnCrea.setTypeface(font);
 
         final Bundle bundle = getIntent().getExtras();
+
+        /**
+         **********************MODIFICARE IMMAGINE CON L'EXTRA Main.PIZZERIA************************
+         */
 
         btnElenco.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +43,6 @@ public class Scelta extends Activity {
                 startActivityForResult(new Intent(Scelta.this, CreaPizza.class).putExtras(bundle), 0);
             }
         });
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
     }
-
-
-
 }
