@@ -25,6 +25,8 @@
             android:groupIndicator="@null"
             android:childDivider="#00ffffff"
             android:childIndicatorLeft="2dp"
+            android:background="@drawable/notes"
+            android:layout_marginBottom="10dp"
            />
 
 

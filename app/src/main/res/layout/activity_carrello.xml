@@ -30,7 +30,8 @@
         android:longClickable="false"
         android:headerDividersEnabled="false"
         android:choiceMode="singleChoice"
-        android:groupIndicator="@null"/>
+        android:groupIndicator="@null"
+        android:background="@drawable/notes"/>
 
     <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_add_white_24dp"

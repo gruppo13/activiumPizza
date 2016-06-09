@@ -25,7 +25,8 @@
             android:childDivider="#00ffffff"
             android:childIndicatorLeft="2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:background="@drawable/notes"/>
 
 
     <LinearLayout
