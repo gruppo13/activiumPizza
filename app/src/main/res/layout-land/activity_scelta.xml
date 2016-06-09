@@ -2,27 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_scelta"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tiallap"
     tools:context="it.unica.ium.pizzalove.Scelta"
     android:padding="10dp"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
 
         android:background="#00ffffff">
+        <ImageView
+            android:id="@+id/imageMain"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:src="@drawable/pizzeria1"
+            android:layout_margin="10dp"
+            />
+
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
 
 
         android:orientation="vertical">
@@ -30,11 +39,13 @@
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/btnCrea"
             android:text="@string/btnCrea"
             android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:allowUndo="false" />
 
 
@@ -42,12 +53,14 @@
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/btnElenco"
             android:contentDescription="Il nostro menu"
             android:text="Il nostro menu"
             android:background="@drawable/button_shape"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"/>
 
 
 </LinearLayout>
