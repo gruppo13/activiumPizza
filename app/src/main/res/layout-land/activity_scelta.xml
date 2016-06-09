@@ -14,9 +14,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
-        android:background="#00ffffff">
+        android:layout_weight="0.8"
 
+        >
         <ImageView
             android:id="@+id/imgPizzeria"
             android:layout_height="fill_parent"
@@ -40,8 +40,8 @@
             android:text="@string/btnCrea"
             android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:allowUndo="false" />
 
 
@@ -55,8 +55,8 @@
             android:text="Il nostro menu"
             android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"/>
 
 
 </LinearLayout>

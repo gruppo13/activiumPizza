@@ -16,7 +16,9 @@
         android:layout_height="fill_parent"
         android:scrollbars="none"
         android:visibility="visible"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginRight="5dp">
 
 
         <LinearLayout
@@ -24,7 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:focusableInTouchMode="false"
-            android:paddingTop="5dp">
+            >
 
 
             <ImageView
@@ -227,7 +229,7 @@
 
         <ImageView
             android:id="@+id/imageMain"
-            android:layout_height="240dp"
+            android:layout_height="230dp"
             android:layout_width="fill_parent"
             android:src="@drawable/pastapizza"
             android:contentDescription="@string/imageMain" />
@@ -238,7 +240,7 @@
             android:id="@+id/btnAddPizzaCreate"
             android:text="@string/btnAddPizzaCreate"
             android:layout_gravity="bottom"
-            app:layout_anchorGravity="bottom|left|end"/>
+            android:background="@drawable/button_shape"/>
 
 
     </LinearLayout>
