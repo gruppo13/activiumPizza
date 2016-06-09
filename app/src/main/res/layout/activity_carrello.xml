@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/tiallap"
     tools:context="it.unica.ium.pizzalove.Scelta"
-    android:padding="10dp"
+    android:padding="5dp"
     android:baselineAligned="false">
 
 <android.support.design.widget.CoordinatorLayout
@@ -31,7 +31,8 @@
         android:headerDividersEnabled="false"
         android:choiceMode="singleChoice"
         android:groupIndicator="@null"
-        android:background="@drawable/notes"/>
+        android:background="@drawable/notes"
+        android:layout_marginBottom="70dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_add_white_24dp"
