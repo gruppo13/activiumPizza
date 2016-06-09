@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="it.unica.ium.pizzalove.Main"
-    android:background="@drawable/tiallap"
-    android:orientation="vertical">
+    android:background="@drawable/tiallap">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="6">
     <it.unica.ium.pizzalove.DelayAutoCompleteTextView
         android:id="@+id/geo_autocomplete"
         android:layout_width="match_parent"
@@ -55,18 +50,20 @@
         android:layout_alignParentLeft="false"
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true" />
-</RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="70dp"
         android:clickable="false"
-        android:layout_weight="1">
+
+        >
         <LinearLayout
             android:id="@+id/container"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingBottom="10dp"
@@ -99,4 +96,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
