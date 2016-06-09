@@ -20,11 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expandableList"
-            android:divider="#000000"
+            android:divider="#D9D2CE"
             android:dividerHeight="2dp"
             android:groupIndicator="@null"
             android:childDivider="#00ffffff"
-            android:childIndicatorLeft="2dp" />
+            android:childIndicatorLeft="2dp"
+           />
 
 
 
@@ -48,6 +49,8 @@
             android:text="Ordina"
             android:editable="false"
             android:visibility="visible"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_shape"
             />
 
         <Button
@@ -58,6 +61,8 @@
             android:textSize="17dp"
             android:text="Aggiunte"
             android:visibility="visible"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/button_shape"
            />
 
     </LinearLayout>
