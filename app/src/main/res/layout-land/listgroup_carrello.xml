@@ -8,33 +8,31 @@
     android:padding="8dp">
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:gravity="right"
-        android:layout_weight="1.6"
-        android:background="@drawable/ic_clear_black_24dp"
+        android:background="@drawable/ics_rossa"
         android:id="@+id/lblListHCarrelloRemove" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:gravity="right"
-        android:layout_weight="1.6"
-        android:background="@drawable/tools"
+
+        android:background="@drawable/modifica"
         android:id="@+id/lblListHCarrelloModifica" />
 
     <TextView
         android:id="@+id/lblListHCarrelloNum"
-        android:layout_width="match_parent"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
         android:textSize="17sp"
         android:gravity="left"
         android:text="@string/lblListHCarrelloNum" />
 
     <TextView
         android:id="@+id/lblListHCarrelloNome"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.2"
         android:textSize="17sp"
@@ -44,7 +42,7 @@
 
     <TextView
         android:id="@+id/lblListHCarrelloPrezzo"
-        android:layout_width="match_parent"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:textSize="17sp"
         android:gravity="center"
@@ -54,7 +52,7 @@
     <TextView
 
         android:id="@+id/lblListHCarrelloPrezzoTotale"
-        android:layout_width="match_parent"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:textSize="17sp"
         android:gravity="center"
