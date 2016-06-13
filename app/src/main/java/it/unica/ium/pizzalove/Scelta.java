@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by perlo on 14/02/16.
- */
 public class Scelta extends Activity {
 
     Bundle bundle = new Bundle();
@@ -36,11 +33,6 @@ public class Scelta extends Activity {
 
         if(savedInstanceState != null)
             bundle = savedInstanceState;
-
-        /**
-         **********************MODIFICARE IMMAGINE CON L'EXTRA Main.PIZZERIA************************
-         *
-         */
 
         findViewById(R.id.imgPizzeria).setBackgroundResource(bundle.getInt(Main.PIZZERIA));
 

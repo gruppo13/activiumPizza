@@ -21,13 +21,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.readystatesoftware.viewbadger.BadgeView;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class CreaPizza extends Activity {
-
 
     private final static String PIZZA_STATE = "it.unica.ium.pizzalove.PIZZA_STATE";
     protected ImageView imgMain;
@@ -41,18 +39,21 @@ public class CreaPizza extends Activity {
     @Override
     public void onStart() {
         super.onStart();
-        if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
+        if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)) {
             elenco = bundle.getParcelableArrayList(Carrello.ELENCO_PIZZE);
+            Log.e(Carrello.ELENCO_PIZZE, " caricato");
+        }
         if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
-            bundle.getParcelable(Carrello.PIZZA_MODIFICA) != null) {
+                bundle.getParcelable(Carrello.PIZZA_MODIFICA) != null) {
             for (Ingredienti i : ((Pizza)(bundle.getParcelable(Carrello.PIZZA_MODIFICA))).getIngredienti())
                 setBadge(i.toString());
-            bundle.putParcelable(Carrello.PIZZA_MODIFICA, null);
+            bundle.remove(Carrello.PIZZA_MODIFICA);
         }
-        if(bundle.keySet().contains(PIZZA_STATE) &&
-           bundle.getParcelableArrayList(PIZZA_STATE) != null){
+        else if(bundle.keySet().contains(PIZZA_STATE) &&
+                bundle.getParcelableArrayList(PIZZA_STATE) != null){
             for(Parcelable i : bundle.getParcelableArrayList(PIZZA_STATE))
                 setBadge(i.toString());
+            bundle.remove(PIZZA_STATE);
         }
         updatePizza();
     }
@@ -60,6 +61,7 @@ public class CreaPizza extends Activity {
     @Override
     public void onSaveInstanceState(Bundle onSaveInstanceState){
         super.onSaveInstanceState(onSaveInstanceState);
+        onSaveInstanceState.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
         onSaveInstanceState.putParcelableArrayList(PIZZA_STATE, listIngredienti);
         onSaveInstanceState.putAll(bundle);
     }
@@ -69,43 +71,6 @@ public class CreaPizza extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creapizza);
 
-        bundle = getIntent().getExtras();
-        if(savedInstanceState != null)
-            bundle = savedInstanceState;
-
-        imgMain  = (ImageView) findViewById(R.id.imageMain);
-        mViewGroup = (ViewGroup)findViewById(R.id.container);
-        if(getResources().getBoolean(R.bool.is_landscape))
-            addPizza();
-
-
-        badge = new BadgeView[]{
-                new BadgeView(this, findViewById(R.id.sugo)),
-                new BadgeView(this, findViewById(R.id.mozzarella)),
-                new BadgeView(this, findViewById(R.id.basilico)),
-                new BadgeView(this, findViewById(R.id.funghi)),
-                new BadgeView(this, findViewById(R.id.acciughe)),
-                new BadgeView(this, findViewById(R.id.capperi)),
-                new BadgeView(this, findViewById(R.id.bacon)),
-                new BadgeView(this, findViewById(R.id.broccoli)),
-                new BadgeView(this, findViewById(R.id.cipolle)),
-                new BadgeView(this, findViewById(R.id.formaggio)),
-                new BadgeView(this, findViewById(R.id.gamberetti)),
-                new BadgeView(this, findViewById(R.id.melanzane)),
-                new BadgeView(this, findViewById(R.id.olive)),
-                new BadgeView(this, findViewById(R.id.patatine)),
-                new BadgeView(this, findViewById(R.id.peperoncini)),
-                new BadgeView(this, findViewById(R.id.peperoni)),
-                new BadgeView(this, findViewById(R.id.pomodori)),
-                new BadgeView(this, findViewById(R.id.salame)),
-                new BadgeView(this, findViewById(R.id.uova)),
-                new BadgeView(this, findViewById(R.id.wurstel)),
-                new BadgeView(this, findViewById(R.id.zucchine)),
-                new BadgeView(this, findViewById(R.id.cotto))
-        };
-
-
-        //immagini da click
         findViewById(R.id.sugo).setOnClickListener(clickListener);
         findViewById(R.id.mozzarella).setOnClickListener(clickListener);
         findViewById(R.id.funghi).setOnClickListener(clickListener);
@@ -132,6 +97,42 @@ public class CreaPizza extends Activity {
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
+
+        badge = new BadgeView[]{
+                new BadgeView(this, findViewById(R.id.sugo)),
+                new BadgeView(this, findViewById(R.id.mozzarella)),
+                new BadgeView(this, findViewById(R.id.basilico)),
+                new BadgeView(this, findViewById(R.id.funghi)),
+                new BadgeView(this, findViewById(R.id.acciughe)),
+                new BadgeView(this, findViewById(R.id.capperi)),
+                new BadgeView(this, findViewById(R.id.bacon)),
+                new BadgeView(this, findViewById(R.id.broccoli)),
+                new BadgeView(this, findViewById(R.id.cipolle)),
+                new BadgeView(this, findViewById(R.id.formaggio)),
+                new BadgeView(this, findViewById(R.id.gamberetti)),
+                new BadgeView(this, findViewById(R.id.melanzane)),
+                new BadgeView(this, findViewById(R.id.olive)),
+                new BadgeView(this, findViewById(R.id.patatine)),
+                new BadgeView(this, findViewById(R.id.peperoncini)),
+                new BadgeView(this, findViewById(R.id.peperoni)),
+                new BadgeView(this, findViewById(R.id.pomodori)),
+                new BadgeView(this, findViewById(R.id.salame)),
+                new BadgeView(this, findViewById(R.id.uova)),
+                new BadgeView(this, findViewById(R.id.wurstel)),
+                new BadgeView(this, findViewById(R.id.zucchine)),
+                new BadgeView(this, findViewById(R.id.cotto))
+        };
+
+        bundle = getIntent().getExtras();
+
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
+
+        imgMain  = (ImageView) findViewById(R.id.imageMain);
+        mViewGroup = (ViewGroup)findViewById(R.id.container);
+
+        if(getResources().getBoolean(R.bool.is_landscape))
+            updatePrezzo();
 
         btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -164,6 +165,7 @@ public class CreaPizza extends Activity {
 
     private void rimuoviTutto() {
         listIngredienti.clear();
+        bundle.remove(PIZZA_STATE);
         for (int i = 0; i < countPizze.length; i++) {
             badge[i].hide();
             countPizze[i] = 0;
@@ -200,14 +202,22 @@ public class CreaPizza extends Activity {
     };
 
     private void updatePrezzo() {
-
+        float totale = 3.f;
+        int i = 0;
+        for(Ingredienti ingredienti : Ingredienti.values()){
+            if(countPizze[i] != 0)
+                totale += ingredienti.getPrice() * countPizze[i];
+            i++;
+        }
+        if(getResources().getBoolean(R.bool.is_landscape))
+            ((TextView)findViewById(R.id.tot)).setText(Pizza.formatoPrezzo(totale));
     }
 
 
     /**
      * Modifica i badge
      * aggiunge gli ingredienti ai badge
-     * @param img
+     * @param img ingrediente da aggiungere
      */
     private void setBadge(String img) {
         int i = Ingredienti.valueOf(img).getNumber() - 1;
@@ -220,14 +230,14 @@ public class CreaPizza extends Activity {
 
         }
         else
-            Toast.makeText(CreaPizza.this, "Non puoi! Doppie si triple no! budellu!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreaPizza.this, "-----------------------------", Toast.LENGTH_SHORT).show();
         }
 
 
     /**
      * Modifica i badge
      * elimina gli ingredienti dai badge
-     * @param ingrediente
+     * @param ingrediente ingrediente da eliminare
      */
     private Ingredienti eliminaIngrediente(String ingrediente) {
         int i = Ingredienti.valueOf(ingrediente).getNumber() - 1;

@@ -31,11 +31,20 @@ public class ElencoPizze extends Activity {
 
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putAll(bundle);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elenco_pizze);
         ExpandableListAdapter listAdapter;
         bundle = getIntent().getExtras();
+
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
 
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE))
             elenco = bundle.getParcelableArrayList(Carrello.ELENCO_PIZZE);

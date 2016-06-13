@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -22,6 +21,8 @@ public class Carrello extends Activity {
 
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putParcelableArrayList(ELENCO_PIZZE, elenco);
         saveInstanceState.putAll(bundle);
     }
 
@@ -32,12 +33,12 @@ public class Carrello extends Activity {
         setContentView(R.layout.activity_carrello);
         bundle = getIntent().getExtras();
 
+        if(savedInstanceState != null)
+            bundle = savedInstanceState;
+
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)){
             elenco = bundle.getParcelableArrayList(ELENCO_PIZZE);
         }
-
-        if(savedInstanceState != null)
-            bundle = savedInstanceState;
 
         listAdapter = new ExpandableList(this, elenco);
         expListView = (ExpandableListView) findViewById(R.id.carrello);
@@ -125,7 +126,7 @@ public class Carrello extends Activity {
             elenco.get(grpPos).lessCount();
         if (elenco.size() == 0) {
             Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
-            startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(new Bundle()), 0);
+            startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
         }
         Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
         listAdapter = new ExpandableList(Carrello.this, elenco);

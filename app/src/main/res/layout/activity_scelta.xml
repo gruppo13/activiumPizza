@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnElenco"
             android:contentDescription="il nostro menu"
-            android:text="@string/btnElenco"
+            android:text="Il Nostro Menu"
             android:layout_gravity="center_horizontal"
             android:textSize="30sp"
             android:layout_margin="5dp"
