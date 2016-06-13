@@ -19,13 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expandableList"
-            android:divider="#D9D2CE"
+
             android:dividerHeight="2dp"
             android:groupIndicator="@null"
             android:childDivider="#00ffffff"
             android:childIndicatorLeft="2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:background="@drawable/notes"/>
 
 
     <LinearLayout
