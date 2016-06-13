@@ -53,6 +53,7 @@ public class CreaPizza extends Activity {
                 bundle.getParcelableArrayList(PIZZA_STATE) != null){
             for(Parcelable i : bundle.getParcelableArrayList(PIZZA_STATE))
                 setBadge(i.toString());
+            updatePrezzo();
             bundle.remove(PIZZA_STATE);
         }
         updatePizza();
@@ -130,9 +131,6 @@ public class CreaPizza extends Activity {
         imgMain  = (ImageView) findViewById(R.id.imageMain);
         mViewGroup = (ViewGroup)findViewById(R.id.container);
 
-        if(getResources().getBoolean(R.bool.is_landscape))
-            updatePrezzo();
-
         btnNuovaPizza.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -185,7 +183,7 @@ public class CreaPizza extends Activity {
     }
 
     /**
-     * ------------------------CLICK INGREDIENTE----------------------------------------------------
+     * ------------------------CLICK INGREDIENTE----------------------------
      */
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -224,7 +222,6 @@ public class CreaPizza extends Activity {
             if(getResources().getBoolean(R.bool.is_landscape))
                 addIngrediente(Ingredienti.valueOf(img), countPizze[i]);
             listIngredienti.add(Ingredienti.valueOf(img));
-
         }
         else
             Toast.makeText(CreaPizza.this, "In questa pizzeria puoi fare solo aggiunte doppie ;)", Toast.LENGTH_LONG).show();
@@ -247,6 +244,7 @@ public class CreaPizza extends Activity {
             badge[i].hide();
         if(listIngredienti.contains(Ingredienti.valueOf(ingrediente)))
             listIngredienti.remove(Ingredienti.valueOf(ingrediente));
+        updatePrezzo();
         updatePizza();
         return(Ingredienti.valueOf(ingrediente));
     }
@@ -377,7 +375,6 @@ public class CreaPizza extends Activity {
 
         int i = 1;
         if (!listIngredienti.isEmpty()){
-            //ordina ingredienti
             Collections.sort(listIngredienti);
             for (Ingredienti ingrediente : listIngredienti) {
                 Log.e("i tuoi ingredienti ", ingrediente.toString());
@@ -387,8 +384,14 @@ public class CreaPizza extends Activity {
                 i++;
             }
             findViewById(R.id.addPizza).setEnabled(true);
+            if(getResources().getBoolean(R.bool.is_landscape)) {
+                findViewById(R.id.tot).setVisibility(View.VISIBLE);
+                findViewById(R.id.tot0).setVisibility(View.VISIBLE);
+            }
         }
         else{
+            findViewById(R.id.tot).setVisibility(View.GONE);
+            findViewById(R.id.tot0).setVisibility(View.GONE);
             findViewById(R.id.addPizza).setEnabled(false);
         }
         layerDrawable = new LayerDrawable(layers);
