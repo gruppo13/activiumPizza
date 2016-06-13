@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:padding="8dp">
 
-    <ImageButton
+    <Button
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:gravity="right"
@@ -15,7 +15,7 @@
         android:background="@drawable/ics_rossa"
         android:id="@+id/lblListHCarrelloRemove" />
 
-    <ImageButton
+    <Button
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:gravity="right"

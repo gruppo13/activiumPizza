@@ -390,8 +390,10 @@ public class CreaPizza extends Activity {
             }
         }
         else{
-            findViewById(R.id.tot).setVisibility(View.GONE);
-            findViewById(R.id.tot0).setVisibility(View.GONE);
+            if(getResources().getBoolean(R.bool.is_landscape)) {
+                findViewById(R.id.tot).setVisibility(View.GONE);
+                findViewById(R.id.tot0).setVisibility(View.GONE);
+            }
             findViewById(R.id.addPizza).setEnabled(false);
         }
         layerDrawable = new LayerDrawable(layers);

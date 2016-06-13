@@ -7,86 +7,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-<android.support.design.widget.CoordinatorLayout
-
-    android:id="@+id/activity_carrello"
-    android:background="@drawable/tiallap"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="it.unica.ium.pizzalove.Carrello"
-    android:padding="5dp">
-
-
-    <ExpandableListView
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/activity_carrello"
+        android:background="@drawable/tiallap"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/carrello"
-        android:footerDividersEnabled="true"
-        android:longClickable="false"
-        android:headerDividersEnabled="false"
-        android:choiceMode="singleChoice"
-        android:groupIndicator="@null"
-        android:background="@drawable/notes_black"
-        android:layout_marginBottom="57dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="57dp"
-        android:paddingRight="80dp"
-        android:paddingLeft="0dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
-        app:layout_anchorGravity="bottom"
-        android:background="@drawable/notes"
+        tools:context="it.unica.ium.pizzalove.Carrello"
+        android:padding="5dp">
 
-        >
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/carrello"
+            android:footerDividersEnabled="true"
+            android:longClickable="false"
+            android:headerDividersEnabled="false"
+            android:choiceMode="singleChoice"
+            android:groupIndicator="@null"
+            android:background="@drawable/notes_black"
+            android:layout_marginBottom="57dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:paddingRight="80dp"
+            android:paddingLeft="0dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"
+            app:layout_anchorGravity="bottom"
+            android:background="@drawable/notes">
+            <TextView
+                android:paddingTop="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:textSize="16sp"
+                android:layout_weight="0.5"
+                android:text="@string/totaleCarrello"
+                android:layout_gravity="center"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:paddingTop="5dp"
+                android:textSize="16sp"
+                android:id="@id/totaleCarrello"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:textAlignment="center"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
+        <Button
+            android:layout_height="45dp"
+            android:layout_width="120dp"
+            android:id="@+id/btnOrdina"
+            android:text="@string/btnAddPizzaCreate"
+            android:background="@drawable/button_shape"
+            app:layout_anchorGravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="bottom|left" />
 
-        <TextView
-            android:paddingTop="5dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:textSize="16dp"
-            android:layout_weight="0.5"
-            android:text="totale"
-            android:layout_gravity="center"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:paddingTop="5dp"
-            android:textSize="16dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:textAlignment="center"
-            android:layout_weight="0.5"
-            android:text="30,40$"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-
-    <Button
-        android:layout_height="45dp"
-        android:layout_width="120dp"
-        android:id="@+id/btnOrdina"
-        android:text="@string/btnAddPizzaCreate"
-        android:background="@drawable/button_shape"
-        app:layout_anchorGravity="bottom"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="bottom|left"
-        />
-
-    <android.support.design.widget.FloatingActionButton
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-
-        android:id="@+id/btnNewPizza" />
-
-
+        <android.support.design.widget.FloatingActionButton
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:id="@+id/btnNewPizza" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

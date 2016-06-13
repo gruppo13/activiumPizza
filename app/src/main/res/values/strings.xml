@@ -45,4 +45,5 @@
     <string name="nameIngredientethumb">mozzarella</string>
     <string name="nmbIngredientethumb">1</string>
     <string name="autocomplete_text">Inserisci il tuo indirizzo</string>
+    <string name="totaleCarrello">Totale</string>
 </resources>

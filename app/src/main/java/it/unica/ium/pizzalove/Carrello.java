@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class Carrello extends Activity {
     private ExpandableListView expListView;
     private ArrayList<Pizza> elenco  = new ArrayList<>();
     Bundle bundle;
+    private float totale = 0;
 
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
@@ -40,10 +42,16 @@ public class Carrello extends Activity {
             elenco = bundle.getParcelableArrayList(ELENCO_PIZZE);
         }
 
+        if(!elenco.isEmpty()) {
+            for (Pizza p : elenco)
+                for (Ingredienti i : p.getIngredienti())
+                    totale += i.getPrice();
+            ((TextView)findViewById(R.id.totaleCarrello)).setText(Pizza.formatoPrezzo(totale));
+        }
+
         listAdapter = new ExpandableList(this, elenco);
         expListView = (ExpandableListView) findViewById(R.id.carrello);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.btnNewPizza);
-
 
         /**
          * bottone nuova pizza
@@ -58,11 +66,10 @@ public class Carrello extends Activity {
 
         expListView.setAdapter(listAdapter);
 
-
-        /* solo una pizza si puo espandere*/
+        /* solo una pizza si puo espandere */
         final int[] lastExpandedPosition = {-1, -1}; // ultima posizione aperta, ultima posizione chiusa
 
-        /// fa espandere solo un gruppo per volta
+        // fa espandere solo un gruppo per volta
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                                                 @Override
                                                 public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
