@@ -59,7 +59,7 @@ public class CreaPizza extends Activity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle onSaveInstanceState){
+    public void onSaveInstanceState(Bundle onSaveInstanceState) {
         super.onSaveInstanceState(onSaveInstanceState);
         onSaveInstanceState.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
         onSaveInstanceState.putParcelableArrayList(PIZZA_STATE, listIngredienti);
@@ -93,7 +93,6 @@ public class CreaPizza extends Activity {
         findViewById(R.id.acciughe).setOnClickListener(clickListener);
         findViewById(R.id.basilico).setOnClickListener(clickListener);
         findViewById(R.id.cotto).setOnClickListener(clickListener);
-
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
@@ -139,10 +138,8 @@ public class CreaPizza extends Activity {
             public void onClick(View v){
                 Pizza p = new Pizza(listIngredienti);
                 elenco.add(p);
-                if(getResources().getBoolean(R.bool.is_landscape)) {
-                    addPizza();
+                if(getResources().getBoolean(R.bool.is_landscape))
                     mViewGroup.removeAllViews();
-                }
                 rimuoviTutto();
             }
         });
@@ -150,16 +147,16 @@ public class CreaPizza extends Activity {
         btnAddPizzaCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pizza p = new Pizza(listIngredienti);
-                elenco.add(p);
-                bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
-                startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
+                if(!listIngredienti.isEmpty()) {
+                    Pizza p = new Pizza(listIngredienti);
+                    elenco.add(p);
+                    bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
+                    startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
+                }
+                else
+                    Toast.makeText(CreaPizza.this, "Aggiungi qualche ingrediente ;)", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void addPizza() {
-
     }
 
 
@@ -230,7 +227,7 @@ public class CreaPizza extends Activity {
 
         }
         else
-            Toast.makeText(CreaPizza.this, "-----------------------------", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreaPizza.this, "In questa pizzeria puoi fare solo aggiunte doppie ;)", Toast.LENGTH_LONG).show();
         }
 
 
@@ -389,11 +386,9 @@ public class CreaPizza extends Activity {
                 layers[i] = bmd;
                 i++;
             }
-            findViewById(R.id.btnAddPizzaCreate).setEnabled(true);
             findViewById(R.id.addPizza).setEnabled(true);
         }
-        else{//non ci sono ingredienti quindi non puoi creare una pizza vuota
-            findViewById(R.id.btnAddPizzaCreate).setEnabled(false);
+        else{
             findViewById(R.id.addPizza).setEnabled(false);
         }
         layerDrawable = new LayerDrawable(layers);
