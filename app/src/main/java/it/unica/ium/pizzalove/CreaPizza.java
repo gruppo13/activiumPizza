@@ -41,7 +41,6 @@ public class CreaPizza extends Activity {
         super.onStart();
         if(bundle.keySet().contains(Carrello.ELENCO_PIZZE)) {
             elenco = bundle.getParcelableArrayList(Carrello.ELENCO_PIZZE);
-            Log.e(Carrello.ELENCO_PIZZE, " caricato");
         }
         if (bundle.keySet().contains(Carrello.PIZZA_MODIFICA) &&
                 bundle.getParcelable(Carrello.PIZZA_MODIFICA) != null) {
@@ -53,9 +52,9 @@ public class CreaPizza extends Activity {
                 bundle.getParcelableArrayList(PIZZA_STATE) != null){
             for(Parcelable i : bundle.getParcelableArrayList(PIZZA_STATE))
                 setBadge(i.toString());
-            updatePrezzo();
             bundle.remove(PIZZA_STATE);
         }
+        updatePrezzo();
         updatePizza();
     }
 

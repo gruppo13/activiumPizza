@@ -20,13 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expandableList"
-
-            android:dividerHeight="2dp"
+            android:dividerHeight="0dp"
             android:groupIndicator="@null"
-            android:childDivider="#00ffffff"
+            android:divider="#00000000"
+            android:childDivider="#00000000"
             android:childIndicatorLeft="2dp"
             android:background="@drawable/notes"
             android:layout_marginBottom="10dp"
+            android:choiceMode="singleChoice"
            />
 
 

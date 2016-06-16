@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="17sp"
-        android:text="12"
-        android:editable="false"
+        android:text="@string/lblListHCarrelloNome"
         android:visibility="visible" />
 
     <TextView
@@ -26,9 +25,9 @@
         android:id="@+id/lblListHeaderPrezzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:gravity="right"
-        android:text="12"
+        android:text="@string/lblListHCarrelloNome"
         android:visibility="visible" />
 
 

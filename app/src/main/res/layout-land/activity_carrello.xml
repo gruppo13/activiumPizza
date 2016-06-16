@@ -22,20 +22,25 @@
             android:id="@+id/carrello"
             android:footerDividersEnabled="true"
             android:longClickable="false"
-            android:headerDividersEnabled="false"
+            android:headerDividersEnabled="true"
             android:choiceMode="singleChoice"
             android:groupIndicator="@null"
-            android:background="@drawable/notes_black"
+            android:background="#f1ef88"
+            android:dividerHeight="0dp"
             android:layout_marginBottom="57dp"/>
+
+
+
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="57dp"
             android:paddingRight="80dp"
             android:paddingLeft="0dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="0dp"
             app:layout_anchorGravity="bottom"
-            android:background="@drawable/notes">
+            android:background="#f1ef88">
             <TextView
                 android:paddingTop="5dp"
                 android:layout_width="30dp"
