@@ -162,12 +162,10 @@ public class ExpandableList extends BaseExpandableListAdapter {
                 lblListNome.setText("La tua creazione");
 
             }else {
-
                 lblListNome.setText(headerTitle.getNomePizza());
             }
 
             lblListPrezzo.setText(Pizza.formatoPrezzo(headerTitle.getPrezzo()));
-
         }
 
         else {// si tratta delle pizze classiche
@@ -190,7 +188,4 @@ public class ExpandableList extends BaseExpandableListAdapter {
    public boolean isChildSelectable(int groupPosition, int childPosition) {
        return false;
    }
-
-
-
 }
