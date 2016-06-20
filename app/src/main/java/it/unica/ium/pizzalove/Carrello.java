@@ -19,7 +19,6 @@ public class Carrello extends Activity {
     private ExpandableListView expListView;
     private ArrayList<Pizza> elenco  = new ArrayList<>();
     Bundle bundle;
-    private float totale;
 
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
@@ -65,7 +64,7 @@ public class Carrello extends Activity {
     }
 
     private void aggiornaTotale() {
-        totale = 0.f;
+        float totale = 0.f;
         for (Pizza p : elenco){
             float sub = 3.f;
             for (Ingredienti i : p.getIngredienti())
