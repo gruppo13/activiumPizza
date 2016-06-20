@@ -21,7 +21,7 @@ public class Main extends Activity {
     private DelayAutoCompleteTextView geo_autocomplete;
     private ImageView geo_autocomplete_clear;
     private boolean flag = false;
-    private Button btn1, btn2, btn3;
+    private Button btn1, btn2, btn3, btn4, btn5;
     private Bundle bundle = new Bundle();
 
     @Override
@@ -40,6 +40,8 @@ public class Main extends Activity {
         btn1 = (Button)findViewById(R.id.bottonePizzeria1);
         btn2 = (Button)findViewById(R.id.bottonePizzeria2);
         btn3 = (Button)findViewById(R.id.bottonePizzeria3);
+        btn4 = (Button)findViewById(R.id.bottonePizzeria4);
+        btn5 = (Button)findViewById(R.id.bottonePizzeria5);
 
         geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
         geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
@@ -53,6 +55,8 @@ public class Main extends Activity {
                 btn1.setVisibility(View.VISIBLE);
                 btn2.setVisibility(View.VISIBLE);
                 btn3.setVisibility(View.VISIBLE);
+                btn4.setVisibility(View.VISIBLE);
+                btn5.setVisibility(View.VISIBLE);
             }
             geo_autocomplete.setText(savedInstanceState.getString(TEXT_INDIRIZZO));
         }
@@ -122,6 +126,22 @@ public class Main extends Activity {
             }
         });
 
+        btn4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                bundle.putInt(PIZZERIA, R.drawable.pizzeria4);
+                startActivity();
+            }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                bundle.putInt(PIZZERIA, R.drawable.pizzeria5);
+                startActivity();
+            }
+        });
+
     }
 
     private void startActivity(){
@@ -134,5 +154,7 @@ public class Main extends Activity {
         btn1.setVisibility(View.VISIBLE);
         btn2.setVisibility(View.VISIBLE);
         btn3.setVisibility(View.VISIBLE);
+        btn4.setVisibility(View.VISIBLE);
+        btn5.setVisibility(View.VISIBLE);
     }
 }

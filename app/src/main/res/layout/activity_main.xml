@@ -70,13 +70,13 @@
             android:paddingTop="10dp">
 
             <Button
-                android:id="@+id/bottonePizzeria1"
+                android:id="@+id/bottonePizzeria5"
                 android:layout_width="240dp"
                 android:layout_gravity="center"
                 android:layout_height="240dp"
                 android:visibility="gone"
                 android:layout_margin="10dp"
-                android:background="@drawable/pizzeria1"/>
+                android:background="@drawable/pizzeria5"/>
             <Button
                 android:id="@+id/bottonePizzeria2"
                 android:layout_width="240dp"
@@ -93,6 +93,22 @@
                 android:visibility="gone"
                 android:layout_margin="10dp"
                 android:background="@drawable/pizzeria3"/>
+            <Button
+                android:id="@+id/bottonePizzeria4"
+                android:layout_width="240dp"
+                android:layout_gravity="center"
+                android:layout_height="240dp"
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                android:background="@drawable/pizzeria4"/>
+            <Button
+                android:id="@+id/bottonePizzeria1"
+                android:layout_width="240dp"
+                android:layout_gravity="center"
+                android:layout_height="240dp"
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                android:background="@drawable/pizzeria1"/>
         </LinearLayout>
     </ScrollView>
 
