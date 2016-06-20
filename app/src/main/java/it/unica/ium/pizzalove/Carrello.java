@@ -13,17 +13,20 @@ import java.util.ArrayList;
 
 public class Carrello extends Activity {
 
+    public static final String TOTALE = "it.unica.ium.pizzalove.TOTALE";
     public static final String PIZZA_MODIFICA = "it.unica.ium.pizzalove.PIZZA_MODIFICA";
     public static final String ELENCO_PIZZE = "it.unica.ium.pizzalove.ELENCO_PIZZE";
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
     private ArrayList<Pizza> elenco  = new ArrayList<>();
-    Bundle bundle;
+    private Bundle bundle;
+    private float totale;
 
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
         super.onSaveInstanceState(saveInstanceState);
         saveInstanceState.putParcelableArrayList(ELENCO_PIZZE, elenco);
+        saveInstanceState.putFloat(TOTALE, totale);
         saveInstanceState.putAll(bundle);
     }
 
@@ -64,7 +67,7 @@ public class Carrello extends Activity {
     }
 
     private void aggiornaTotale() {
-        float totale = 0.f;
+        totale = 0.f;
         for (Pizza p : elenco){
             float sub = 3.f;
             for (Ingredienti i : p.getIngredienti())

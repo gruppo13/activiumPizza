@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PizzaLove</string>
-
     <string name="image0">Sugo</string>
     <string name="image1">Mozzarella</string>
     <string name="image2">Bacon</string>
@@ -46,4 +45,6 @@
     <string name="nmbIngredientethumb">1</string>
     <string name="autocomplete_text">Inserisci il tuo indirizzo</string>
     <string name="totaleCarrello">Totale</string>
+    <string name="annulla">Annulla</string>
+    <string name="consegna">Consegna in </string>
 </resources>
