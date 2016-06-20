@@ -123,6 +123,17 @@ public class ExpandableList extends BaseExpandableListAdapter {
             Button btnListModifica = (Button) convertView.findViewById(R.id.lblListHCarrelloModifica);
             Button btnListRemove = (Button) convertView.findViewById(R.id.lblListHCarrelloRemove);
 
+            if(_context.getResources().getBoolean(R.bool.is_landscape)) {
+                Button btnListAdd = (Button) convertView.findViewById(R.id.lblListHCarrelloAdd);
+                btnListAdd.setFocusable(false);
+                btnListAdd.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        ((Carrello) _context).addPizzaCarrello(groupPosition);
+                    }
+                });
+            }
+
             btnListModifica.setFocusable(false);
             btnListRemove.setFocusable(false);
 

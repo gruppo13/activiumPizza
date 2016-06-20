@@ -19,7 +19,7 @@ public class Carrello extends Activity {
     private ExpandableListView expListView;
     private ArrayList<Pizza> elenco  = new ArrayList<>();
     Bundle bundle;
-    private float totale = 0;
+    private float totale;
 
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
@@ -43,12 +43,7 @@ public class Carrello extends Activity {
         }
 
         if(!elenco.isEmpty()) {
-            for (Pizza p : elenco){
-                totale +=3.f;
-                for (Ingredienti i : p.getIngredienti())
-                    totale += i.getPrice();
-            }
-            ((TextView)findViewById(R.id.totaleCarrello)).setText(Pizza.formatoPrezzo(totale));
+            aggiornaTotale();
         }
 
         listAdapter = new ExpandableList(this, elenco);
@@ -67,10 +62,19 @@ public class Carrello extends Activity {
         });
 
         expListView.setAdapter(listAdapter);
+    }
 
-
-
+    private void aggiornaTotale() {
+        totale = 0.f;
+        for (Pizza p : elenco){
+            float sub = 3.f;
+            for (Ingredienti i : p.getIngredienti())
+                sub += i.getPrice();
+            sub *= p.getCount();
+            totale += sub;
         }
+        ((TextView)findViewById(R.id.totaleCarrello)).setText(Pizza.formatoPrezzo(totale));
+    }
 
     public void modificaPizzaCarrello(int grpPos){
         bundle.putParcelable(PIZZA_MODIFICA, elenco.get(grpPos));
@@ -95,5 +99,13 @@ public class Carrello extends Activity {
         Toast.makeText(Carrello.this, "Hai rimosso una pizza", Toast.LENGTH_SHORT).show();
         listAdapter = new ExpandableList(Carrello.this, elenco);
         expListView.setAdapter(listAdapter);
+        aggiornaTotale();
+    }
+
+    public void addPizzaCarrello(int grpPos){
+        elenco.get(grpPos).addCount();
+        listAdapter = new ExpandableList(Carrello.this, elenco);
+        expListView.setAdapter(listAdapter);
+        aggiornaTotale();
     }
 }
