@@ -26,11 +26,6 @@
                 android:background="@color/background_material_light_1"
                 android:padding="5dp">
 
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/consegna"
-                android:textSize="18sp"/>
                 <ImageView
                     android:contentDescription="@string/lblListHCarrelloNome"
                     android:layout_marginLeft="20dp"
@@ -43,7 +38,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:id="@+id/edtNome" />
+                    android:id="@+id/edtNome"
+                    android:hint="Lasciaci il tuo nome"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
             </LinearLayout>
 
         <LinearLayout
@@ -65,13 +63,17 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:background="@color/background_material_light_1"
-                android:id="@+id/edtIndirizzo" />
+                android:id="@+id/edtIndirizzo"
+                android:maxLines="1"
+                android:hint="Inserisci il tuo indirizzo"
+                android:singleLine="true"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
             <Button
                 android:layout_weight="1"
                 android:id="@+id/btnAnnulla"

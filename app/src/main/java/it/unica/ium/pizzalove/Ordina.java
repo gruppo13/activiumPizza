@@ -55,11 +55,11 @@ public class Ordina extends Activity {
         Button btnAnnulla = (Button)findViewById(R.id.btnAnnulla);
         Button btnPaga = (Button)findViewById(R.id.btnPaga);
 
-        String tot = "Paga \n" + Pizza.formatoPrezzo(totale);
+        String tot = "Paga " + Pizza.formatoPrezzo(totale);
         btnPaga.setText(tot);
 
         for(Pizza p : elenco) {
-            ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
+            ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup_ordina, mViewGroup, false);
             ((TextView) newView.findViewById(R.id.lblListHeader)).setText(String.valueOf(p.getCount()));
             ((TextView) newView.findViewById(R.id.lblListHeaderPrezzo)).setText(p.getNomePizza());
             mViewGroup.addView(newView);
