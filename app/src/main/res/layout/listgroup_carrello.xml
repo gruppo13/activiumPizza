@@ -11,15 +11,14 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:gravity="right"
-
-        android:background="@drawable/ics_rossa"
+        android:background="@drawable/ics30"
         android:id="@+id/lblListHCarrelloRemove" />
 
     <Button
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:gravity="right"
-        android:background="@drawable/modifica"
+        android:background="@drawable/modifica30"
         android:id="@+id/lblListHCarrelloModifica" />
 
     <TextView
@@ -57,8 +56,6 @@
         android:layout_height="wrap_content"
         android:textSize="17sp"
         android:gravity="center"
-        android:text="@string/lblListHCarrelloTotale"
-        />
-
+        android:text="@string/lblListHCarrelloTotale" />
 
 </LinearLayout>

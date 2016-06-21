@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -50,16 +51,23 @@ public class Carrello extends Activity {
 
         listAdapter = new ExpandableList(this, elenco);
         expListView = (ExpandableListView) findViewById(R.id.carrello);
-        FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.btnNewPizza);
 
         /**
          * bottone nuova pizza
          */
-        btnNuovaPizza.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnNewPizza).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bundle.putParcelableArrayList(ELENCO_PIZZE, elenco);
                 startActivityForResult(new Intent(Carrello.this, Scelta.class).putExtras(bundle), 0);
+            }
+        });
+
+        findViewById(R.id.btnOrdina).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putParcelableArrayList(ELENCO_PIZZE, elenco);
+                startActivityForResult(new Intent(Carrello.this, Ordina.class).putExtras(bundle), 0);
             }
         });
 

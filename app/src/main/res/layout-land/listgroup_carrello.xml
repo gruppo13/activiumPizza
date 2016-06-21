@@ -12,7 +12,7 @@
         android:layout_width="27dp"
         android:layout_height="27dp"
         android:gravity="center"
-        android:background="@drawable/ics_rossa"
+        android:background="@drawable/ics30"
         android:id="@+id/lblListHCarrelloRemove"
         android:focusable="false"/>
 
@@ -21,7 +21,7 @@
         android:layout_height="27dp"
         android:focusable="false"
         android:layout_marginLeft="5pt"
-        android:background="@drawable/modifica"
+        android:background="@drawable/modifica30"
         android:id="@+id/lblListHCarrelloModifica" />
 
     <Button
@@ -29,7 +29,7 @@
         android:layout_height="27dp"
         android:focusable="false"
         android:layout_marginLeft="5pt"
-        android:background="@drawable/piu"
+        android:background="@drawable/piu30"
         android:id="@+id/lblListHCarrelloAdd" />
 
     <TextView

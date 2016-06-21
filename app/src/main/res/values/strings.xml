@@ -46,5 +46,5 @@
     <string name="autocomplete_text">Inserisci il tuo indirizzo</string>
     <string name="totaleCarrello">Totale</string>
     <string name="annulla">Annulla</string>
-    <string name="consegna">Consegna in </string>
+    <string name="consegna">Consegna a </string>
 </resources>

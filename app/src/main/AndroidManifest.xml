@@ -53,6 +53,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unica.ium.pizzalove.ElencoPizze" />-->
         </activity>
+        <activity
+            android:name="it.unica.ium.pizzalove.Ordina">
+            <!--<meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unica.ium.pizzalove.ElencoPizze" />-->
+        </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
