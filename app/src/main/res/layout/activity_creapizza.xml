@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnAddPizzaCreate"
         android:text="@string/btnAddPizzaCreate"
-    android:background="@drawable/button_shape"
-    android:layout_gravity="left|top" />
+         android:background="@drawable/button_shape"
+            android:layout_gravity="left|top" />
 
     <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_add_white_24dp"
@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         app:layout_anchorGravity="top|left|end"
         android:id="@+id/addPizza"
-
         android:layout_gravity="right|top|end" />
     </android.support.design.widget.CoordinatorLayout>
 
