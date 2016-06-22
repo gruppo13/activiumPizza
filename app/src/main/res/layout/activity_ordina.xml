@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:lines="1"
             android:id="@+id/edtNome"
-            android:hint="Lasciaci il tuo nome"
+            android:hint="Scrivi il tuo nome"
             android:background="@color/background_material_light_1"
             android:maxLines="1"
             android:singleLine="true"

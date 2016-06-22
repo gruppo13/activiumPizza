@@ -55,24 +55,32 @@ public class Ordina extends Activity {
         Button btnAnnulla = (Button)findViewById(R.id.btnAnnulla);
         Button btnPaga = (Button)findViewById(R.id.btnPaga);
 
-        String tot = "Paga \n" + Pizza.formatoPrezzo(totale);
+        String tot = "Paga " + Pizza.formatoPrezzo(totale);
         btnPaga.setText(tot);
 
+        float totCreate = 0.f;
         int count = 0;
-        ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
+        ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup_ordina, mViewGroup, false);
         for(Pizza p : elenco) {
+            /**
+             * evitare creazioni 0
+             * metodo formatta nome pizza
+             */
             if(p.getNomePizza().equals("creata")){
                 count++;
+                totCreate += p.getPrezzo();
             }
             else {
-                ((TextView) newView.findViewById(R.id.lblListHeader)).setText(String.valueOf(p.getCount()));
-                ((TextView) newView.findViewById(R.id.lblListHeaderPrezzo)).setText(p.getNomePizza());
+                ((TextView) newView.findViewById(R.id.txtNPizze)).setText(String.valueOf(p.getCount()));
+                ((TextView) newView.findViewById(R.id.txtNomePizza)).setText(p.getNomePizza());
+                ((TextView) newView.findViewById(R.id.txtResumePrezzo)).setText(Pizza.formatoPrezzo(p.getPrezzo()*p.getCount()));
                 mViewGroup.addView(newView);
             }
         }
-        ViewGroup newView2 = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
-        ((TextView) newView2.findViewById(R.id.lblListHeader)).setText(String.valueOf(count));
-        ((TextView) newView2.findViewById(R.id.lblListHeaderPrezzo)).setText("Creazioni");
+        ViewGroup newView2 = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup_ordina, mViewGroup, false);
+        ((TextView) newView2.findViewById(R.id.txtNPizze)).setText(String.valueOf(count));
+        ((TextView) newView2.findViewById(R.id.txtNomePizza)).setText("Creazioni");
+        ((TextView) newView2.findViewById(R.id.txtResumePrezzo)).setText(Pizza.formatoPrezzo(totCreate));
         mViewGroup.addView(newView2);
 
         switch(getResources().getResourceName(bundle.getInt(Main.PIZZERIA))){
@@ -114,10 +122,12 @@ public class Ordina extends Activity {
 
         ((EditText)findViewById(R.id.edtNome)).addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
