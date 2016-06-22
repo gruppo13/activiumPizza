@@ -58,12 +58,22 @@ public class Ordina extends Activity {
         String tot = "Paga \n" + Pizza.formatoPrezzo(totale);
         btnPaga.setText(tot);
 
+        int count = 0;
+        ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
         for(Pizza p : elenco) {
-            ViewGroup newView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
-            ((TextView) newView.findViewById(R.id.lblListHeader)).setText(String.valueOf(p.getCount()));
-            ((TextView) newView.findViewById(R.id.lblListHeaderPrezzo)).setText(p.getNomePizza());
-            mViewGroup.addView(newView);
+            if(p.getNomePizza().equals("creata")){
+                count++;
+            }
+            else {
+                ((TextView) newView.findViewById(R.id.lblListHeader)).setText(String.valueOf(p.getCount()));
+                ((TextView) newView.findViewById(R.id.lblListHeaderPrezzo)).setText(p.getNomePizza());
+                mViewGroup.addView(newView);
+            }
         }
+        ViewGroup newView2 = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.listgroup, mViewGroup, false);
+        ((TextView) newView2.findViewById(R.id.lblListHeader)).setText(String.valueOf(count));
+        ((TextView) newView2.findViewById(R.id.lblListHeaderPrezzo)).setText("Creazioni");
+        mViewGroup.addView(newView2);
 
         switch(getResources().getResourceName(bundle.getInt(Main.PIZZERIA))){
             case "it.unica.ium.pizzalove:drawable/pizzeria1":
