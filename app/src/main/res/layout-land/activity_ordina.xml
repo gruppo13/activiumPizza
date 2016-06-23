@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tiallac"
+    android:background="@drawable/tialla"
     android:padding="10dp"
     android:orientation="horizontal">
 
@@ -78,7 +78,6 @@
             android:orientation="horizontal"
             >
             <Button
-                android:layout_weight="1"
                 android:id="@+id/btnAnnulla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,15 +85,6 @@
                 android:text="@string/annulla"
                 android:visibility="visible"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/button_shape" />
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/btnPaga"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:visibility="visible"
-                android:layout_marginLeft="5dp"
                 android:background="@drawable/button_shape" />
         </LinearLayout>
     </LinearLayout>
@@ -107,11 +97,10 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="200dp"
                 android:clickable="false"
                 android:paddingTop="60dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="50dp">
+                android:paddingLeft="10dp">
                 <LinearLayout
                     android:id="@+id/lblListOrdina"
                     android:layout_width="wrap_content"
@@ -120,7 +109,14 @@
                     android:orientation="vertical">
                 </LinearLayout>
             </ScrollView>
-
-
+            <Button
+                android:id="@+id/btnPaga"
+                android:layout_width="160dp"
+                android:layout_height="70dp"
+                android:textSize="30sp"
+                android:visibility="visible"
+                android:layout_marginRight="3dp"
+                android:layout_gravity="right"
+                android:background="@drawable/button_shape" />
     </LinearLayout>
 </LinearLayout>

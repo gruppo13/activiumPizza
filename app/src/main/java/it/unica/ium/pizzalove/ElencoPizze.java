@@ -25,7 +25,7 @@ public class ElencoPizze extends Activity {
     List<Pizza> listaPizzeClassiche = Arrays.asList(new Pizza("Margherita"),
             new Pizza("Napoli"),new Pizza("Wurstel e Cipolle"),
             new Pizza("Funghi"),new Pizza("Cotto"),
-            new Pizza("Cotto e Funghi"),new Pizza("Veg etariana"),
+            new Pizza("Cotto e Funghi"),new Pizza("Vegetariana"),
             new Pizza("Parmigiana"),new Pizza("Capricciosa"),
             new Pizza("Carbonara"),new Pizza("All American"));
 

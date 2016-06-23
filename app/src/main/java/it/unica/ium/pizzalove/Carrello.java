@@ -66,6 +66,7 @@ public class Carrello extends Activity {
             public void onClick(View v) {
                 bundle.putParcelableArrayList(ELENCO_PIZZE, elenco);
                 bundle.putFloat(TOTALE, totale);
+                bundle.putAll(bundle);
                 startActivityForResult(new Intent(Carrello.this, Ordina.class).putExtras(bundle), 0);
             }
         });

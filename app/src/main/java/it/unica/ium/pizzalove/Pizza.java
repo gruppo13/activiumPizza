@@ -44,7 +44,7 @@ public class Pizza implements Parcelable{
                 this.listaIngredienti =  Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Patatine,
                         Ingredienti.Wurstel);
                 break;
-            case "Veg etariana":
+            case "Vegetariana":
                 this.listaIngredienti = Arrays.asList(Ingredienti.Sugo, Ingredienti.Mozzarella, Ingredienti.Zucchine,
                         Ingredienti.Melanzane, Ingredienti.Peperoni);
                 break;

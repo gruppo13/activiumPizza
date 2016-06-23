@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tiallac"
+    android:background="@drawable/tialla"
     tools:context="it.unica.ium.pizzalove.CreaPizza"
     android:baselineAligned="false"
     android:padding="0dp">
@@ -25,12 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:focusableInTouchMode="false"
-            >
+            android:focusableInTouchMode="false">
 
 
             <ImageView
-
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="65dp"
@@ -61,7 +59,6 @@
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="65dp"
-
                 android:id="@+id/acciughe"
                 android:src="@drawable/icon_acciughe"
                 android:contentDescription="@string/image19" />
@@ -218,7 +215,6 @@
                 android:id="@+id/peperoncini"
                 android:src="@drawable/icon_peperoncini"
                 android:contentDescription="@string/image11" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -241,25 +237,22 @@
             android:text="@string/btnAddPizzaCreate"
             android:layout_gravity="bottom"
             android:background="@drawable/button_shape"/>
-
-
     </LinearLayout>
 
     <android.support.design.widget.CoordinatorLayout
 
         android:orientation="vertical"
-        android:layout_width="190dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="10dp">
+        android:layout_width="220dp"
+        android:layout_height="315dp"
+        android:padding="5dp">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:paddingTop="60dp"
-            android:paddingLeft="10dp"
-            android:paddingBottom="50dp">
-
+            android:paddingLeft="18dp"
+            android:paddingBottom = "86dp">
             <LinearLayout
                 android:id="@+id/container"
                 android:layout_width="wrap_content"
@@ -275,29 +268,26 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:text="Totale"
-            android:layout_gravity="bottom"
+            android:layout_gravity="bottom|center"
             android:textStyle="bold"
-            android:paddingBottom="30dp"
+            android:paddingBottom="57dp"
             />
         <TextView
             android:id="@+id/tot"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="3.14 $"
             android:layout_gravity="bottom|center"
             android:textStyle="bold"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="32dp" />
 
         <android.support.design.widget.FloatingActionButton
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right|end"
-        app:layout_anchorGravity="bottom|right|end"
-        android:id="@+id/addPizza" />
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|end"
+            android:id="@+id/addPizza" />
     </android.support.design.widget.CoordinatorLayout>
-
-
 </LinearLayout>
