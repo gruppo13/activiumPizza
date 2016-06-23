@@ -262,25 +262,31 @@
             </LinearLayout>
         </ScrollView>
 
-        <TextView
-            android:id="@+id/tot0"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:text="Totale"
-            android:layout_gravity="bottom|center"
-            android:textStyle="bold"
-            android:paddingBottom="57dp"
-            />
-        <TextView
-            android:id="@+id/tot"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="3.14 $"
-            android:layout_gravity="bottom|center"
-            android:textStyle="bold"
-            android:paddingBottom="32dp" />
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|center">
+            <TextView
+                android:id="@+id/tot0"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="Totale"
+                android:layout_gravity="bottom|right"
+                android:textStyle="bold"
+                android:paddingBottom="60dp"
+                />
+            <TextView
+                android:id="@+id/tot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="3.14 $"
+                android:layout_gravity="bottom|center"
+                android:textStyle="bold"
+                android:paddingBottom="35dp" />
+        </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:src="@drawable/ic_add_white_24dp"

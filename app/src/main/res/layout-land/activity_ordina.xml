@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tialla"
+    android:background="@drawable/tiallac"
     android:padding="10dp"
     android:orientation="horizontal">
 
@@ -75,8 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/btnAnnulla"
                 android:layout_width="match_parent"

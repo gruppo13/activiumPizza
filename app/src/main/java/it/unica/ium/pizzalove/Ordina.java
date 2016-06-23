@@ -53,7 +53,11 @@ public class Ordina extends Activity {
         Button btnAnnulla = (Button)findViewById(R.id.btnAnnulla);
         Button btnPaga = (Button)findViewById(R.id.btnPaga);
 
-        String tot = "Paga \n" + Pizza.formatoPrezzo(totale);
+        String tot;
+        if(getResources().getBoolean(R.bool.is_landscape))
+            tot = "Paga \n" + Pizza.formatoPrezzo(totale);
+        else
+            tot = "Paga " + Pizza.formatoPrezzo(totale);
         btnPaga.setText(tot);
 
         float totCreate = 0.f;
