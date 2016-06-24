@@ -36,6 +36,7 @@ public class CreaPizza extends Activity {
     private ArrayList<Pizza> elenco = new ArrayList<>();
     private ArrayList<Ingredienti> listIngredienti = new ArrayList<>();
     private ViewGroup mViewGroup;
+    private Boolean flag = false;
 
     @Override
     public void onStart() {
@@ -153,8 +154,16 @@ public class CreaPizza extends Activity {
                     bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
                     startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
                 }
-                else
-                    Toast.makeText(CreaPizza.this, "Aggiungi qualche ingrediente ;)", Toast.LENGTH_SHORT).show();
+                else{
+                    if(elenco.size() == 0) {
+                        startActivityForResult(new Intent(CreaPizza.this, Scelta.class).putExtras(bundle), 0);
+                        Toast.makeText(CreaPizza.this, "Non hai creato nessuna pizza, Scegline una dal menu o personalizza la tua", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        bundle.putParcelableArrayList(Carrello.ELENCO_PIZZE, elenco);
+                        startActivityForResult(new Intent(CreaPizza.this, Carrello.class).putExtras(bundle), 0);
+                    }
+                }
             }
         });
     }
