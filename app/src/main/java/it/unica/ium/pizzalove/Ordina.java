@@ -3,6 +3,7 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,6 +53,10 @@ public class Ordina extends Activity {
         ViewGroup mViewGroup = (ViewGroup)findViewById(R.id.lblListOrdina);
         Button btnAnnulla = (Button)findViewById(R.id.btnAnnulla);
         Button btnPaga = (Button)findViewById(R.id.btnPaga);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/GlamourGirl.ttf");
+        btnAnnulla.setTypeface(font);
+        btnPaga.setTypeface(font);
 
         String tot;
         if(getResources().getBoolean(R.bool.is_landscape))

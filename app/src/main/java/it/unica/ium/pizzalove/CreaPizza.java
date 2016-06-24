@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -96,6 +97,8 @@ public class CreaPizza extends Activity {
 
         Button btnAddPizzaCreate = (Button) findViewById(R.id.btnAddPizzaCreate);
         FloatingActionButton btnNuovaPizza = (FloatingActionButton) findViewById(R.id.addPizza);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/GlamourGirl.ttf");
+        btnAddPizzaCreate.setTypeface(font);
 
         badge = new BadgeView[]{
                 new BadgeView(this, findViewById(R.id.sugo)),

@@ -13,18 +13,20 @@
     >
 
    <android.support.design.widget.CoordinatorLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dp"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:paddingRight="10dp"
        android:paddingLeft="10dp">
 
-<Button
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAddPizzaCreate"
-        android:text="@string/btnAddPizzaCreate"
-         android:background="@drawable/button_shape"
+       <Button
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddPizzaCreate"
+            android:textColor="#FFFFFF"
+            android:text="@string/btnAddPizzaCreate"
+            android:textSize="25sp"
+            android:background="@drawable/button_shape"
             android:layout_gravity="left|top" />
 
     <android.support.design.widget.FloatingActionButton
@@ -33,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchorGravity="top|left|end"
+        app:backgroundTint="#178F0A"
         android:id="@+id/addPizza"
         android:layout_gravity="right|top|end" />
     </android.support.design.widget.CoordinatorLayout>

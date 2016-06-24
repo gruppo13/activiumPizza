@@ -27,10 +27,9 @@
     <string name="listPizza">listPizza</string>
     <string name="ingrediente">ingrediente</string>
     <string name="map_list_header_txt">lista indirizzi</string>
-    <string name="btnCrea">Crea la tua Pizza</string>
-    <string name="btnPizzaGiorno">Pizza del Giorno</string>
-    <string name="btnElenco">Menu</string>
-    <string name="btnAddPizzaCreate">Ordina</string>
+    <string name="btnCrea">crea la tua Pizza</string>
+    <string name="btnElenco">menu</string>
+    <string name="btnAddPizzaCreate">ordina</string>
     <string name="txtTotale">0.00€</string>
     <string name="lblListHCarrelloNum">12</string>
     <string name="lblListHCarrelloNome">12</string>
@@ -45,6 +44,7 @@
     <string name="nmbIngredientethumb">1</string>
     <string name="autocomplete_text">Inserisci il tuo indirizzo</string>
     <string name="totaleCarrello">Totale</string>
-    <string name="annulla">Annulla</string>
+    <string name="annulla">annulla</string>
     <string name="consegna">Consegna a </string>
+    <string name="aggiunteElenco">aggiungi Ingredienti</string>
 </resources>

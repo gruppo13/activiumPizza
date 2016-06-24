@@ -20,14 +20,15 @@
             android:layout_height="match_parent"
             android:id="@+id/expandableList"
             android:choiceMode="singleChoice"
+            android:footerDividersEnabled="true"
+            android:longClickable="false"
+            android:headerDividersEnabled="true"
             android:dividerHeight="0dp"
             android:groupIndicator="@null"
-            android:divider="#00000000"
-            android:childDivider="#00000000"
             android:childIndicatorLeft="2dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/notes"/>
+            android:background="#f1ef88"/>
 
 
     <LinearLayout
@@ -35,37 +36,38 @@
         android:layout_height="match_parent"
         android:layout_weight="0.6"
         android:layout_marginRight="10dp"
-
         android:orientation="vertical">
 
-        <Button
-            android:layout_weight="1"
+        <ImageView
+            android:id="@+id/imgElencoPizze"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_gravity="center"
+            android:layout_height="170dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:id="@+id/btnAgggiungiClassica"
-            android:text="Ordina"
-
+            android:text="@string/btnAddPizzaCreate"
             android:background="@drawable/button_shape"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:allowUndo="false" />
 
 
-
         <Button
-            android:text="Aggiunte"
+            android:text="@string/aggiunteElenco"
             android:id="@+id/btnModificaClassica"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_height="50dp"
             android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"/>
-
-
+            android:layout_marginBottom="10dp" />
     </LinearLayout>
 
 

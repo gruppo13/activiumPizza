@@ -26,7 +26,7 @@ public class Scelta extends Activity {
         Button btnElenco = (Button) findViewById(R.id.btnElenco);
         Button btnCrea = (Button) findViewById(R.id.btnCrea);
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/TitilliumWeb-BoldItalic.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/GlamourGirl.ttf");
         btnElenco.setTypeface(font);
         btnCrea.setTypeface(font);
 

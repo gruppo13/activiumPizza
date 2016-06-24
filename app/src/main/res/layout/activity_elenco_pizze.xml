@@ -19,20 +19,16 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
             android:id="@+id/expandableList"
+            android:footerDividersEnabled="true"
+            android:longClickable="false"
+            android:headerDividersEnabled="true"
             android:dividerHeight="0dp"
             android:groupIndicator="@null"
-            android:divider="#00000000"
-            android:childDivider="#00000000"
             android:childIndicatorLeft="2dp"
-            android:background="@drawable/notes"
-            android:layout_marginBottom="10dp"
-            android:choiceMode="singleChoice"
-           />
-
-
-
-
+            android:background="#f1ef88"
+            android:layout_marginBottom="10dp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -48,9 +44,9 @@
             android:id="@+id/btnAgggiungiClassica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:text="Ordina"
-            android:editable="false"
+            android:textSize="25sp"
+            android:textColor="#FFFFFF"
+            android:text="@string/btnAddPizzaCreate"
             android:visibility="visible"
             android:layout_marginRight="5dp"
             android:background="@drawable/button_shape"
@@ -61,8 +57,9 @@
             android:id="@+id/btnModificaClassica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:text="Aggiunte"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:text="@string/aggiunteElenco"
             android:visibility="visible"
             android:layout_marginLeft="5dp"
             android:background="@drawable/button_shape"

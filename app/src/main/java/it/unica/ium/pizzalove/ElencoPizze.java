@@ -2,6 +2,7 @@ package it.unica.ium.pizzalove;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,9 +56,39 @@ public class ElencoPizze extends Activity {
         Button btn1 = (Button)findViewById(R.id.btnAgggiungiClassica);
         final int[] lastExpandedPosition = {-1, -1}; // ultima posizione aperta, ultima posizione chiusa
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/GlamourGirl.ttf");
+        btn1.setTypeface(font);
+        btn2.setTypeface(font);
 
         listAdapter = new ExpandableList(this, listaPizzeClassiche);
         expListView.setAdapter(listAdapter);
+
+        if(getResources().getBoolean(R.bool.is_landscape)) {
+            switch (getResources().getResourceName(bundle.getInt(Main.PIZZERIA))) {
+                case "it.unica.ium.pizzalove:drawable/pizzeria1":
+                    findViewById(R.id.imgElencoPizze)
+                            .setBackgroundResource(getResources().getIdentifier("@drawable/pizzeria1", null, getPackageName()));
+                    break;
+                case "it.unica.ium.pizzalove:drawable/pizzeria2":
+                    findViewById(R.id.imgElencoPizze)
+                            .setBackgroundResource(getResources().getIdentifier("@drawable/pizzeria2", null, getPackageName()));
+                    break;
+                case "it.unica.ium.pizzalove:drawable/pizzeria3":
+                    findViewById(R.id.imgElencoPizze)
+                            .setBackgroundResource(getResources().getIdentifier("@drawable/pizzeria3", null, getPackageName()));
+                    break;
+                case "it.unica.ium.pizzalove:drawable/pizzeria4":
+                    findViewById(R.id.imgElencoPizze)
+                            .setBackgroundResource(getResources().getIdentifier("@drawable/pizzeria4", null, getPackageName()));
+                    break;
+                case "it.unica.ium.pizzalove:drawable/pizzeria5":
+                    findViewById(R.id.imgElencoPizze)
+                            .setBackgroundResource(getResources().getIdentifier("@drawable/pizzeria5", null, getPackageName()));
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
 
